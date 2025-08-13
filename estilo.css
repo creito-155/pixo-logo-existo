@@ -1,0 +1,139 @@
+body {
+    background-color: #252525; /* Fundo escuro */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    margin: 0;
+    padding: 40px 20px; /* Espaçamento geral */
+}
+a:link {
+    color: rgb(255, 255, 255);
+}
+a:visited {
+    color: rgb(121, 121, 121);
+}
+a:hover {
+    background: rgb(195, 0, 255);
+}
+#barra-superior {
+    background: #000000cf;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    text-decoration: none;
+    text-align: center;
+    outline: none;
+}
+.logo {
+  position: absolute;
+  left: 15px; /* Alinha a logo 15px da borda esquerda */
+  top: 50%; /* Coloca o topo da logo no meio verticalmente */
+  transform: translateY(-50%); /* Ajusta a posição para centralizar perfeitamente */
+}
+#principal {
+    width: 100%;
+    background: #000000a7;
+        /* Título Principal "STR" */
+}
+/*#conteudo {
+    background: #000000a7;
+    width: auto;
+    padding: 10px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+}*/
+.titulo-principal {
+    text-align: center;
+    font-size: 5rem; /* Tamanho bem grande */
+    font-weight: bold;
+    margin-bottom: 60px; /* Espaço grande abaixo do título */
+    text-transform: uppercase;
+    letter-spacing: 5px; /* Espaçamento entre as letras */
+}
+        /* Container que agrupa todos os blocos de galeria */
+.wrapper-galerias {
+    display: flex; /* Coloca os blocos lado a lado */
+    justify-content: center; /* Centraliza o conjunto de blocos na página */
+    flex-wrap: wrap; /* Permite que os blocos quebrem a linha em telas menores */
+    gap: 60px; /* Espaço grande entre cada bloco de galeria */
+}
+        /* Container para um bloco de galeria e sua legenda */
+.container-bloco {
+    text-align: center; 
+}
+        /* O bloco que contém as 3 imagens sobrepostas */
+.bloco-imagens {
+    position: relative; /* Essencial para posicionar as imagens dentro dele */
+    width: 300px; /* Largura do bloco */
+    height: 300px; /* Altura do bloco */
+    cursor: pointer; /* Muda o cursor para uma mãozinha */
+    transition: transform 0.3s ease; /* Efeito suave ao escalar */
+}
+        /* Efeito ao passar o mouse sobre o bloco */
+.bloco-imagens:hover {
+            transform: scale(1.05); /* Aumenta um pouco o bloco todo */
+}
+        /* Estilo para TODAS as imagens dentro do bloco */
+.bloco-imagens img {
+    position: absolute; /* Permite que as imagens fiquem uma sobre a outra */
+    width: 250px; /* Um pouco menor que o bloco para o efeito de "polaroid" */
+    height: 250px;
+    left: 50%; /* Ajuda na centralização */
+    top: 50%;
+    border: 5px solid white; /* Borda branca grossa */
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+    transition: transform 0.4s ease; /* Animação suave */
+}
+        /* Posição específica da PRIMEIRA imagem (a de baixo) */
+.bloco-imagens img:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(-10deg);
+    z-index: 1;
+}
+        /* Posição específica da SEGUNDA imagem (a do meio) */
+.bloco-imagens img:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(5deg);
+    z-index: 2;
+}
+        /* Posição específica da TERCEIRA imagem (a de cima) */
+.bloco-imagens img:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(-2deg);
+    z-index: 3;
+}
+        /* Efeito nas imagens ao passar o mouse no bloco */
+.bloco-imagens:hover img:nth-child(1) {
+    transform: translate(-80%, -50%) rotate(-15deg);
+}
+.bloco-imagens:hover img:nth-child(2) {
+    transform: translate(-50%, -60%) rotate(0deg);
+}
+.bloco-imagens:hover img:nth-child(3) {
+    transform: translate(-20%, -50%) rotate(15deg);
+}
+        /* Legenda abaixo de cada bloco */
+.legenda-galeria {
+    width: 100px;
+    padding: 10px;
+    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0)); /* efeito circular */
+    color: white;
+    margin: 10px auto;
+    text-align: center;
+    border-radius: 10px;
+}
+.titulo-galeria {
+    width: 150px;
+    padding: 10px;
+    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0)); /* efeito circular */
+    color: white;
+    margin: 25px auto;
+    text-align: center;
+    border-radius: 10px;
+}
+@media (max-width:500px) {
+    a{
+        padding: auto;
+        font-size: 25px;
+    }
+}
