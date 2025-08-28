@@ -1,0 +1,26 @@
+# Arquivo de configuração do Painel de Administração
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "imagens/uploads" # Onde as imagens dos artistas serão salvas
+public_folder: "/imagens/uploads" # Como o site irá acessar essas imagens
+
+collections:
+  - name: "artistas"
+    label: "Artistas"
+    folder: "_data/artistas" # Onde os arquivos de dados de cada artista serão salvos
+    create: true
+    slug: "{{id}}" # O nome do arquivo será o ID do artista (ex: LIGHT.json)
+    fields:
+      - { label: "ID (Nome único, sem espaços, ex: LIGHT)", name: "id", widget: "string" }
+      - { label: "Nome de Exibição", name: "nome", widget: "string" }
+      - { label: "Logo do Artista", name: "logo", widget: "image" }
+      - { label: "Link do Instagram (URL completa)", name: "instagramLink", widget: "string" }
+      - { label: "Usuário do Instagram (ex: @LIGHT_452)", name: "instagramHandle", widget: "string" }
+      - label: "Galeria de Imagens"
+        name: "imagens"
+        widget: "list"
+        summary: "{{fields.imagem}}"
+        field: { label: "Imagem", name: "imagem", widget: "image" }
