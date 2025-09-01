@@ -1,19 +1,20 @@
-# Arquivo de configuração do Painel de Administração
+# Ficheiro: admin/config.yml (VERSÃO CORRIGIDA)
 
 backend:
   name: git-gateway
   branch: main
 
-media_folder: "imagens/uploads" # Onde as imagens dos artistas serão salvas
-public_folder: "/imagens/uploads" # Como o site irá acessar essas imagens
+media_folder: "imagens/uploads"
+public_folder: "/imagens/uploads"
 
 collections:
-  - name: "artistas"
-    label: "Artistas"
-    folder: "_data/artistas" # Onde os arquivos de dados de cada artista serão salvos
-    create: true
-    slug: "{{id}}" # O nome do arquivo será o ID do artista (ex: LIGHT.json)
-    fields:
+  - name: "artistas"  # O nome da coleção
+    label: "Artistas"  # O nome que aparece no painel
+    file: "_data/artistas.json"  # IMPORTANTE: Salva TUDO neste ficheiro único
+    label_singular: "Artista"
+    description: "Adicione, edite e remova artistas da galeria aqui"
+    widget: "list"  # A coleção inteira é uma lista de artistas
+    fields:  # Os campos para CADA artista na lista
       - { label: "ID (Nome único, sem espaços, ex: LIGHT)", name: "id", widget: "string" }
       - { label: "Nome de Exibição", name: "nome", widget: "string" }
       - { label: "Logo do Artista", name: "logo", widget: "image" }
