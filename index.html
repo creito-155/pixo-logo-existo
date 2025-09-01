@@ -65,5 +65,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="script.js"></script>
+        <script>
+            if (window.location.hash.includes('#recovery_token')) {
+             window.location.href = '/admin/' + window.location.hash;
+         }
+         </script>
     </body>
 </html>
