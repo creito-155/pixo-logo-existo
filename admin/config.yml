@@ -1,4 +1,4 @@
-# Ficheiro: admin/config.yml (VERSÃO CORRIGIDA)
+# Ficheiro: admin/config.yml (VERSÃO FINAL CORRIGIDA)
 
 backend:
   name: git-gateway
@@ -8,20 +8,20 @@ media_folder: "imagens/uploads"
 public_folder: "/imagens/uploads"
 
 collections:
-  - name: "artistas"  # O nome da coleção
-    label: "Artistas"  # O nome que aparece no painel
-    file: "_data/artistas.json"  # IMPORTANTE: Salva TUDO neste ficheiro único
-    label_singular: "Artista"
-    description: "Adicione, edite e remova artistas da galeria aqui"
-    widget: "list"  # A coleção inteira é uma lista de artistas
-    fields:  # Os campos para CADA artista na lista
-      - { label: "ID (Nome único, sem espaços, ex: LIGHT)", name: "id", widget: "string" }
-      - { label: "Nome de Exibição", name: "nome", widget: "string" }
-      - { label: "Logo do Artista", name: "logo", widget: "image" }
-      - { label: "Link do Instagram (URL completa)", name: "instagramLink", widget: "string" }
-      - { label: "Usuário do Instagram (ex: @LIGHT_452)", name: "instagramHandle", widget: "string" }
-      - label: "Galeria de Imagens"
-        name: "imagens"
-        widget: "list"
-        summary: "{{fields.imagem}}"
-        field: { label: "Imagem", name: "imagem", widget: "image" }
+  - name: "artistas"
+    label: "Artistas"
+    files: # A CORREÇÃO ESTÁ AQUI: a palavra-chave deve ser "files"
+      - label: "Todos os Artistas"
+        name: "lista_de_artistas"
+        file: "_data/artistas.json" # O caminho para o ficheiro de dados
+        fields: # Os campos para CADA artista na lista
+          - { label: "ID (Nome único, sem espaços, ex: LIGHT)", name: "id", widget: "string" }
+          - { label: "Nome de Exibição", name: "nome", widget: "string" }
+          - { label: "Logo do Artista", name: "logo", widget: "image" }
+          - { label: "Link do Instagram (URL completa)", name: "instagramLink", widget: "string" }
+          - { label: "Usuário do Instagram (ex: @LIGHT_452)", name: "instagramHandle", widget: "string" }
+          - label: "Galeria de Imagens"
+            name: "imagens"
+            widget: "list"
+            summary: "{{fields.imagem}}"
+            field: { label: "Imagem", name: "imagem", widget: "image" }
