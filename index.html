@@ -3,6 +3,11 @@
 	<head>
 		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+        if (window.location.hash.includes('#recovery_token')) {
+            window.location.replace('/admin/' + window.location.hash);
+        }
+    </script>
         <title>Pixo, logo existo</title>
         <link rel="icon" href="imagens/LOGO/Pixo, logo existo (2).png" type="image/png">
         <link rel="stylesheet" type="text/css" href="estilo.css">
@@ -65,10 +70,5 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="script.js"></script>
-        <script>
-            if (window.location.hash.includes('#recovery_token')) {
-             window.location.href = '/admin/' + window.location.hash;
-         }
-         </script>
     </body>
 </html>
