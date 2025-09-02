@@ -9,14 +9,14 @@
   ],
   "lista_de_artistas": [
     {
-      "id": "teste",
-      "nome": "teste",
-      "logo": "/imagens/uploads/pixoreto.jpg",
-      "instagramLink": "https://www.instagram.com/",
-      "instagramHandle": "teste",
+      "id": "SVL",
+      "nome": "SVL",
+      "instagramLink": "https://www.instagram.com/str_creito_/",
+      "instagramHandle": "STR_CREITO_",
       "imagens": [
-        "/imagens/uploads/pixoreto.jpg"
-      ]
+        "/imagens/uploads/svl-tela.webp"
+      ],
+      "logo": "/imagens/uploads/img-20250830-wa0088.jpg"
     }
   ]
 }
