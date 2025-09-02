@@ -1,4 +1,4 @@
-# Ficheiro: admin/config.yml (VERSÃO FINALÍSSIMA CORRIGIDA)
+# Ficheiro: admin/config.yml (VERSÃO COM GALERIA CORRETA)
 
 backend:
   name: git-gateway
@@ -24,8 +24,12 @@ collections:
               - { label: "Logo do Artista", name: "logo", widget: "image" }
               - { label: "Link do Instagram (URL completa)", name: "instagramLink", widget: "string" }
               - { label: "Usuário do Instagram (ex: @LIGHT_452)", name: "instagramHandle", widget: "string" }
+
+              # ===== A GRANDE MUDANÇA ESTÁ AQUI =====
               - label: "Galeria de Imagens"
                 name: "imagens"
-                widget: "list"
-                summary: "{{fields.imagem}}"
-                field: { label: "Imagem", name: "imagem", widget: "image" }
+                widget: "image" # Mudamos de 'list' para 'image'
+                allow_multiple: true # Permitimos múltiplas imagens
+                media_library: # E garantimos que a biblioteca permite seleção múltipla
+                  config:
+                    multiple: true
