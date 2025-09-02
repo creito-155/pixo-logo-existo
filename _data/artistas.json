@@ -27,6 +27,13 @@
       "imagens": [
         "/imagens/uploads/slv-dg3.jpg"
       ]
+    },
+    {
+      "id": "NOX",
+      "nome": "NOX",
+      "logo": "/imagens/uploads/str-svl.jpg",
+      "instagramLink": "https://www.instagram.com/str_creito_/",
+      "instagramHandle": "KSJDFOAJFDAO"
     }
   ]
 }
