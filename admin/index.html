@@ -4,10 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Conteúdo</title>
-
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+
+  <script>
+    // Este código impede o comportamento padrão do navegador (abrir o ficheiro)
+    // quando um ficheiro é arrastado sobre a janela.
+    window.addEventListener('dragover', function (e) {
+      e.preventDefault();
+    }, false);
+    window.addEventListener('drop', function (e) {
+      e.preventDefault();
+    }, false);
+  </script>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
 </body>
 </html>
