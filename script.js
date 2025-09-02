@@ -4,16 +4,15 @@
 
 async function montarGaleria() {
     const galeriaContainer = document.getElementById('galeria-container');
-    if (!galeriaContainer) {
-        return; // Se não estiver na página da galeria, não faz nada.
-    }
+    if (!galeriaContainer) { return; }
 
     try {
         const response = await fetch('/_data/artistas.json');
-        if (!response.ok) {
-            throw new Error('Rede respondeu com um erro.');
-        }
-        const artistas = await response.json();
+        if (!response.ok) { throw new Error('Rede respondeu com um erro.'); }
+
+        const data = await response.json();
+        // A CORREÇÃO ESTÁ AQUI: Acedemos à lista dentro do ficheiro JSON
+        const artistas = data.lista_de_artistas; 
 
         const params = new URLSearchParams(window.location.href.split('?')[1]);
         const artistaId = params.get('artista');
@@ -24,7 +23,7 @@ async function montarGaleria() {
             document.getElementById('artista-logo').src = artistaSelecionado.logo;
             document.getElementById('artista-logo').alt = `Logo de ${artistaSelecionado.nome}`;
             document.getElementById('artista-nome').textContent = artistaSelecionado.nome;
-            
+
             const instagramLinkElement = document.getElementById('artista-instagram-link');
             instagramLinkElement.href = artistaSelecionado.instagramLink;
             instagramLinkElement.textContent = artistaSelecionado.instagramHandle;
@@ -32,7 +31,7 @@ async function montarGaleria() {
             galeriaContainer.innerHTML = '';
             artistaSelecionado.imagens.forEach(imgData => {
                 const urlImagem = typeof imgData === 'string' ? imgData : imgData.imagem;
-                
+
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'gallery-item';
 
@@ -57,30 +56,21 @@ async function montarGaleria() {
     }
 }
 
-
 // ==========================================
 //  INICIALIZAÇÃO DO SWIPER (Carrossel)
 // ==========================================
-
 const sliderElement = document.querySelector('.artistas-slider');
-
-// A CORREÇÃO ESTÁ AQUI: Só inicia o Swiper se o elemento do carrossel existir na página.
 if (sliderElement) {
   const artistasSwiper = new Swiper(sliderElement, {
-    loop: true, 
-    speed: 800,
+    loop: true, speed: 800,
     breakpoints: {
       320: { slidesPerView: 1, slidesPerGroup: 1 },
       768: { slidesPerView: 3, slidesPerGroup: 1 },
       1024: { slidesPerView: 4, slidesPerGroup: 1 }
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
   });
 }
-
 
 // Roda a função de montar a galeria assim que a página é carregada
 document.addEventListener('DOMContentLoaded', montarGaleria);
