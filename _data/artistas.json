@@ -17,6 +17,16 @@
         "/imagens/uploads/svl-tela.webp"
       ],
       "logo": "/imagens/uploads/img-20250830-wa0088.jpg"
+    },
+    {
+      "id": "LIGHT",
+      "nome": "LIGHT",
+      "logo": "/imagens/uploads/svl-gare.jpg",
+      "instagramLink": "https://www.instagram.com/str_creito_/",
+      "instagramHandle": "HAHAHAHA",
+      "imagens": [
+        "/imagens/uploads/slv-dg3.jpg"
+      ]
     }
   ]
 }
