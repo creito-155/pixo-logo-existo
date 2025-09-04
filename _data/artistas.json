@@ -24,7 +24,7 @@
     {
       "id": "STR",
       "nome": "STR CREW | SILVASTR_",
-      "logo": "imagens/galerias/STR/C0K3+STR.jpg",
+      "logo": "imagens/STR/C0K3+STR.jpg",
       "instagramLink": "https://www.instagram.com/silvastr_",
       "instagramHandle": "@SILVASTR_",
       "imagens": [
@@ -44,6 +44,139 @@
         "imagens/STR/STR-7.jpg",
         "imagens/STR/STR-GARE.jpg"
       ]
-    }
+    },
+    {
+      "id": "JOCA",
+      "nome": "JOCA",
+      "logo": "imagens/JOCA/PERFIL-JOCA.jpg",
+      "instagramLink": "https://www.instagram.com/jocaverde/",
+      "instagramHandle": "@JOCAVERDE",
+      "imagens": [
+        "imagens/JOCA/JOCA-7.jpg",
+        "imagens/JOCA/JOCA-1.jpg",
+        "imagens/JOCA/JOCA-2.jpg",
+        "imagens/JOCA/JOCA-3.jpg",
+        "imagens/JOCA/JOCA-4.jpg",
+        "imagens/JOCA/JOCA-5.jpg",
+        "imagens/JOCA/JOCA-6.JPG"
+    ]
+  },
+    {
+  "id": "IUGUE",
+  "nome": "IUGUE",
+  "logo": "imagens/IUGUE/IUGUE (36).webp",
+  "instagramLink": "https://www.instagram.com/iugue/",
+  "instagramHandle": "@IUGUE",
+  "imagens": [
+    "imagens/IUGUE/IUGUE (2).webp",
+    "imagens/IUGUE/IUGUE (3).webp",
+    "imagens/IUGUE/IUGUE (4).webp",
+    "imagens/IUGUE/IUGUE (7).webp",
+    "imagens/IUGUE/IUGUE (8).webp",
+    "imagens/IUGUE/IUGUE (9).webp",
+    "imagens/IUGUE/IUGUE (12).webp",
+    "imagens/IUGUE/IUGUE (13).webp",
+    "imagens/IUGUE/IUGUE (14).webp",
+    "imagens/IUGUE/IUGUE (17).webp",
+    "imagens/IUGUE/IUGUE (18).webp",
+    "imagens/IUGUE/IUGUE (19).webp",
+    "imagens/IUGUE/IUGUE (22).webp",
+    "imagens/IUGUE/IUGUE (23).webp",
+    "imagens/IUGUE/IUGUE (24).webp",
+    "imagens/IUGUE/IUGUE (27).webp",
+    "imagens/IUGUE/IUGUE (28).webp",
+    "imagens/IUGUE/IUGUE (29).webp",
+    "imagens/IUGUE/IUGUE (32).webp",
+    "imagens/IUGUE/IUGUE (33).webp",
+    "imagens/IUGUE/IUGUE (34).webp",
+    "imagens/IUGUE/IUGUE (37).webp",
+    "imagens/IUGUE/IUGUE (38).webp",
+    "imagens/IUGUE/IUGUE (39).webp",
+    "imagens/IUGUE/IUGUE (42).webp",
+    "imagens/IUGUE/IUGUE (43).webp",
+    "imagens/IUGUE/IUGUE.webp"
+  ]
+  },
+  {
+  "id": "BUENO",
+  "nome": "BUENO",
+  "logo": "imagens/BUENO/perfil-BUENO.webp",
+  "instagramLink": "https://www.instagram.com/gusta2008bueno/",
+  "instagramHandle": "@GUSTA2008BUENO",
+  "imagens": [
+    "imagens/BUENO/BUENO- (2).webp",
+    "imagens/BUENO/BUENO- (3).webp",
+    "imagens/BUENO/BUENO- (4).webp",
+    "imagens/BUENO/BUENO- (5).webp",
+    "imagens/BUENO/BUENO- (6).webp",
+    "imagens/BUENO/BUENO- (7).webp",
+    "imagens/BUENO/BUENO- (8).webp",
+    "imagens/BUENO/BUENO- (9).webp",
+    "imagens/BUENO/BUENO- (10).webp",
+    "imagens/BUENO/BUENO- (11).webp",
+    "imagens/BUENO/BUENO- (12).webp",
+    "imagens/BUENO/BUENO- (13).webp",
+    "imagens/BUENO/BUENO- (14).webp",
+    "imagens/BUENO/BUENO- (15).webp",
+    "imagens/BUENO/BUENO- (16).webp",
+    "imagens/BUENO/BUENO- (17).webp",
+    "imagens/BUENO/BUENO- (18).webp",
+    "imagens/BUENO/BUENO- (19).webp",
+    "imagens/BUENO/BUENO- (20).webp",
+    "imagens/BUENO/BUENO- (21).webp",
+    "imagens/BUENO/BUENO- (22).webp",
+    "imagens/BUENO/BUENO-(1).webp"
+  ]
+},
+{
+  "id": "TRIK",
+  "nome": "TRIK",
+  "logo": "imagens/TRIK/TRIK.jpg",
+  "instagramLink": "https://www.instagram.com/silvastr_",
+  "instagramHandle": "@SILVASTR_",
+  "imagens": [
+    "imagens/TRIK/TRIK.jpg",
+    "imagens/TRIK/TRIK-1.JPG",
+    "imagens/TRIK/TRIK-3.JPG",
+    "imagens/TRIK/TRIK-4.JPG",
+    "imagens/TRIK/TRIK-CXS.JPG"
+  ]
+},
+{
+  "id": "C0K3",
+  "nome": "COK3",
+  "logo": "imagens/C0K3/perfil-NOX-C0K3.jpg",
+  "instagramLink": "https://www.instagram.com/c0k3.1312/",
+  "instagramHandle": "@C0K3.1312",
+  "imagens": [
+    "imagens/C0K3/C0K3+CBO.jpg",
+    "imagens/C0K3/C0K3+ECT.jpg",
+    "imagens/C0K3/C0K3+STR.jpg",
+    "imagens/C0K3/C0K3+STR-2.jpg",
+    "imagens/C0K3/C0K3-0.jpg",
+    "imagens/C0K3/C0K3-1.jpg"
+  ]
+},{
+  "id": "LIGHT",
+  "nome": "LIGHT",
+  "logo": "imagens/LIGHT/logo-LIGHT.webp",
+  "instagramLink": "https://www.instagram.com/light_452",
+  "instagramHandle": "@LIGHT_452",
+  "imagens": [
+    "imagens/LIGHT/LIGHT-1.webp",
+    "imagens/LIGHT/LIGHT-2.webp",
+    "imagens/LIGHT/LIGHT-3.webp",
+    "imagens/LIGHT/LIGHT-4,1.webp",
+    "imagens/LIGHT/LIGHT-4.webp",
+    "imagens/LIGHT/LIGHT-5,1.webp",
+    "imagens/LIGHT/LIGHT-6,1.webp",
+    "imagens/LIGHT/LIGHT-7.webp",
+    "imagens/LIGHT/LIGHT-8.webp",
+    "imagens/LIGHT/LIGHT-9.webp",
+    "imagens/LIGHT/LIGHT-10.webp",
+    "imagens/LIGHT/LIGHT-11.webp",
+    "imagens/LIGHT/LIGHT-12.webp"
+  ]
+}
   ]
 }
