@@ -5,7 +5,7 @@
       "nome": "SVL",
       "logo": "imagens/SVL/img-20250830-wa0088.jpg",
       "instagramLink": "https://www.instagram.com/str_creito_",
-      "instagramHandle": "STR_CREITO_",
+      "instagramHandle": "@STR_CREITO_",
       "imagens": [
         "imagens/SVL/CREITO.jpg",
         "imagens/SVL/KREK-DG.jpg",
@@ -19,6 +19,30 @@
         "imagens/SVL/svl-gare.JPG",
         "imagens/SVL/SVL-TELA.webp",
         "imagens/SVL/SVL-TRAJE.JPG"
+      ]
+    },
+    {
+      "id": "STR",
+      "nome": "STR CREW | SILVASTR_",
+      "logo": "imagens/galerias/STR/C0K3+STR.jpg",
+      "instagramLink": "https://www.instagram.com/silvastr_",
+      "instagramHandle": "@SILVASTR_",
+      "imagens": [
+        "imagens/galerias/STR/C0K3+STR.jpg",
+        "imagens/galerias/STR/NOX-STR.jpg",
+        "imagens/galerias/STR/STR+SECA-1.jpg",
+        "imagens/galerias/STR/STR+SECA-2.jpg",
+        "imagens/galerias/STR/STR+SLV.JPG",
+        "imagens/galerias/STR/STR+SVL-1.jpg",
+        "imagens/galerias/STR/STR1.jpg",
+        "imagens/galerias/STR/STR2.jpg",
+        "imagens/galerias/STR/STR-3.jpg",
+        "imagens/galerias/STR/STR3.webp",
+        "imagens/galerias/STR/STR-4.jpg",
+        "imagens/galerias/STR/STR4.webp",
+        "imagens/galerias/STR/STR-5.jpg",
+        "imagens/galerias/STR/STR-7.jpg",
+        "imagens/galerias/STR/STR-GARE.jpg"
       ]
     }
   ]
