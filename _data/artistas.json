@@ -167,7 +167,6 @@
     "imagens/LIGHT/LIGHT-2.webp",
     "imagens/LIGHT/LIGHT-3.webp",
     "imagens/LIGHT/LIGHT-4,1.webp",
-    "imagens/LIGHT/LIGHT-4.webp",
     "imagens/LIGHT/LIGHT-5,1.webp",
     "imagens/LIGHT/LIGHT-6,1.webp",
     "imagens/LIGHT/LIGHT-7.webp",
@@ -176,6 +175,42 @@
     "imagens/LIGHT/LIGHT-10.webp",
     "imagens/LIGHT/LIGHT-11.webp",
     "imagens/LIGHT/LIGHT-12.webp"
+  ]
+},
+{
+  "id": "TRUE",
+  "nome": "TRUE",
+  "logo": "imagens/TRUE/TRUE-LOGO.jpg",
+  "instagramLink": "https://www.instagram.com/true1souza/",
+  "instagramHandle": "@TRUE1SOUZA",
+  "imagens": [
+    "imagens/TRUE/TRUE-1.png",
+    "imagens/TRUE/TRUE-2.png",
+    "imagens/TRUE/TRUE-3.png",
+    "imagens/TRUE/TRUE-4.png",
+    "imagens/TRUE/TRUE-5.png",
+    "imagens/TRUE/TRUE-6.png",
+    "imagens/TRUE/TRUE-7.png",
+    "imagens/TRUE/TRUE-8.png",
+    "imagens/TRUE/TRUE-9.png",
+    "imagens/TRUE/TRUE-LOGO.jpg"
+  ]
+},
+{
+  "id": "JOKER",
+  "nome": "JOKER",
+  "logo": "imagens/JOKER/JOKER-6.webp",
+  "instagramLink": "https://www.instagram.com/",
+  "instagramHandle": "SEM CONTATO",
+  "imagens": [
+    "imagens/JOKER/JOKER-1.jpg",
+    "imagens/JOKER/JOKER-2.jpg",
+    "imagens/JOKER/JOKER-3.jpg",
+    "imagens/JOKER/JOKER-4.jpg",
+    "imagens/JOKER/JOKER-5.jpg",
+    "imagens/JOKER/JOKER-6.webp",
+    "imagens/JOKER/JOKER-7.jpg",
+    "imagens/JOKER/JOKER-8.jpg"
   ]
 }
   ]
