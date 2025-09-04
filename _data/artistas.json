@@ -14,9 +14,11 @@
       "instagramLink": "https://www.instagram.com/str_creito_/",
       "instagramHandle": "STR_CREITO_",
       "imagens": [
-        "/imagens/uploads/svl-tela.webp"
+        "/imagens/uploads/svl-tela.webp",
+        "/imagens/uploads/creito.jpg",
+        "/imagens/uploads/krek-dg.jpg"
       ],
-      "logo": "/imagens/uploads/img-20250830-wa0088.jpg"
+      "logo": "/imagens/uploads/svl-gare.jpg"
     },
     {
       "id": "LIGHT",
@@ -27,20 +29,6 @@
       "imagens": [
         "/imagens/uploads/slv-dg3.jpg"
       ]
-    },
-    {
-      "id": "NOX",
-      "nome": "NOX",
-      "logo": "/imagens/uploads/str-svl.jpg",
-      "instagramLink": "https://www.instagram.com/str_creito_/",
-      "instagramHandle": "KSJDFOAJFDAO"
-    },
-    {
-      "id": "TRUE",
-      "nome": "TRUE",
-      "instagramLink": "https://www.instagram.com/str_creito_/",
-      "instagramHandle": "DHAKDHJA",
-      "logo": "/imagens/uploads/creito.jpg"
     }
   ]
 }
