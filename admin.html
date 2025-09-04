@@ -59,13 +59,15 @@
 
             const imagePaths = [];
             for (const file of galleryFiles) {
-                imagePaths.push(`imagens/galerias/${artistId}/${file.name}`);
+                // CORREÇÃO AQUI: Removida a pasta "/galerias"
+                imagePaths.push(`imagens/${artistId}/${file.name}`);
             }
 
             const artistObject = {
                 id: artistId,
                 nome: document.getElementById('artist-name').value,
-                logo: `imagens/galerias/${artistId}/${logoFile.name}`,
+                // CORREÇÃO AQUI: Removida a pasta "/galerias"
+                logo: `imagens/${artistId}/${logoFile.name}`,
                 instagramLink: document.getElementById('artist-ig-link').value,
                 instagramHandle: document.getElementById('artist-ig-handle').value,
                 imagens: imagePaths
