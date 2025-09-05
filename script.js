@@ -60,43 +60,34 @@ async function montarGaleria() {
 // ==========================================
 async function montarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
-    // Esta verificação garante que o código só é executado na página artistas.html
     if (!gridContainer) {
         return;
     }
 
     try {
-        // Busca os dados de todos os artistas
         const response = await fetch('/_data/artistas.json');
         const data = await response.json();
         const artistas = data.lista_de_artistas;
 
-        gridContainer.innerHTML = ''; // Limpa a mensagem "A carregar..."
+        gridContainer.innerHTML = ''; 
 
-        // Cria um cartão para cada artista
         artistas.forEach(artista => {
-            // Cria o link que envolve tudo
             const link = document.createElement('a');
             link.href = `galeria.html?artista=${artista.id}`;
-            link.className = 'gallery-item'; // Reutilizamos o estilo da galeria
+            link.className = 'gallery-item';
 
-            // Cria a imagem do artista (o logo)
             const img = document.createElement('img');
             img.src = artista.logo;
             img.alt = `Logo do artista ${artista.nome}`;
-            img.className = 'gallery-image'; // Reutilizamos o estilo
+            img.className = 'gallery-image';
             img.loading = 'lazy';
 
-            // Cria o parágrafo com o nome do artista
             const nome = document.createElement('p');
             nome.textContent = artista.nome;
-            nome.className = 'artist-card-name'; // Uma classe nova para o nome
+            nome.className = 'artist-card-name';
 
-            // Monta o cartão, adicionando a imagem e o nome ao link
             link.appendChild(img);
             link.appendChild(nome);
-
-            // Adiciona o cartão completo à grelha
             gridContainer.appendChild(link);
         });
 
@@ -107,8 +98,36 @@ async function montarPaginaDeArtistas() {
 }
 
 // ==========================================
-//  INICIALIZAÇÃO DOS SCRIPTS
+//  INICIALIZAÇÃO DO SWIPER (Carrossel)
 // ==========================================
-// Adiciona os "gatilhos" para as funções. Cada um só executa na página certa.
-document.addEventListener('DOMContentLoaded', montarGaleria);
-document.addEventListener('DOMContentLoaded', montarPaginaDeArtistas);
+function inicializarSwiper() {
+    const sliderElement = document.querySelector('.artistas-slider');
+
+    // Só inicia o Swiper se o elemento do carrossel existir na página.
+    if (sliderElement && typeof Swiper !== 'undefined') {
+        const artistasSwiper = new Swiper(sliderElement, {
+            loop: true, 
+            speed: 800,
+            breakpoints: {
+              320: { slidesPerView: 1, slidesPerGroup: 1 },
+              768: { slidesPerView: 3, slidesPerGroup: 1 },
+              1024: { slidesPerView: 4, slidesPerGroup: 1 }
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+}
+
+// ==========================================
+//  INICIALIZAÇÃO GERAL
+// ==========================================
+// Roda todas as funções quando a página carrega.
+// Cada função tem uma verificação interna para só executar na página correta.
+document.addEventListener('DOMContentLoaded', () => {
+    montarGaleria();
+    montarPaginaDeArtistas();
+    inicializarSwiper();
+});
