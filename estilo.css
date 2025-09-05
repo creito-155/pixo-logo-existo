@@ -666,8 +666,8 @@ a:hover {
 }
 
 .gallery-item:hover .artist-card-name {
-    background-color: rgba(80, 250, 123, 0.9); /* Fica verde ao passar o rato (cor do seu site) */
-    color: #282a36; /* Cor do texto escura para contraste */
+    background-color: rgb(195, 0, 255); /* Fica verde ao passar o rato (cor do seu site) */
+    color: #ffffff; /* Cor do texto escura para contraste */
 }
 
 /* =================================
