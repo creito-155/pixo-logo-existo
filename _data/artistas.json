@@ -235,6 +235,22 @@
     "imagens/CODE/IMG_6753.jpg",
     "imagens/CODE/UAJN6980.JPG"
   ]
+},
+{
+  "id": "OLHOS",
+  "nome": "OLHOS",
+  "logo": "imagens/OLHOS/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/olhos_smk/",
+  "instagramHandle": "@OLHOS_SMK",
+  "imagens": [
+    "imagens/OLHOS/IMG_20250905_162635_329.jpg",
+    "imagens/OLHOS/IMG_20250905_162640_824.jpg",
+    "imagens/OLHOS/IMG_20250905_162645_659.jpg",
+    "imagens/OLHOS/IMG_20250905_162657_642.jpg",
+    "imagens/OLHOS/IMG_20250905_162701_396.jpg",
+    "imagens/OLHOS/IMG_20250905_162704_589.jpg",
+    "imagens/OLHOS/IMG_20250905_162707_289.jpg"
+  ]
 }
   ]
 }
