@@ -4,9 +4,11 @@
       "id": "SVL",
       "nome": "SVL",
       "logo": "imagens/SVL/img-20250830-wa0088.jpg",
-      "instagramLink": "https://www.instagram.com/str_creito_",
-      "instagramHandle": "@STR_CREITO_",
+      "instagramLink": "https://www.instagram.com/https_creito_",
+      "instagramHandle": "@HTTPS_CREITO_",
       "imagens": [
+        "imagens/SVL/SVL-SEMEATO.jpg",
+        "imagens/SVL/SVL-CONT.jpg",
         "imagens/SVL/CREITO.jpg",
         "imagens/SVL/KREK-DG.jpg",
         "imagens/SVL/KREK-DG2.jpg",
@@ -23,7 +25,7 @@
     },
     {
       "id": "STR",
-      "nome": "STR CREW | SILVASTR_",
+      "nome": "STR",
       "logo": "imagens/STR/C0K3+STR.jpg",
       "instagramLink": "https://www.instagram.com/silvastr_",
       "instagramHandle": "@SILVASTR_",
@@ -211,6 +213,27 @@
     "imagens/JOKER/JOKER-6.webp",
     "imagens/JOKER/JOKER-7.jpg",
     "imagens/JOKER/JOKER-8.jpg"
+  ]
+},
+{
+  "id": "CODE",
+  "nome": "CODE",
+  "logo": "imagens/CODE/LOGO.jpg",
+  "instagramLink": "https://www.instagram.com/eduardo.code",
+  "instagramHandle": "@EDUARDO.CODE",
+  "imagens": [
+    "imagens/CODE/1.jpg",
+    "imagens/CODE/1MAD_1749.jpeg",
+    "imagens/CODE/2.jpg",
+    "imagens/CODE/3.JPG",
+    "imagens/CODE/4.JPG",
+    "imagens/CODE/BED3FA80-C019-41B0-A61F-CF7ED9316E9E.jpg",
+    "imagens/CODE/IIUB1882.JPG",
+    "imagens/CODE/IMG_0605.HEIC",
+    "imagens/CODE/IMG_2421.HEIC",
+    "imagens/CODE/IMG_2961.JPG",
+    "imagens/CODE/IMG_6753.jpg",
+    "imagens/CODE/UAJN6980.JPG"
   ]
 }
   ]
