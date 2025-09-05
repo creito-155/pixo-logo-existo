@@ -693,3 +693,57 @@ a:hover {
         margin-bottom: 20px;
     }
 }
+/* =================================
+   ESTILOS DA LIGHTBOX (IMAGEM EXPANDIDA)
+   ================================= */
+
+/* O fundo preto semi-transparente que cobre a tela */
+#lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Garante que fica por cima de tudo */
+    cursor: pointer;
+    animation: fadeIn 0.3s ease;
+}
+
+/* A imagem expandida */
+#lightbox-image {
+    max-width: 90vw; /* Largura máxima de 90% da tela */
+    max-height: 90vh; /* Altura máxima de 90% da tela */
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    cursor: default; /* Cursor normal sobre a imagem */
+}
+
+/* O botão de fechar (X) */
+#lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    -webkit-user-select: none; /* Impede a seleção do texto do 'X' */
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#lightbox-close:hover {
+    color: #ccc;
+}
+
+/* Animação de entrada suave */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

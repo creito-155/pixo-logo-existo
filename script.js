@@ -40,6 +40,11 @@ async function montarGaleria() {
                 imgElement.className = 'gallery-image';
                 imgElement.loading = 'lazy';
 
+                // --- NOVIDADE AQUI: Adiciona o evento de clique para abrir a lightbox ---
+                imgElement.addEventListener('click', () => {
+                    criarLightbox(urlImagem);
+                });
+
                 itemDiv.appendChild(imgElement);
                 galeriaContainer.appendChild(itemDiv);
             });
@@ -54,6 +59,52 @@ async function montarGaleria() {
         galeriaContainer.innerHTML = '<h1>Ocorreu um erro ao carregar o conteúdo.</h1>';
     }
 }
+
+// ==========================================
+//  FUNÇÃO PARA CRIAR E EXIBIR A LIGHTBOX (IMAGEM EXPANDIDA)
+// ==========================================
+function criarLightbox(imageUrl) {
+    // Cria o fundo preto
+    const overlay = document.createElement('div');
+    overlay.id = 'lightbox-overlay';
+
+    // Cria a imagem que será exibida
+    const image = document.createElement('img');
+    image.id = 'lightbox-image';
+    image.src = imageUrl;
+
+    // Cria o botão de fechar (X)
+    const closeButton = document.createElement('span');
+    closeButton.id = 'lightbox-close';
+    closeButton.innerHTML = '&times;'; // Símbolo 'X'
+
+    // Adiciona a funcionalidade de fechar a lightbox
+    function fecharLightbox() {
+        document.body.removeChild(overlay);
+    }
+
+    closeButton.addEventListener('click', fecharLightbox);
+    // Também fecha ao clicar fora da imagem
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            fecharLightbox();
+        }
+    });
+    // Fecha com a tecla 'Escape'
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            fecharLightbox();
+        }
+    }, { once: true }); // O evento é removido após ser disparado uma vez
+
+    // Monta a lightbox
+    overlay.appendChild(image);
+    overlay.appendChild(closeButton);
+
+    // Adiciona a lightbox à página
+    document.body.appendChild(overlay);
+}
+
 
 // ==========================================
 //  LÓGICA PARA MONTAR A PÁGINA DE TODOS OS ARTISTAS
@@ -131,3 +182,4 @@ document.addEventListener('DOMContentLoaded', () => {
     montarPaginaDeArtistas();
     inicializarSwiper();
 });
+
