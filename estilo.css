@@ -642,6 +642,33 @@ a:hover {
     cursor: pointer;
     display: block;
 }
+/* Estilos para os cartões na página de todos os artistas */
+.artist-card-name {
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto semi-transparente */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.1em;
+}
+
+/* Ajuste para o item da galeria ser um link e ter posição relativa */
+.gallery-item {
+    position: relative;
+    text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.gallery-item:hover .artist-card-name {
+    background-color: rgba(80, 250, 123, 0.9); /* Fica verde ao passar o rato (cor do seu site) */
+    color: #282a36; /* Cor do texto escura para contraste */
+}
 
 /* =================================
    AJUSTES PARA TELAS MENORES (RESPONSIVIDADE)

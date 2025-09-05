@@ -1,17 +1,18 @@
 // ==========================================
-//  LÓGICA PARA MONTAR A PÁGINA DA GALERIA
+//  LÓGICA PARA MONTAR A PÁGINA DE GALERIA INDIVIDUAL
 // ==========================================
-
 async function montarGaleria() {
     const galeriaContainer = document.getElementById('galeria-container');
-    if (!galeriaContainer) { return; }
+    if (!galeriaContainer) {
+        return; // Se não estiver na página da galeria, não faz nada.
+    }
 
     try {
         const response = await fetch('/_data/artistas.json');
-        if (!response.ok) { throw new Error('Rede respondeu com um erro.'); }
-
+        if (!response.ok) {
+            throw new Error('Rede respondeu com um erro.');
+        }
         const data = await response.json();
-        // A CORREÇÃO ESTÁ AQUI: Acedemos à lista dentro do ficheiro JSON
         const artistas = data.lista_de_artistas; 
 
         const params = new URLSearchParams(window.location.href.split('?')[1]);
@@ -23,15 +24,13 @@ async function montarGaleria() {
             document.getElementById('artista-logo').src = artistaSelecionado.logo;
             document.getElementById('artista-logo').alt = `Logo de ${artistaSelecionado.nome}`;
             document.getElementById('artista-nome').textContent = artistaSelecionado.nome;
-
+            
             const instagramLinkElement = document.getElementById('artista-instagram-link');
             instagramLinkElement.href = artistaSelecionado.instagramLink;
             instagramLinkElement.textContent = artistaSelecionado.instagramHandle;
 
             galeriaContainer.innerHTML = '';
-            artistaSelecionado.imagens.forEach(imgData => {
-                const urlImagem = typeof imgData === 'string' ? imgData : imgData.imagem;
-
+            artistaSelecionado.imagens.forEach(urlImagem => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'gallery-item';
 
@@ -57,20 +56,59 @@ async function montarGaleria() {
 }
 
 // ==========================================
-//  INICIALIZAÇÃO DO SWIPER (Carrossel)
+//  LÓGICA PARA MONTAR A PÁGINA DE TODOS OS ARTISTAS
 // ==========================================
-const sliderElement = document.querySelector('.artistas-slider');
-if (sliderElement) {
-  const artistasSwiper = new Swiper(sliderElement, {
-    loop: true, speed: 800,
-    breakpoints: {
-      320: { slidesPerView: 1, slidesPerGroup: 1 },
-      768: { slidesPerView: 3, slidesPerGroup: 1 },
-      1024: { slidesPerView: 4, slidesPerGroup: 1 }
-    },
-    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-  });
+async function montarPaginaDeArtistas() {
+    const gridContainer = document.getElementById('todos-os-artistas-grid');
+    // Esta verificação garante que o código só é executado na página artistas.html
+    if (!gridContainer) {
+        return;
+    }
+
+    try {
+        // Busca os dados de todos os artistas
+        const response = await fetch('/_data/artistas.json');
+        const data = await response.json();
+        const artistas = data.lista_de_artistas;
+
+        gridContainer.innerHTML = ''; // Limpa a mensagem "A carregar..."
+
+        // Cria um cartão para cada artista
+        artistas.forEach(artista => {
+            // Cria o link que envolve tudo
+            const link = document.createElement('a');
+            link.href = `galeria.html?artista=${artista.id}`;
+            link.className = 'gallery-item'; // Reutilizamos o estilo da galeria
+
+            // Cria a imagem do artista (o logo)
+            const img = document.createElement('img');
+            img.src = artista.logo;
+            img.alt = `Logo do artista ${artista.nome}`;
+            img.className = 'gallery-image'; // Reutilizamos o estilo
+            img.loading = 'lazy';
+
+            // Cria o parágrafo com o nome do artista
+            const nome = document.createElement('p');
+            nome.textContent = artista.nome;
+            nome.className = 'artist-card-name'; // Uma classe nova para o nome
+
+            // Monta o cartão, adicionando a imagem e o nome ao link
+            link.appendChild(img);
+            link.appendChild(nome);
+
+            // Adiciona o cartão completo à grelha
+            gridContainer.appendChild(link);
+        });
+
+    } catch (error) {
+        console.error("Erro ao montar a página de artistas:", error);
+        gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar os artistas.</p>';
+    }
 }
 
-// Roda a função de montar a galeria assim que a página é carregada
+// ==========================================
+//  INICIALIZAÇÃO DOS SCRIPTS
+// ==========================================
+// Adiciona os "gatilhos" para as funções. Cada um só executa na página certa.
 document.addEventListener('DOMContentLoaded', montarGaleria);
+document.addEventListener('DOMContentLoaded', montarPaginaDeArtistas);
