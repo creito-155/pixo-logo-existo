@@ -161,8 +161,8 @@ function inicializarSwiper() {
             speed: 800,
             breakpoints: {
               320: { slidesPerView: 1, slidesPerGroup: 1 },
-              768: { slidesPerView: 3, slidesPerGroup: 1 },
-              1024: { slidesPerView: 4, slidesPerGroup: 1 }
+              768: { slidesPerView: 3, slidesPerGroup: 3 },
+              1024: { slidesPerView: 4, slidesPerGroup: 4 }
             },
             navigation: {
               nextEl: '.swiper-button-next',
