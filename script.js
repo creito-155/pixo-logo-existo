@@ -158,7 +158,7 @@ function inicializarSwiper() {
     if (sliderElement && typeof Swiper !== 'undefined') {
         const artistasSwiper = new Swiper(sliderElement, {
             loop: true, 
-            speed: 800,
+            speed: 1500,
             breakpoints: {
               320: { slidesPerView: 1, slidesPerGroup: 1 },
               768: { slidesPerView: 3, slidesPerGroup: 3 },
