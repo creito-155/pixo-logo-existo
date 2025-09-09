@@ -417,6 +417,22 @@
     "imagens/TRESUM/Screenshot_20250908_181754_Instagram.jpg",
     "imagens/TRESUM/Screenshot_20250908_182004_Instagram.jpg"
   ]
+},
+{
+  "id": "GIN",
+  "nome": "GIN",
+  "logo": "imagens/GIN/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/gin_arts",
+  "instagramHandle": "@GIN_ARTS",
+  "imagens": [
+    "imagens/GIN/521445531_1258735535744530_2177761672207665036_n.jpg",
+    "imagens/GIN/524449028_1453816849092637_6884885368299985776_n.jpg",
+    "imagens/GIN/528386687_1397314051347361_8080432050808885005_n.jpg",
+    "imagens/GIN/532255655_1454697575873828_5098013903539649038_n.jpg",
+    "imagens/GIN/542917939_713048091767025_2327315821423915960_n.jpg",
+    "imagens/GIN/543714391_1321225072732529_5767126444206613951_n.jpg",
+    "imagens/GIN/545342447_1549670043068765_5435812025153791597_n.jpg"
+  ]
 }
   ]
 }
