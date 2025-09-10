@@ -116,6 +116,10 @@ async function montarPaginaDeArtistas() {
         // Função para renderizar os artistas na grelha
         const renderizarArtistas = (listaDeArtistas) => {
             gridContainer.innerHTML = ''; 
+            if (listaDeArtistas.length === 0) {
+                gridContainer.innerHTML = '<p style="text-align: center; width: 100%;">Nenhum artista encontrado nesta categoria.</p>';
+                return;
+            }
             listaDeArtistas.forEach(artista => {
                 gridContainer.appendChild(criarCartaoArtista(artista));
             });
@@ -123,25 +127,26 @@ async function montarPaginaDeArtistas() {
 
         // Adiciona o "ouvinte" para os cliques nos botões
         filtrosContainer.addEventListener('click', (event) => {
-            // Verifica se o que foi clicado foi um botão de filtro
             if (event.target.classList.contains('filtro-btn')) {
-                // Remove a classe 'active' de todos os botões
                 filtrosContainer.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
-                // Adiciona a classe 'active' ao botão que foi clicado
                 event.target.classList.add('active');
 
-                const categoria = event.target.dataset.categoria;
+                const categoriaFiltro = event.target.dataset.categoria;
 
-                if (categoria === 'todos') {
+                if (categoriaFiltro === 'todos') {
                     renderizarArtistas(todosArtistas);
                 } else {
-                    const artistasFiltrados = todosArtistas.filter(artista => artista.categoria === categoria);
+                    // LÓGICA DE FILTRO ATUALIZADA PARA MÚLTIPLAS CATEGORIAS
+                    const artistasFiltrados = todosArtistas.filter(artista => {
+                        // Verifica se o artista tem a propriedade 'categoria', se é uma lista (array)
+                        // e se a lista de categorias do artista (em minúsculas) INCLUI a categoria do filtro.
+                        return artista.categoria && Array.isArray(artista.categoria) && artista.categoria.map(c => c.toLowerCase()).includes(categoriaFiltro.toLowerCase());
+                    });
                     renderizarArtistas(artistasFiltrados);
                 }
             }
         });
-
-        // Renderização inicial, mostrando todos os artistas
+        
         renderizarArtistas(todosArtistas);
 
     } catch (error) {
@@ -157,21 +162,16 @@ async function montarPaginaDeArtistas() {
 function criarLightbox(imageUrl) {
     const overlay = document.createElement('div');
     overlay.id = 'lightbox-overlay';
-
     const closeButton = document.createElement('span');
     closeButton.id = 'lightbox-close';
     closeButton.innerHTML = '&times;';
-    
     const img = document.createElement('img');
     img.src = imageUrl;
     img.id = 'lightbox-image';
-
     overlay.appendChild(closeButton);
     overlay.appendChild(img);
     document.body.appendChild(overlay);
-
     const closeLightbox = () => document.body.removeChild(overlay);
-
     overlay.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
@@ -189,11 +189,11 @@ function inicializarSwiper() {
     if (sliderElement && typeof Swiper !== 'undefined') {
         const artistasSwiper = new Swiper(sliderElement, {
             loop: true,
-            speed: 1500, // Velocidade mais lenta
+            speed: 1500,
             breakpoints: {
                 320: { slidesPerView: 1, slidesPerGroup: 1 },
-                768: { slidesPerView: 3, slidesPerGroup: 3 }, // Pula de 3 em 3
-                1024: { slidesPerView: 4, slidesPerGroup: 4 }  // Pula de 4 em 4
+                768: { slidesPerView: 3, slidesPerGroup: 3 },
+                1024: { slidesPerView: 4, slidesPerGroup: 4 }
             },
             navigation: {
                 nextEl: '.swiper-button-next',
