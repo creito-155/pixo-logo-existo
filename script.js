@@ -101,21 +101,49 @@ async function montarGaleria() {
 
 
 // ==========================================
-//  LÓGICA PARA A PÁGINA DE TODOS OS ARTISTAS
+//  LÓGICA PARA A PÁGINA DE TODOS OS ARTISTAS (COM FILTROS)
 // ==========================================
 async function montarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
+    const filtrosContainer = document.getElementById('filtros-container');
     if (!gridContainer) return;
 
     try {
         const response = await fetch('/_data/artistas.json');
         const data = await response.json();
-        const artistas = data.lista_de_artistas;
+        const todosArtistas = data.lista_de_artistas;
 
-        gridContainer.innerHTML = ''; 
-        artistas.forEach(artista => {
-            gridContainer.appendChild(criarCartaoArtista(artista));
+        // Função para renderizar os artistas na grelha
+        const renderizarArtistas = (listaDeArtistas) => {
+            gridContainer.innerHTML = ''; 
+            listaDeArtistas.forEach(artista => {
+                gridContainer.appendChild(criarCartaoArtista(artista));
+            });
+        };
+
+        // Adiciona o "ouvinte" para os cliques nos botões
+        filtrosContainer.addEventListener('click', (event) => {
+            // Verifica se o que foi clicado foi um botão de filtro
+            if (event.target.classList.contains('filtro-btn')) {
+                // Remove a classe 'active' de todos os botões
+                filtrosContainer.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
+                // Adiciona a classe 'active' ao botão que foi clicado
+                event.target.classList.add('active');
+
+                const categoria = event.target.dataset.categoria;
+
+                if (categoria === 'todos') {
+                    renderizarArtistas(todosArtistas);
+                } else {
+                    const artistasFiltrados = todosArtistas.filter(artista => artista.categoria === categoria);
+                    renderizarArtistas(artistasFiltrados);
+                }
+            }
         });
+
+        // Renderização inicial, mostrando todos os artistas
+        renderizarArtistas(todosArtistas);
+
     } catch (error) {
         console.error("Erro ao montar a página de artistas:", error);
         gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar os artistas.</p>';

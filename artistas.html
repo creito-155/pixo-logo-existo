@@ -14,7 +14,6 @@
         </div>
         <a href="index.html">HOME</a> |
         <a href="artistas.html">ARTISTAS</a> |
-        <!-- Futuramente, pode reativar estes links -->
         <a href="#">QUEM SOMOS</a> |
         <a href="#">ONDE ATUAMOS</a>
     </div>
@@ -22,13 +21,21 @@
     <main class="container">
         <h1 class="titulo-galeria">Todos os Artistas</h1>
         
-        <!-- A nossa grelha de artistas será inserida aqui pelo JavaScript -->
+        <!-- NOVOS BOTÕES DE FILTRO -->
+        <div id="filtros-container">
+            <button class="filtro-btn active" data-categoria="todos">Todos</button>
+            <button class="filtro-btn" data-categoria="pixo">Pixo</button>
+            <button class="filtro-btn" data-categoria="graff">Graff</button>
+        </div>
+        
+        <!-- A nossa grelha de artistas será inserida aqui -->
         <div class="gallery-grid" id="todos-os-artistas-grid">
-            <p>A carregar artistas...</p>
+            <!-- A carregar artistas... -->
         </div>
     </main>
     
-    <!-- Carregamos os scripts no final para melhor performance -->
+    <!-- Carregamos os scripts no final -->
     <script src="script.js"></script>
 </body>
 </html>
+
