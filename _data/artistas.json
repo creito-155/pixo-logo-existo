@@ -3,7 +3,7 @@
     {
       "id": "SVL",
       "nome": "SVL",
-      "categoria": "Pixo, Graffiti",
+      "categoria": "Pixo, Graff",
       "logo": "imagens/SVL/img-20250830-wa0088.jpg",
       "instagramLink": "https://www.instagram.com/https_creito_",
       "instagramHandle": "@HTTPS_CREITO_",
@@ -53,7 +53,7 @@
     {
       "id": "JOCA",
       "nome": "JOCA",
-      "categoria": "Pixo, Graffiti",
+      "categoria": "Pixo, Graff",
       "logo": "imagens/JOCA/PERFIL-JOCA.jpg",
       "instagramLink": "https://www.instagram.com/jocaverde/",
       "instagramHandle": "@JOCAVERDE",
@@ -70,7 +70,7 @@
     {
   "id": "IUGUE",
   "nome": "IUGUE",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/IUGUE/IUGUE (36).webp",
   "instagramLink": "https://www.instagram.com/iugue/",
   "instagramHandle": "@IUGUE",
@@ -107,7 +107,7 @@
   {
   "id": "BUENO",
   "nome": "BUENO",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/BUENO/perfil-BUENO.webp",
   "instagramLink": "https://www.instagram.com/gusta2008bueno/",
   "instagramHandle": "@GUSTA2008BUENO",
@@ -170,7 +170,7 @@
 },{
   "id": "LIGHT",
   "nome": "LIGHT",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/LIGHT/logo-LIGHT.webp",
   "instagramLink": "https://www.instagram.com/light_452",
   "instagramHandle": "@LIGHT_452",
@@ -212,7 +212,7 @@
 {
   "id": "JOKER",
   "nome": "JOKER",
-  "categoria": "Pixo, Graffiti",
+  "categoria": "Pixo, GrafF",
   "logo": "imagens/JOKER/JOKER-6.webp",
   "instagramLink": "https://www.instagram.com/",
   "instagramHandle": "SEM CONTATO",
@@ -230,7 +230,7 @@
 {
   "id": "CODE",
   "nome": "CODE",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/CODE/LOGO.jpg",
   "instagramLink": "https://www.instagram.com/eduardo.code",
   "instagramHandle": "@EDUARDO.CODE",
@@ -252,7 +252,7 @@
 {
   "id": "OLHOS",
   "nome": "OLHOS",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/OLHOS/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/olhos_smk/",
   "instagramHandle": "@OLHOS_SMK",
@@ -269,7 +269,7 @@
 {
   "id": "MANDALEIRA",
   "nome": "MANDALEIRA",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/MANDALEIRA/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/mandaleiramuri/",
   "instagramHandle": "@MANDALEIRAMURI",
@@ -304,7 +304,7 @@
 {
   "id": "GHOST",
   "nome": "GHOST",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/GHOST/LOGO.PNG",
   "instagramLink": "https://www.instagram.com/ghostboygraff",
   "instagramHandle": "@GHOSTBOYGRAFF",
@@ -339,7 +339,7 @@
 {
   "id": "DRAKE",
   "nome": "DRAKE",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/DRAKE/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/drakesgraf",
   "instagramHandle": "@DRAKESGRAF",
@@ -371,7 +371,7 @@
 {
   "id": "SASK",
   "nome": "SASK",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/SASK/LOGO.PNG",
   "instagramLink": "https://www.instagram.com/cupinxaria_sk",
   "instagramHandle": "@CUPINXARIA_SK",
@@ -398,7 +398,7 @@
 {
   "id": "TRESUM",
   "nome": "TRESUM",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/TRESUM/TRESUM.LOGO.JPG",
   "instagramLink": "https://www.instagram.com/_tresum",
   "instagramHandle": "@_TRESUM",
@@ -439,7 +439,7 @@
 {
   "id": "GIN",
   "nome": "GIN",
-  "categoria": "Graffiti",
+  "categoria": "Graff",
   "logo": "imagens/GIN/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/gin_arts",
   "instagramHandle": "@GIN_ARTS",
