@@ -27,7 +27,7 @@
     {
       "id": "STR",
       "nome": "STR",
-      "categoria": "pixo",
+      "categoria": ["pixo"],
       "logo": "imagens/STR/C0K3+STR.jpg",
       "instagramLink": "https://www.instagram.com/silvastr_",
       "instagramHandle": "@SILVASTR_",
@@ -70,7 +70,7 @@
     {
   "id": "IUGUE",
   "nome": "IUGUE",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/IUGUE/IUGUE (36).webp",
   "instagramLink": "https://www.instagram.com/iugue/",
   "instagramHandle": "@IUGUE",
@@ -139,7 +139,7 @@
 {
   "id": "TRIK",
   "nome": "TRIK",
-  "categoria": "pixo",
+  "categoria": ["pixo"],
   "logo": "imagens/TRIK/TRIK.jpg",
   "instagramLink": "https://www.instagram.com/silvastr_",
   "instagramHandle": "@SILVASTR_",
@@ -155,7 +155,7 @@
 {
   "id": "C0K3",
   "nome": "COK3",
-  "categoria": "pixo",
+  "categoria": ["pixo"],
   "logo": "imagens/C0K3/C0K3-1.jpg",
   "instagramLink": "https://www.instagram.com/c0k3.1312/",
   "instagramHandle": "@C0K3.1312",
@@ -170,7 +170,7 @@
 },{
   "id": "LIGHT",
   "nome": "LIGHT",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/LIGHT/logo-LIGHT.webp",
   "instagramLink": "https://www.instagram.com/light_452",
   "instagramHandle": "@LIGHT_452",
@@ -192,7 +192,7 @@
 {
   "id": "TRUE",
   "nome": "TRUE",
-  "categoria": "pixo",
+  "categoria": ["pixo"],
   "logo": "imagens/TRUE/TRUE-LOGO.jpg",
   "instagramLink": "https://www.instagram.com/true1souza/",
   "instagramHandle": "@TRUE1SOUZA",
@@ -230,7 +230,7 @@
 {
   "id": "CODE",
   "nome": "CODE",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/CODE/LOGO.jpg",
   "instagramLink": "https://www.instagram.com/eduardo.code",
   "instagramHandle": "@EDUARDO.CODE",
@@ -252,7 +252,7 @@
 {
   "id": "OLHOS",
   "nome": "OLHOS",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/OLHOS/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/olhos_smk/",
   "instagramHandle": "@OLHOS_SMK",
@@ -269,7 +269,7 @@
 {
   "id": "MANDALEIRA",
   "nome": "MANDALEIRA",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/MANDALEIRA/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/mandaleiramuri/",
   "instagramHandle": "@MANDALEIRAMURI",
@@ -289,7 +289,7 @@
 {
   "id": "DREIP",
   "nome": "DREIP",
-  "categoria": "pixo",
+  "categoria": ["pixo"],
   "logo": "imagens/DREIP/LOGO.PNG",
   "instagramLink": "https://www.instagram.com/manodreip/",
   "instagramHandle": "@MANODREIP",
@@ -298,13 +298,14 @@
     "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (1).jpeg",
     "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (2).jpeg",
     "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11.jpeg",
-    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.12.jpeg"
+    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.12.jpeg",
+    "imagens/DREIP/WhatsApp Image 2025-09-10 at 19.42.30.jpeg"
   ]
 },
 {
   "id": "GHOST",
   "nome": "GHOST",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/GHOST/LOGO.PNG",
   "instagramLink": "https://www.instagram.com/ghostboygraff",
   "instagramHandle": "@GHOSTBOYGRAFF",
@@ -339,7 +340,7 @@
 {
   "id": "DRAKE",
   "nome": "DRAKE",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/DRAKE/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/drakesgraf",
   "instagramHandle": "@DRAKESGRAF",
@@ -371,7 +372,7 @@
 {
   "id": "SASK",
   "nome": "SASK",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/SASK/LOGO.PNG",
   "instagramLink": "https://www.instagram.com/cupinxaria_sk",
   "instagramHandle": "@CUPINXARIA_SK",
@@ -398,7 +399,7 @@
 {
   "id": "TRESUM",
   "nome": "TRESUM",
-  "categoria": "graff",
+  "categoria": ["graff"],
   "logo": "imagens/TRESUM/TRESUM.LOGO.JPG",
   "instagramLink": "https://www.instagram.com/_tresum",
   "instagramHandle": "@_TRESUM",
@@ -439,7 +440,7 @@
 {
   "id": "GIN",
   "nome": "GIN",
-  "categoria": "Graff",
+  "categoria": ["graff"],
   "logo": "imagens/GIN/LOGO.JPG",
   "instagramLink": "https://www.instagram.com/gin_arts",
   "instagramHandle": "@GIN_ARTS",
