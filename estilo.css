@@ -778,4 +778,37 @@ a:hover {
     border-color: rgb(195, 0, 255);
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
 }
+/* =================================
+   RODAPÉ DO SITE
+   ================================= */
+.site-footer {
+    background-color: #1a1a1a; /* Um cinza escuro, ligeiramente diferente do fundo */
+    color: #a0a0a0; /* Cinza claro para o texto, para fácil leitura */
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px; /* Adiciona um espaço entre o conteúdo principal e o rodapé */
+    font-size: 14px;
+    line-height: 1.6; /* Melhora a espaçamento entre as linhas */
+    border-top: 3px solid #333; /* Uma linha subtil de separação */
+}
 
+.site-footer p {
+    margin: 10px 0;
+    max-width: 800px; /* Limita a largura do texto em ecrãs grandes para não ficar muito esticado */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.site-footer a {
+    color: #bd93f9; /* Roxo para o link do Instagram, para dar destaque */
+    font-weight: bold; /* Link em negrito, como pedido */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Remove o estilo de hover padrão do site (fundo roxo) e aplica um novo, mais subtil */
+.site-footer a:hover {
+    color: #f8f8f2; /* Cor branca ao passar o rato */
+    text-decoration: underline;
+    background: none; /* Garante que não há fundo colorido */
+}
