@@ -814,7 +814,7 @@ a:hover {
 }
 /* Aplica a imagem de fundo e garante que ela cubra toda a tela */
 .quem-somos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1528461253712-cca8213f5773?q=80&w=1974&auto=format&fit=crop');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.reddit.com%2Fr%2FUrbanHell%2Fcomments%2Fpsvqxb%2Fcentral_s%25C3%25A3o_paulo_brazil%2F%3Ftl%3Dpt-br&psig=AOvVaw0WdZuAXQzXw-AqIS4JH_HQ&ust=1757636487369000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCJCUgKO4z48DFQAAAAAdAAAAABAM');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
