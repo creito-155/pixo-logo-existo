@@ -372,6 +372,7 @@ a:hover {
 }
 
 #barra-superior {
+    font-family: 'Don Graffiti', sans-serif;
     background: #000000cf;
     position: fixed;
     z-index: 1000;
@@ -480,6 +481,7 @@ a:hover {
 }
 
 .legenda-galeria {
+    font-family: 'Don Graffiti', sans-serif;
     width: 100px;
     padding: 10px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
