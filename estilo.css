@@ -821,14 +821,14 @@ a:hover {
     padding-top: 100px; /* Aumenta o espaço para o cabeçalho */
 }
 
-/* Container principal da página */
+/* Container principal da página (reutilizável) */
 .quem-somos-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Caixa de texto semi-transparente */
+/* Caixa de texto semi-transparente (reutilizável) */
 .texto-container {
     background-color: rgba(10, 10, 10, 0.8); /* Fundo escuro e semi-transparente */
     border-left: 5px solid rgb(195, 0, 255); /* Detalhe roxo na lateral */
@@ -837,7 +837,7 @@ a:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Título principal da página */
+/* Título principal da página (reutilizável) */
 .titulo-quem-somos {
     font-size: 2.5rem; /* Tamanho grande e impactante */
     color: rgb(195, 0, 255); /* Cor roxa */
@@ -847,7 +847,7 @@ a:hover {
     letter-spacing: 2px;
 }
 
-/* Subtítulo */
+/* Subtítulo (reutilizável) */
 .subtitulo-quem-somos {
     font-size: 1.5rem;
     color: #f8f8f2;
@@ -857,7 +857,7 @@ a:hover {
     padding-bottom: 10px;
 }
 
-/* Estilo para os parágrafos de texto */
+/* Estilo para os parágrafos de texto (reutilizável) */
 .texto-container p {
     font-size: 1.1rem;
     line-height: 1.7; /* Melhora a legibilidade */
