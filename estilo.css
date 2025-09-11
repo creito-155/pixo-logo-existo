@@ -234,7 +234,7 @@ fieldset {
  * 1. Correct the text wrapping in Edge and IE.
  * 2. Correct the color inheritance from `fieldset` elements in IE.
  * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
+ * `fieldset` elements in all browsers.
  */
 
 legend {
@@ -346,14 +346,27 @@ template {
 
 [hidden] {
   display: none;
-}/* =================================
+}
+
+/* =================================
+   INÍCIO DO SEU ESTILO PERSONALIZADO
+   ================================= */
+
+@font-face {
+  font-family: 'Don Graffiti';
+  src: url('fonts/DonGraffiti.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* =================================
    ESTILOS GERAIS E BARRA SUPERIOR
    ================================= */
 body {
     background-color: #252525;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: white;
-    margin: 0;
+    /* O margin: 0; já está no normalize.css */
     padding-top: 80px;
 }
 
@@ -372,6 +385,7 @@ a:hover {
 }
 
 #barra-superior {
+    font-family: 'Don Graffiti', sans-serif;
     background: #000000cf;
     position: fixed;
     z-index: 1000;
@@ -394,25 +408,22 @@ a:hover {
   transform: translateY(-50%);
 }
 
-
 /* =================================
    TÍTULOS
    ================================= */
 .titulo-galeria {
-    /* A largura da "caixinha" se ajusta automaticamente ao texto */
+    font-family: 'Don Graffiti', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 2px;
     width: -moz-fit-content;
     width: fit-content;
-
-    /* A margem 'auto' nas laterais centraliza o elemento */
     margin: 25px auto 40px auto;
-
-    padding: 10px 25px;     /* Espaçamento interno */
+    padding: 10px 25px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
     border-radius: 10px;
 }
-
 
 /* =================================
    ESTILO ORIGINAL DOS BLOCOS DE ARTISTA
@@ -487,387 +498,223 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Padrão para PC: 4 colunas */
-    gap: 30px; /* Espaçamento entre os blocos */
-}
-.creator-header {
-    background-color: #000000a7; /* Fundo preto semi-transparente */
-    padding: 30px 20px;
-    border-bottom: 3px solid rgb(195, 0, 255); /* Linha roxa */
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-/* Estilo para a imagem do criador */
-.creator-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* Deixa a imagem redonda */
-    border: 3px solid rgb(195, 0, 255);
-    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
-    margin-right: 30px;
-}
-                
-/* Textos de informação do criador */
-.creator-info .title {
-    font-size: 28px;
-    color: rgb(195, 0, 255); /* Cor roxa para o título */
-    margin: 0 0 10px 0;
-    font-weight: normal;
-}
 
 /* =================================
-   MEDIA QUERIES (RESPONSIVIDADE)
+   ESTILOS DAS PÁGINAS DE GALERIA
    ================================= */
-@media (max-width: 500px) {
-    #barra-superior a {
-        font-size: 14px;
-        padding: 5px;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-        width: 35px;
-        height: 35px;
-    }
-
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-        font-size: 14px;
-    }
-}
-
-/* ==================================================
-   ESTILO DEFINITIVO DOS BOTÕES DO CARROSSEL
-   ================================================== */
-
-/* Remove completamente a seta padrão da biblioteca Swiper */
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    content: '' !important;
-    display: none;
-}
-
-/* Cria um novo container para nossa seta customizada */
-.swiper-button-next,
-.swiper-button-prev {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(10, 10, 10, 0.7) !important;
-    border: 2px solid rgba(255, 255, 255, 0.4) !important;
-    border-radius: 8px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-/* Adiciona nossa seta customizada dentro do novo container */
-.swiper-button-next::before,
-.swiper-button-prev::before {
-    color: white !important; /* Força a cor da seta para branco e anula o azul */
-    font-size: 30px;
-    font-weight: bold;
-    font-family: monospace;
-}
-
-/* Define o caractere de cada seta */
-.swiper-button-next::before {
-    content: '>';
-}
-.swiper-button-prev::before {
-    content: '<';
-}
-
-/* Efeito ao passar o mouse */
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background-color: rgb(195, 0, 255) !important;
-    border-color: rgba(255, 255, 255, 0.8) !important;
-    box-shadow: 0 0 15px rgba(195, 0, 255, 0.7);
-    transform: scale(1.05);
-}
-
-/* Garante que a seta continue branca durante o hover */
-.swiper-button-next:hover::before,
-.swiper-button-prev:hover::before {
-    color: white !important;
-}
-/* =================================
-   ESTILOS DA PÁGINA DE GALERIA
-   ================================= */
-
-/* Contêiner principal para limitar a largura na página da galeria */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Estilos para a galeria de imagens em grade */
 .gallery-grid {
     display: grid;
-    /* Por padrão, 4 colunas em telas grandes */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px; /* Espaçamento entre as imagens */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
 }
 
-/* Estilos para cada item/bloco da galeria */
 .gallery-item {
     background-color: #000000a7;
     text-align: center;
     border-radius: 8px;
-    overflow: hidden; /* Garante que a imagem não "vaze" das bordas arredondadas */
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    text-decoration: none;
 }
 
-/* Efeito de "levantar" o card ao passar o mouse */
 .gallery-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(195, 0, 255, 0.2);
 }
 
-/* Estilo para a imagem da galeria (A PARTE MAIS IMPORTANTE!) */
 .gallery-image {
-    width: 100%; /* Faz a imagem ocupar toda a largura do item */
-    height: 250px; /* Define uma altura fixa para todas as imagens */
-    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
     cursor: pointer;
     display: block;
 }
-/* Estilos para os cartões na página de todos os artistas */
-.artist-card-name {
-    color: white;
-    padding: 15px;
-    font-weight: bold;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto semi-transparente */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1.1em;
+
+.creator-header {
+    background-color: #000000a7;
+    padding: 30px 20px;
+    border-bottom: 3px solid rgb(195, 0, 255);
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
-/* Ajuste para o item da galeria ser um link e ter posição relativa */
-.gallery-item {
-    position: relative;
-    text-decoration: none; /* Remove o sublinhado do link */
+.creator-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid rgb(195, 0, 255);
+    object-fit: cover;
+    margin-right: 30px;
 }
 
-.gallery-item:hover .artist-card-name {
-    background-color: rgb(195, 0, 255); /* Fica verde ao passar o rato (cor do seu site) */
-    color: #ffffff; /* Cor do texto escura para contraste */
+.creator-info .title {
+    font-size: 28px;
+    color: rgb(195, 0, 255);
+    margin: 0 0 10px 0;
+    font-weight: normal;
 }
 
 /* =================================
-   AJUSTES PARA TELAS MENORES (RESPONSIVIDADE)
+   LIGHTBOX (IMAGEM EXPANDIDA)
    ================================= */
-
-/* Para tablets e telas menores */
-@media (max-width: 992px) {
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
-    }
-}
-
-/* Para celulares */
-@media (max-width: 768px) {
-    .creator-header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .creator-image {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-}
-/* =================================
-   ESTILOS DA LIGHTBOX (IMAGEM EXPANDIDA)
-   ================================= */
-
-/* O fundo preto semi-transparente que cobre a tela */
-#lightbox-overlay {
+.lightbox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 10, 10, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Garante que fica por cima de tudo */
-    cursor: pointer;
-    animation: fadeIn 0.3s ease;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-/* A imagem expandida */
-#lightbox-image {
-    max-width: 90vw; /* Largura máxima de 90% da tela */
-    max-height: 90vh; /* Altura máxima de 90% da tela */
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
     object-fit: contain;
+    box-shadow: 0 0 50px rgba(195, 0, 255, 0.5);
+    border: 2px solid rgb(195, 0, 255);
     border-radius: 5px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    cursor: default; /* Cursor normal sobre a imagem */
 }
 
-/* O botão de fechar (X) */
-#lightbox-close {
+.lightbox-close {
     position: absolute;
     top: 20px;
     right: 30px;
-    font-size: 45px;
-    font-weight: bold;
     color: white;
+    font-size: 40px;
+    font-weight: bold;
     cursor: pointer;
-    transition: color 0.2s ease;
-    -webkit-user-select: none; /* Impede a seleção do texto do 'X' */
-    -ms-user-select: none;
-    user-select: none;
 }
 
-#lightbox-close:hover {
-    color: #ccc;
-}
-
-/* Animação de entrada suave */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-/* Estilos para os filtros na página de artistas */
-#filtros-container {
+/* =================================
+   FILTROS DA PÁGINA DE ARTISTAS
+   ================================= */
+.filtros-container {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .filtro-btn {
-    background-color: #282a36;
-    color: #f8f8f2;
-    border: 2px solid #44475a;
-    padding: 10px 25px;
-    margin: 0 8px;
-    border-radius: 50px;
+    background-color: #444;
+    color: white;
+    border: 2px solid #666;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
     transition: all 0.3s ease;
-    outline: none;
+    font-size: 1rem;
 }
 
 .filtro-btn:hover {
-    background-color: #44475a;
-    border-color: #bd93f9;
+    background-color: #555;
+    border-color: #888;
 }
 
 .filtro-btn.active {
-    background: rgb(195, 0, 255);
+    background-color: rgb(195, 0, 255);
     color: white;
     border-color: rgb(195, 0, 255);
-    box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
+    box-shadow: 0 0 10px rgba(195, 0, 255, 0.7);
 }
+
 /* =================================
-   RODAPÉ DO SITE
+   PÁGINAS QUEM SOMOS E ONDE ATUAMOS
    ================================= */
-.site-footer {
-    background-color: #1a1a1a; /* Um cinza escuro, ligeiramente diferente do fundo */
-    color: #a0a0a0; /* Cinza claro para o texto, para fácil leitura */
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px; /* Adiciona um espaço entre o conteúdo principal e o rodapé */
-    font-size: 14px;
-    line-height: 1.6; /* Melhora a espaçamento entre as linhas */
-    border-top: 3px solid #333; /* Uma linha subtil de separação */
-}
-
-.site-footer p {
-    margin: 10px 0;
-    max-width: 800px; /* Limita a largura do texto em ecrãs grandes para não ficar muito esticado */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.site-footer a {
-    color: #bd93f9; /* Roxo para o link do Instagram, para dar destaque */
-    font-weight: bold; /* Link em negrito, como pedido */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-/* Remove o estilo de hover padrão do site (fundo roxo) e aplica um novo, mais subtil */
-.site-footer a:hover {
-    color: #f8f8f2; /* Cor branca ao passar o rato */
-    text-decoration: underline;
-    background: none; /* Garante que não há fundo colorido */
-}
-/* Aplica a imagem de fundo e garante que ela cubra toda a tela */
-.quem-somos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
+.quem-somos-body, .onde-atuamos-body {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
-    padding-top: 100px; /* Aumenta o espaço para o cabeçalho */
+    background-attachment: fixed;
+    padding-top: 100px;
 }
 
-/* Container principal da página (reutilizável) */
+.quem-somos-body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('imagens/backgrounds/quem-somos-bg.jpg');
+}
+
+.onde-atuamos-body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('imagens/backgrounds/onde-atuamos-bg.jpg');
+}
+
 .quem-somos-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Caixa de texto semi-transparente (reutilizável) */
 .texto-container {
-    background-color: rgba(10, 10, 10, 0.8); /* Fundo escuro e semi-transparente */
-    border-left: 5px solid rgb(195, 0, 255); /* Detalhe roxo na lateral */
+    background-color: rgba(10, 10, 10, 0.8);
+    border-left: 5px solid rgb(195, 0, 255);
     padding: 30px 40px;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Título principal da página (reutilizável) */
 .titulo-quem-somos {
-    font-size: 2.5rem; /* Tamanho grande e impactante */
-    color: rgb(195, 0, 255); /* Cor roxa */
+    font-size: 2.5rem;
+    color: rgb(195, 0, 255);
     margin-top: 0;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
-/* Subtítulo (reutilizável) */
-.subtitulo-quem-somos {
-    font-size: 1.5rem;
-    color: #f8f8f2;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #44475a;
-    padding-bottom: 10px;
-}
-
-/* Estilo para os parágrafos de texto (reutilizável) */
 .texto-container p {
     font-size: 1.1rem;
-    line-height: 1.7; /* Melhora a legibilidade */
-    color: #cccccc; /* Cinza claro para o texto */
+    line-height: 1.7;
+    color: #cccccc;
     margin-bottom: 20px;
 }
-.onde-atuamos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding-top: 100px;
+
+/* =================================
+   RODAPÉ
+   ================================= */
+footer {
+    background-color: #1a1a1a;
+    color: #888;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    border-top: 2px solid rgb(195, 0, 255);
 }
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.footer-content a {
+    color: rgb(195, 0, 255);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+    background: none;
+}
+
