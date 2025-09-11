@@ -167,10 +167,10 @@ template {
    ================================= */
 
 @font-face {
-  font-family: 'Don Graffiti';
-  src: url('fonts/DonGraffiti.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Don Graffiti';
+    src: url('fonts/DonGraffiti.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* =================================
@@ -180,10 +180,11 @@ body {
     background-color: #252525;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: white;
+    margin: 0;
     padding-top: 80px;
 }
 
-a {
+a:link {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
@@ -225,40 +226,23 @@ a:hover {
 }
 
 /* =================================
-   TÍTULOS E SECÇÕES
+   TÍTULOS
    ================================= */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.titulo-secao {
+.titulo-galeria {
     font-family: 'Don Graffiti', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 2px;
+    width: -moz-fit-content;
     width: fit-content;
-    margin: 40px auto 40px auto;
+    margin: 25px auto 40px auto;
     padding: 10px 25px;
+    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
-}
-
-.titulo-secao.principal {
-    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     border-radius: 10px;
-}
-
-.titulo-secao.secundario {
-    font-size: 2.8rem;
-    color: #f1fa8c;
-    border-bottom: 2px solid #44475a;
-    margin-top: 60px;
 }
 
 
 /* =================================
-   CARROSSEL (PÁGINA PRINCIPAL)
+   ESTILO ORIGINAL DOS BLOCOS DE ARTISTA
    ================================= */
 .container-bloco {
     text-align: center; 
@@ -276,8 +260,6 @@ a:hover {
     z-index: 1000;
     transition: transform 0.3s ease;
     margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .bloco-imagens:hover {
@@ -325,14 +307,82 @@ a:hover {
 }
 
 .legenda-galeria {
-    width: 120px;
+    width: 100px;
     padding: 10px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
     border-radius: 10px;
 }
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Padrão para PC: 4 colunas */
+    gap: 30px; /* Espaçamento entre os blocos */
+}
+.creator-header {
+    background-color: #000000a7; /* Fundo preto semi-transparente */
+    padding: 30px 20px;
+    border-bottom: 3px solid rgb(195, 0, 255); /* Linha roxa */
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
 
+/* Estilo para a imagem do criador */
+.creator-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Deixa a imagem redonda */
+    border: 3px solid rgb(195, 0, 255);
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    margin-right: 30px;
+}
+                
+/* Textos de informação do criador */
+.creator-info .title {
+    font-size: 28px;
+    color: rgb(195, 0, 255); /* Cor roxa para o título */
+    margin: 0 0 10px 0;
+    font-weight: normal;
+}
+
+/* =================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ================================= */
+@media (max-width: 500px) {
+    #barra-superior a {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 35px;
+        height: 35px;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 14px;
+    }
+}
+
+/* ==================================================
+   ESTILO DEFINITIVO DOS BOTÕES DO CARROSSEL
+   ================================================== */
+
+/* Remove completamente a seta padrão da biblioteca Swiper */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    content: '' !important;
+    display: none;
+}
+
+/* Cria um novo container para nossa seta customizada */
 .swiper-button-next,
 .swiper-button-prev {
     width: 60px;
@@ -346,17 +396,24 @@ a:hover {
     transition: all 0.3s ease;
 }
 
+/* Adiciona nossa seta customizada dentro do novo container */
 .swiper-button-next::before,
 .swiper-button-prev::before {
-    color: white !important;
+    color: white !important; /* Força a cor da seta para branco e anula o azul */
     font-size: 30px;
     font-weight: bold;
     font-family: monospace;
 }
-.swiper-button-next::after, .swiper-button-prev::after { display: none; }
-.swiper-button-next::before { content: '>'; }
-.swiper-button-prev::before { content: '<'; }
 
+/* Define o caractere de cada seta */
+.swiper-button-next::before {
+    content: '>';
+}
+.swiper-button-prev::before {
+    content: '<';
+}
+
+/* Efeito ao passar o mouse */
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
     background-color: rgb(195, 0, 255) !important;
@@ -365,334 +422,9 @@ a:hover {
     transform: scale(1.05);
 }
 
-
-/* =================================
-   GRELHA DE GALERIAS (RECOMENDADOS, TODOS OS ARTISTAS)
-   ================================= */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.gallery-item {
-    background-color: #000000a7;
-    text-align: center;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(195, 0, 255, 0.2);
-}
-
-.gallery-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-}
-
-.artist-card-name {
-    color: white;
-    padding: 15px;
-    font-weight: bold;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
-}
-
-.gallery-item:hover .artist-card-name {
-    background-color: rgba(195, 0, 255, 0.9);
-}
-
-
-/* =================================
-   PÁGINA DE GALERIA INDIVIDUAL
-   ================================= */
-.creator-header {
-    background-color: #000000a7;
-    padding: 30px 20px;
-    border-bottom: 3px solid rgb(195, 0, 255);
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.creator-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid rgb(195, 0, 255);
-    object-fit: cover;
-    margin-right: 30px;
-}
-
-.creator-info .title {
-    font-size: 28px;
-    color: rgb(195, 0, 255);
-    margin: 0 0 10px 0;
-    font-weight: normal;
-}
-.creator-info .subtitle {
-    font-size: 16px;
-    color: #ccc;
-    margin: 0;
-}
-
-
-/* =================================
-   LIGHTBOX (IMAGEM EXPANDIDA)
-   ================================= */
-#lightbox-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10, 10, 10, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    cursor: pointer;
-    animation: fadeIn 0.3s ease;
-}
-
-#lightbox-image {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 5px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    cursor: default;
-}
-
-#lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 45px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    user-select: none;
-}
-#lightbox-close:hover {
-    color: #ccc;
-}
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* =================================
-   FILTROS (PÁGINA DE ARTISTAS)
-   ================================= */
-.filtros-container {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.filtro-btn {
-    background-color: #282a36;
-    color: #f8f8f2;
-    border: 2px solid #44475a;
-    padding: 10px 25px;
-    margin: 5px 8px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.filtro-btn:hover {
-    background-color: #44475a;
-    border-color: #bd93f9;
-}
-
-.filtro-btn.active {
-    background: rgb(195, 0, 255);
-    color: white;
-    border-color: rgb(195, 0, 255);
-    box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
-}
-
-
-/* =================================
-   PÁGINAS QUEM SOMOS E ONDE ATUAMOS
-   ================================= */
-.quem-somos-body, .onde-atuamos-body {
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding-top: 100px;
-}
-
-.quem-somos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../imagens/backgrounds/quem-somos-bg.jpg');
-}
-
-.onde-atuamos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../imagens/backgrounds/onde-atuamos-bg.jpg');
-}
-
-.texto-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: rgba(10, 10, 10, 0.8);
-    border-left: 5px solid rgb(195, 0, 255);
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.titulo-quem-somos {
-    font-family: 'Don Graffiti', sans-serif;
-    font-size: 2.5rem;
-    color: rgb(195, 0, 255);
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.texto-container p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #cccccc;
-    margin-bottom: 20px;
-}
-
-
-/* =================================
-   RODAPÉ DO SITE
-   ================================= */
-.site-footer {
-    background-color: #1a1a1a;
-    color: #a0a0a0;
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px;
-    font-size: 14px;
-    line-height: 1.6;
-    border-top: 3px solid #333;
-}
-
-.site-footer p {
-    margin: 10px 0;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.site-footer a {
-    color: #bd93f9;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.site-footer a:hover {
-    color: #f8f8f2;
-    text-decoration: underline;
-    background: none;
-}
-
-
-/* =================================
-   RESPONSIVIDADE PARA TELEMÓVEIS
-   ================================= */
-@media (max-width: 768px) {
-    /* --- GERAL --- */
-    body {
-        padding-top: 70px; /* Reduz o espaçamento do topo */
-    }
-    .container {
-        padding: 10px;
-    }
-    .titulo-secao {
-        font-size: 2rem;
-    }
-
-    /* --- BARRA SUPERIOR --- */
-    #barra-superior {
-        padding: 10px 0;
-    }
-    #barra-superior a {
-        padding: 5px 8px;
-        font-size: 0.9rem;
-    }
-    .logo {
-      display: none; /* Esconde o logo em ecrãs pequenos para dar mais espaço */
-    }
-
-    /* --- CARROSSEL --- */
-    .bloco-imagens {
-        width: 100%; /* Ocupa a largura total do slide */
-        height: auto;
-        aspect-ratio: 1 / 1; /* Mantém o bloco quadrado */
-    }
-    .bloco-imagens img {
-        width: 80%;
-        height: 80%;
-    }
-    
-    /* --- GRELHA DE GALERIAS --- */
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-    }
-    .gallery-image {
-        height: 180px;
-    }
-
-    /* --- PÁGINA DE ARTISTA --- */
-    .creator-header {
-        flex-direction: column;
-        text-align: center;
-    }
-    .creator-image {
-        width: 120px;
-        height: 120px;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    /* --- PÁGINAS DE TEXTO --- */
-    .texto-container {
-        padding: 20px;
-    }
-    .titulo-quem-somos {
-        font-size: 1.8rem;
-    }
-    .texto-container p {
-        font-size: 1rem;
-    }
-    
-    /* --- BOTÕES DO CARROSSEL --- */
-    .swiper-button-next,
-    .swiper-button-prev {
-        width: 40px;
-        height: 40px;
-    }
-    .swiper-button-next::before,
-    .swiper-button-prev::before {
-        font-size: 20px;
-    }
+/* Garante que a seta continue branca durante o hover */
+.swiper-button-next:hover::before,
+.swiper-button-prev:hover::before {
+    color: white !important;
 }
 
