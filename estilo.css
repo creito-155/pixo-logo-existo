@@ -812,3 +812,55 @@ a:hover {
     text-decoration: underline;
     background: none; /* Garante que não há fundo colorido */
 }
+/* Aplica a imagem de fundo e garante que ela cubra toda a tela */
+.quem-somos-body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1528461253712-cca8213f5773?q=80&w=1974&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
+    padding-top: 100px; /* Aumenta o espaço para o cabeçalho */
+}
+
+/* Container principal da página */
+.quem-somos-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Caixa de texto semi-transparente */
+.texto-container {
+    background-color: rgba(10, 10, 10, 0.8); /* Fundo escuro e semi-transparente */
+    border-left: 5px solid rgb(195, 0, 255); /* Detalhe roxo na lateral */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Título principal da página */
+.titulo-quem-somos {
+    font-size: 2.5rem; /* Tamanho grande e impactante */
+    color: rgb(195, 0, 255); /* Cor roxa */
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Subtítulo */
+.subtitulo-quem-somos {
+    font-size: 1.5rem;
+    color: #f8f8f2;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #44475a;
+    padding-bottom: 10px;
+}
+
+/* Estilo para os parágrafos de texto */
+.texto-container p {
+    font-size: 1.1rem;
+    line-height: 1.7; /* Melhora a legibilidade */
+    color: #cccccc; /* Cinza claro para o texto */
+    margin-bottom: 20px;
+}
