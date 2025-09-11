@@ -385,7 +385,6 @@ a:hover {
 }
 
 #barra-superior {
-    font-family: 'Don Graffiti', sans-serif;
     background: #000000cf;
     position: fixed;
     z-index: 1000;
@@ -716,5 +715,25 @@ footer {
 .footer-content a:hover {
     text-decoration: underline;
     background: none;
+}
+
+/* =================================
+   MELHORIAS VISUAIS - PÁGINA PRINCIPAL (HOME)
+   ================================= */
+
+/* Adiciona um espaçamento generoso entre a seção de recomendados e o carrossel */
+main.container {
+    margin-bottom: 80px;
+}
+
+/* Diferencia o título dos Recomendados para criar hierarquia visual */
+main.container .titulo-galeria {
+    font-size: 2.8rem; /* Um pouco menor que o título principal */
+    color: #f1fa8c;   /* Amarelo para destaque */
+    background: none; /* Remove o fundo para um visual mais limpo e moderno */
+    border: none;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #44475a;
+    border-radius: 0;
 }
 
