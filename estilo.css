@@ -151,12 +151,14 @@ a:hover {
 }
 
 .legenda-galeria {
-    width: 100px;
+    font-family: 'Don Graffiti', sans-serif; /* ALTERAÇÃO AQUI */
+    width: 120px; /* Aumentado para melhor ajuste */
     padding: 10px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
     border-radius: 10px;
+    font-size: 1.1em;
 }
 
 /* =================================
@@ -198,6 +200,7 @@ a:hover {
 }
 
 .artist-card-name {
+    font-family: 'Don Graffiti', sans-serif; /* ALTERAÇÃO AQUI */
     color: white;
     padding: 15px;
     font-weight: bold;
@@ -210,7 +213,8 @@ a:hover {
     margin: 0;
     box-sizing: border-box;
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1.1em;
+    font-size: 1.5em; /* Aumentado para melhor leitura */
+    letter-spacing: 1px;
 }
 
 .gallery-item:hover .artist-card-name {
@@ -237,7 +241,8 @@ a:hover {
 }
                 
 .creator-info .title {
-    font-size: 28px;
+    font-family: 'Don Graffiti', sans-serif; /* ALTERAÇÃO AQUI */
+    font-size: 3rem; /* Aumentado para dar mais impacto */
     color: rgb(195, 0, 255);
     margin: 0 0 10px 0;
     font-weight: normal;
