@@ -62,7 +62,7 @@ a:hover {
    TÍTULOS E SECÇÕES
    ================================= */
 .titulo-galeria, .titulo-secao, .titulo-quem-somos {
-    font-family: 'Don Graffiti', sans-serif; /* APLICA A NOVA FONTE */
+    font-family: 'FATKICK', sans-serif; /* APLICA A NOVA FONTE */
     width: -moz-fit-content;
     width: fit-content;
     margin: 40px auto;
@@ -200,7 +200,7 @@ a:hover {
 }
 
 .artist-card-name {
-    font-family: 'Don Graffiti', sans-serif; /* ALTERAÇÃO AQUI */
+    font-family: 'FATKICK', sans-serif; /* ALTERAÇÃO AQUI */
     color: white;
     padding: 15px;
     font-weight: bold;
@@ -241,7 +241,7 @@ a:hover {
 }
                 
 .creator-info .title {
-    font-family: 'Don Graffiti', sans-serif; /* ALTERAÇÃO AQUI */
+    font-family: 'FATKICK', sans-serif; /* ALTERAÇÃO AQUI */
     font-size: 3rem; /* Aumentado para dar mais impacto */
     color: rgb(195, 0, 255);
     margin: 0 0 10px 0;
