@@ -32,6 +32,10 @@
             <label for="artist-ig-handle">Usuário do Instagram (ex: @SVL_ART)</label>
             <input type="text" id="artist-ig-handle" required>
 
+            <!-- CAMPO NOVO ADICIONADO AQUI -->
+            <label for="artist-categories">Categorias (separadas por vírgula, ex: pixo, graff)</label>
+            <input type="text" id="artist-categories" placeholder="pixo, graff" required>
+
             <label for="artist-logo">Logo do Artista (1 imagem)</label>
             <input type="file" id="artist-logo" accept="image/*" required>
 
@@ -57,19 +61,24 @@
             const logoFile = document.getElementById('artist-logo').files[0];
             const galleryFiles = document.getElementById('artist-images').files;
 
+            // Lógica para as imagens da galeria
             const imagePaths = [];
             for (const file of galleryFiles) {
-                // CORREÇÃO AQUI: Removida a pasta "/galerias"
                 imagePaths.push(`imagens/${artistId}/${file.name}`);
             }
+
+            // LÓGICA NOVA PARA AS CATEGORIAS
+            const categoriesInput = document.getElementById('artist-categories').value;
+            // Separa o texto por vírgulas, remove espaços extra e filtra itens vazios
+            const categoriesArray = categoriesInput.split(',').map(cat => cat.trim().toLowerCase()).filter(cat => cat);
 
             const artistObject = {
                 id: artistId,
                 nome: document.getElementById('artist-name').value,
-                // CORREÇÃO AQUI: Removida a pasta "/galerias"
                 logo: `imagens/${artistId}/${logoFile.name}`,
                 instagramLink: document.getElementById('artist-ig-link').value,
                 instagramHandle: document.getElementById('artist-ig-handle').value,
+                categoria: categoriesArray, // Adiciona a lista de categorias ao JSON
                 imagens: imagePaths
             };
 
@@ -84,3 +93,4 @@
     </script>
 </body>
 </html>
+
