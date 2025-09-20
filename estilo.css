@@ -1,5 +1,6 @@
 @font-face {
-    font-family: 'SkateHipHopTag';
+    font-family: 'SkateHipHopTag'; /* Damos um nome para a nova fonte */
+    /* IMPORTANTE: Verifique se o nome do ficheiro e a extensão (.otf ou .ttf) estão corretos */
     src: url('fonts/SkateHipHopTag.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
@@ -10,7 +11,7 @@
    ================================= */
 body {
     background-color: #252525;
-    font-family:'SkateHipHopTag' system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: white;
     margin: 0;
     padding-top: 80px;
@@ -62,7 +63,7 @@ a:hover {
    TÍTULOS E SECÇÕES
    ================================= */
 .titulo-galeria, .titulo-secao, .titulo-quem-somos {
-    font-family: 'SkateHipHopTag', sans-serif; /* APLICA A NOVA FONTE */
+    font-family: 'SkateHipHopTag', sans-serif; /* USA A NOVA FONTE */
     width: -moz-fit-content;
     width: fit-content;
     margin: 40px auto;
@@ -151,8 +152,8 @@ a:hover {
 }
 
 .legenda-galeria {
-    font-family: 'SkateHipHopTag', sans-serif; /* ALTERAÇÃO AQUI */
-    width: 120px; /* Aumentado para melhor ajuste */
+    font-family: 'SkateHipHopTag', sans-serif; /* USA A NOVA FONTE */
+    width: 120px; 
     padding: 10px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
@@ -200,7 +201,7 @@ a:hover {
 }
 
 .artist-card-name {
-    font-family: 'SkateHipHopTag', sans-serif; /* ALTERAÇÃO AQUI */
+    font-family: 'SkateHipHopTag', sans-serif; /* USA A NOVA FONTE */
     color: white;
     padding: 15px;
     font-weight: bold;
@@ -213,7 +214,7 @@ a:hover {
     margin: 0;
     box-sizing: border-box;
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1.5em; /* Aumentado para melhor leitura */
+    font-size: 1.5em; 
     letter-spacing: 1px;
 }
 
@@ -241,8 +242,8 @@ a:hover {
 }
                 
 .creator-info .title {
-    font-family: 'FATKICK', sans-serif; /* ALTERAÇÃO AQUI */
-    font-size: 3rem; /* Aumentado para dar mais impacto */
+    font-family: 'SkateHipHopTag', sans-serif; /* USA A NOVA FONTE */
+    font-size: 3rem; 
     color: rgb(195, 0, 255);
     margin: 0 0 10px 0;
     font-weight: normal;
