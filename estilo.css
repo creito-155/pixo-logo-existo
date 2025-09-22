@@ -866,10 +866,3 @@ a:hover {
     color: #cccccc; /* Cinza claro para o texto */
     margin-bottom: 20px;
 }
-.onde-atuamos-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding-top: 100px;
-}
