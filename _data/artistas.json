@@ -1,586 +1,479 @@
 {
   "lista_de_artistas": [
     {
-      "id": "ATHOS",
-      "nome": "ATHOS",
-      "logo": "imagens/ATHOS/20250502_135549.jpg",
-      "instagramLink": "https://www.instagram.com/athos",
-      "instagramHandle": "@athos",
-      "categoria": [
-        "padrão"
-      ],
+      "id": "SVL",
+      "nome": "SVL",
+      "categoria": ["pixo","graff"],
+      "logo": "imagens/SVL/img-20250830-wa0088.jpg",
+      "instagramLink": "https://www.instagram.com/https_creito_",
+      "instagramHandle": "@HTTPS_CREITO_",
       "imagens": [
-        "imagens/ATHOS/20250502_135549.jpg",
-        "imagens/ATHOS/20250608_102703.jpg",
-        "imagens/ATHOS/20250628_155817.jpg",
-        "imagens/ATHOS/20250713_110307.jpg",
-        "imagens/ATHOS/IMG-20250116-WA0022.jpg",
-        "imagens/ATHOS/IMG-20250504-WA0070.jpg",
-        "imagens/ATHOS/IMG-20250511-WA0015.jpg",
-        "imagens/ATHOS/IMG-20250620-WA0008.jpg",
-        "imagens/ATHOS/IMG-20250630-WA0039.jpg",
-        "imagens/ATHOS/IMG_20240807_180132_402.jpg",
-        "imagens/ATHOS/IMG_20250319_113704_196.webp"
-      ]
-    },
-    {
-      "id": "BUENO",
-      "nome": "BUENO",
-      "logo": "imagens/BUENO/BUENO- (10).webp",
-      "instagramLink": "https://www.instagram.com/bueno",
-      "instagramHandle": "@bueno",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/BUENO/BUENO- (10).webp",
-        "imagens/BUENO/BUENO- (11).webp",
-        "imagens/BUENO/BUENO- (12).webp",
-        "imagens/BUENO/BUENO- (13).webp",
-        "imagens/BUENO/BUENO- (14).webp",
-        "imagens/BUENO/BUENO- (15).webp",
-        "imagens/BUENO/BUENO- (16).webp",
-        "imagens/BUENO/BUENO- (17).webp",
-        "imagens/BUENO/BUENO- (18).webp",
-        "imagens/BUENO/BUENO- (19).webp",
-        "imagens/BUENO/BUENO- (2).webp",
-        "imagens/BUENO/BUENO- (20).webp",
-        "imagens/BUENO/BUENO- (21).webp",
-        "imagens/BUENO/BUENO- (22).webp",
-        "imagens/BUENO/BUENO- (3).webp",
-        "imagens/BUENO/BUENO- (4).webp",
-        "imagens/BUENO/BUENO- (5).webp",
-        "imagens/BUENO/BUENO- (6).webp",
-        "imagens/BUENO/BUENO- (7).webp",
-        "imagens/BUENO/BUENO- (8).webp",
-        "imagens/BUENO/BUENO- (9).webp",
-        "imagens/BUENO/BUENO-(1).webp",
-        "imagens/BUENO/perfil-BUENO.webp"
-      ]
-    },
-    {
-      "id": "C0K3",
-      "nome": "C0K3",
-      "logo": "imagens/C0K3/C0K3+CBO.jpg",
-      "instagramLink": "https://www.instagram.com/c0k3",
-      "instagramHandle": "@c0k3",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/C0K3/C0K3+CBO.jpg",
-        "imagens/C0K3/C0K3+ECT.jpg",
-        "imagens/C0K3/C0K3+STR-2.jpg",
-        "imagens/C0K3/C0K3+STR.jpg",
-        "imagens/C0K3/C0K3-0.jpg",
-        "imagens/C0K3/C0K3-1.jpg",
-        "imagens/C0K3/perfil-NOX-C0K3.jpg"
-      ]
-    },
-    {
-      "id": "CACHOS",
-      "nome": "CACHOS",
-      "logo": "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.48.jpeg",
-      "instagramLink": "https://www.instagram.com/cachos",
-      "instagramHandle": "@cachos",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.48.jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (1).jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (2).jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (3).jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49.jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50 (1).jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50 (2).jpeg",
-        "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50.jpeg"
-      ]
-    },
-    {
-      "id": "CODE",
-      "nome": "CODE",
-      "logo": "imagens/CODE/1.jpg",
-      "instagramLink": "https://www.instagram.com/code",
-      "instagramHandle": "@code",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/CODE/1.jpg",
-        "imagens/CODE/1MAD_1749.jpeg",
-        "imagens/CODE/2.jpg",
-        "imagens/CODE/3.jpg",
-        "imagens/CODE/4.jpg",
-        "imagens/CODE/BED3FA80-C019-41B0-A61F-CF7ED9316E9E.jpg",
-        "imagens/CODE/IIUB1882.jpg",
-        "imagens/CODE/IMG_0605.jpg",
-        "imagens/CODE/IMG_2421.jpg",
-        "imagens/CODE/IMG_2961.jpg",
-        "imagens/CODE/IMG_6753.jpg",
-        "imagens/CODE/LOGO.jpg",
-        "imagens/CODE/UAJN6980.jpg"
-      ]
-    },
-    {
-      "id": "DRAKE",
-      "nome": "DRAKE",
-      "logo": "imagens/DRAKE/LOGO.JPG",
-      "instagramLink": "https://www.instagram.com/drake",
-      "instagramHandle": "@drake",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/DRAKE/LOGO.JPG",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.18.jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (1).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (2).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (3).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (4).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (5).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (6).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (7).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20.jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (1).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (2).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (3).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22.jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (1).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (2).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (3).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23.jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (1).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (2).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (3).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (4).jpeg",
-        "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24.jpeg"
-      ]
-    },
-    {
-      "id": "DREIP",
-      "nome": "DREIP",
-      "logo": "imagens/DREIP/IMG-20250915-WA0032.jpg",
-      "instagramLink": "https://www.instagram.com/dreip",
-      "instagramHandle": "@dreip",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/DREIP/IMG-20250915-WA0032.jpg",
-        "imagens/DREIP/IMG-20250915-WA0033.jpg",
-        "imagens/DREIP/LOGO.PNG",
-        "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (1).jpeg",
-        "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (2).jpeg",
-        "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11.jpeg",
-        "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.12.jpeg",
-        "imagens/DREIP/WhatsApp Image 2025-09-10 at 19.42.30.jpeg"
-      ]
-    },
-    {
-      "id": "GHOST",
-      "nome": "GHOST",
-      "logo": "imagens/GHOST/abd 01.png",
-      "instagramLink": "https://www.instagram.com/ghost",
-      "instagramHandle": "@ghost",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/GHOST/abd 01.png",
-        "imagens/GHOST/abd 02.png",
-        "imagens/GHOST/arte 01.png",
-        "imagens/GHOST/Av 01.png",
-        "imagens/GHOST/Av 02.png",
-        "imagens/GHOST/Av 03.png",
-        "imagens/GHOST/Billy 01.png",
-        "imagens/GHOST/Billy 02.png",
-        "imagens/GHOST/Blue 01.png",
-        "imagens/GHOST/Bomb house 01.png",
-        "imagens/GHOST/Bomb house 02.png",
-        "imagens/GHOST/Bomb house 03.png",
-        "imagens/GHOST/Escots 01.png",
-        "imagens/GHOST/Green 01.png",
-        "imagens/GHOST/Hen colab 01.png",
-        "imagens/GHOST/Hen colab 02.png",
-        "imagens/GHOST/LOGO.PNG",
-        "imagens/GHOST/orange 01.png",
-        "imagens/GHOST/Pink 01.jpg",
-        "imagens/GHOST/Purp 01.png",
-        "imagens/GHOST/Red 01.png",
-        "imagens/GHOST/Red 02.png",
-        "imagens/GHOST/Red 7 ceu.png",
-        "imagens/GHOST/Snow 01.png",
-        "imagens/GHOST/wall 01.png",
-        "imagens/GHOST/Water blue 01.png"
-      ]
-    },
-    {
-      "id": "GIN",
-      "nome": "GIN",
-      "logo": "imagens/GIN/521445531_1258735535744530_2177761672207665036_n.jpg",
-      "instagramLink": "https://www.instagram.com/gin",
-      "instagramHandle": "@gin",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/GIN/521445531_1258735535744530_2177761672207665036_n.jpg",
-        "imagens/GIN/524449028_1453816849092637_6884885368299985776_n.jpg",
-        "imagens/GIN/528386687_1397314051347361_8080432050808885005_n.jpg",
-        "imagens/GIN/532255655_1454697575873828_5098013903539649038_n.jpg",
-        "imagens/GIN/542917939_713048091767025_2327315821423915960_n.jpg",
-        "imagens/GIN/543714391_1321225072732529_5767126444206613951_n.jpg",
-        "imagens/GIN/545342447_1549670043068765_5435812025153791597_n.jpg",
-        "imagens/GIN/LOGO.JPG"
-      ]
-    },
-    {
-      "id": "IUGUE",
-      "nome": "IUGUE",
-      "logo": "imagens/IUGUE/IUGUE (10).webp",
-      "instagramLink": "https://www.instagram.com/iugue",
-      "instagramHandle": "@iugue",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/IUGUE/IUGUE (10).webp",
-        "imagens/IUGUE/IUGUE (11).webp",
-        "imagens/IUGUE/IUGUE (12).webp",
-        "imagens/IUGUE/IUGUE (13).webp",
-        "imagens/IUGUE/IUGUE (14).webp",
-        "imagens/IUGUE/IUGUE (15).webp",
-        "imagens/IUGUE/IUGUE (16).webp",
-        "imagens/IUGUE/IUGUE (17).webp",
-        "imagens/IUGUE/IUGUE (18).webp",
-        "imagens/IUGUE/IUGUE (19).webp",
-        "imagens/IUGUE/IUGUE (2).webp",
-        "imagens/IUGUE/IUGUE (20).webp",
-        "imagens/IUGUE/IUGUE (21).webp",
-        "imagens/IUGUE/IUGUE (22).webp",
-        "imagens/IUGUE/IUGUE (23).webp",
-        "imagens/IUGUE/IUGUE (24).webp",
-        "imagens/IUGUE/IUGUE (25).webp",
-        "imagens/IUGUE/IUGUE (26).webp",
-        "imagens/IUGUE/IUGUE (27).webp",
-        "imagens/IUGUE/IUGUE (28).webp",
-        "imagens/IUGUE/IUGUE (29).webp",
-        "imagens/IUGUE/IUGUE (3).webp",
-        "imagens/IUGUE/IUGUE (30).webp",
-        "imagens/IUGUE/IUGUE (31).webp",
-        "imagens/IUGUE/IUGUE (32).webp",
-        "imagens/IUGUE/IUGUE (33).webp",
-        "imagens/IUGUE/IUGUE (34).webp",
-        "imagens/IUGUE/IUGUE (35).webp",
-        "imagens/IUGUE/IUGUE (36).webp",
-        "imagens/IUGUE/IUGUE (37).webp",
-        "imagens/IUGUE/IUGUE (38).webp",
-        "imagens/IUGUE/IUGUE (39).webp",
-        "imagens/IUGUE/IUGUE (4).webp",
-        "imagens/IUGUE/IUGUE (40).webp",
-        "imagens/IUGUE/IUGUE (41).webp",
-        "imagens/IUGUE/IUGUE (42).webp",
-        "imagens/IUGUE/IUGUE (43).webp",
-        "imagens/IUGUE/IUGUE (5).webp",
-        "imagens/IUGUE/IUGUE (6).webp",
-        "imagens/IUGUE/IUGUE (7).webp",
-        "imagens/IUGUE/IUGUE (8).webp",
-        "imagens/IUGUE/IUGUE (9).webp",
-        "imagens/IUGUE/IUGUE.webp"
-      ]
-    },
-    {
-      "id": "JOCA",
-      "nome": "JOCA",
-      "logo": "imagens/JOCA/JOCA-1.jpg",
-      "instagramLink": "https://www.instagram.com/joca",
-      "instagramHandle": "@joca",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/JOCA/JOCA-1.jpg",
-        "imagens/JOCA/JOCA-2.jpg",
-        "imagens/JOCA/JOCA-3.jpg",
-        "imagens/JOCA/JOCA-4.jpg",
-        "imagens/JOCA/JOCA-5.jpg",
-        "imagens/JOCA/JOCA-6.JPG",
-        "imagens/JOCA/JOCA-7.jpg",
-        "imagens/JOCA/PERFIL-JOCA.jpg"
-      ]
-    },
-    {
-      "id": "JOKER",
-      "nome": "JOKER",
-      "logo": "imagens/JOKER/JOKER-1.jpg",
-      "instagramLink": "https://www.instagram.com/joker",
-      "instagramHandle": "@joker",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/JOKER/JOKER-1.jpg",
-        "imagens/JOKER/JOKER-2.jpg",
-        "imagens/JOKER/JOKER-3.jpg",
-        "imagens/JOKER/JOKER-4.jpg",
-        "imagens/JOKER/JOKER-5.jpg",
-        "imagens/JOKER/JOKER-6.webp",
-        "imagens/JOKER/JOKER-7.jpg",
-        "imagens/JOKER/JOKER-8.jpg"
-      ]
-    },
-    {
-      "id": "LIGHT",
-      "nome": "LIGHT",
-      "logo": "imagens/LIGHT/LIGHT-1.webp",
-      "instagramLink": "https://www.instagram.com/light",
-      "instagramHandle": "@light",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/LIGHT/LIGHT-1.webp",
-        "imagens/LIGHT/LIGHT-10.webp",
-        "imagens/LIGHT/LIGHT-11.webp",
-        "imagens/LIGHT/LIGHT-12.webp",
-        "imagens/LIGHT/LIGHT-2.webp",
-        "imagens/LIGHT/LIGHT-3.webp",
-        "imagens/LIGHT/LIGHT-4,1.webp",
-        "imagens/LIGHT/LIGHT-4.webp",
-        "imagens/LIGHT/LIGHT-5,1.webp",
-        "imagens/LIGHT/LIGHT-6,1.webp",
-        "imagens/LIGHT/LIGHT-7.webp",
-        "imagens/LIGHT/LIGHT-8.webp",
-        "imagens/LIGHT/LIGHT-9.webp",
-        "imagens/LIGHT/logo-LIGHT.webp"
-      ]
-    },
-    {
-      "id": "MANDALEIRA",
-      "nome": "MANDALEIRA",
-      "logo": "imagens/MANDALEIRA/20250216_163019.jpg",
-      "instagramLink": "https://www.instagram.com/mandaleira",
-      "instagramHandle": "@mandaleira",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/MANDALEIRA/20250216_163019.jpg",
-        "imagens/MANDALEIRA/20250501_164831.jpg",
-        "imagens/MANDALEIRA/3C76E200-7793-4ACE-8A49-442677212039.jpeg",
-        "imagens/MANDALEIRA/6523E65F-AEAE-48B4-83A3-32FA34D5B4F2.jpeg",
-        "imagens/MANDALEIRA/FA63058E-D770-42BF-8810-DA6B71FB3F71.jpeg",
-        "imagens/MANDALEIRA/IMG-20241229-WA0111.jpg",
-        "imagens/MANDALEIRA/IMG-20250713-WA0047.jpg",
-        "imagens/MANDALEIRA/IMG-20250729-WA0037.jpg",
-        "imagens/MANDALEIRA/inbound6194958524197455193.jpg",
-        "imagens/MANDALEIRA/LOGO.JPG",
-        "imagens/MANDALEIRA/Screenshot_20250705_222734_Instagram.jpg"
-      ]
-    },
-    {
-      "id": "NOX",
-      "nome": "NOX",
-      "logo": "imagens/NOX/perfil-NOX-C0K3.jpg",
-      "instagramLink": "https://www.instagram.com/nox",
-      "instagramHandle": "@nox",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/NOX/perfil-NOX-C0K3.jpg",
-        "imagens/NOX/trik+nox.JPG"
-      ]
-    },
-    {
-      "id": "OLHOS",
-      "nome": "OLHOS",
-      "logo": "imagens/OLHOS/IMG_20250905_162635_329.jpg",
-      "instagramLink": "https://www.instagram.com/olhos",
-      "instagramHandle": "@olhos",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/OLHOS/IMG_20250905_162635_329.jpg",
-        "imagens/OLHOS/IMG_20250905_162640_824.jpg",
-        "imagens/OLHOS/IMG_20250905_162645_659.jpg",
-        "imagens/OLHOS/IMG_20250905_162657_642.jpg",
-        "imagens/OLHOS/IMG_20250905_162701_396.jpg",
-        "imagens/OLHOS/IMG_20250905_162704_589.jpg",
-        "imagens/OLHOS/IMG_20250905_162707_289.jpg",
-        "imagens/OLHOS/LOGO.JPG"
-      ]
-    },
-    {
-      "id": "SASK",
-      "nome": "SASK",
-      "logo": "imagens/SASK/LOGO.PNG",
-      "instagramLink": "https://www.instagram.com/sask",
-      "instagramHandle": "@sask",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/SASK/LOGO.PNG",
-        "imagens/SASK/SASK-11.JPG",
-        "imagens/SASK/SASK-12.JPG",
-        "imagens/SASK/SASK-13.JPG",
-        "imagens/SASK/SASK-14.JPG",
-        "imagens/SASK/SASK-15.JPG",
-        "imagens/SASK/SASK-16.JPG",
-        "imagens/SASK/SASK-17.JPG",
-        "imagens/SASK/SASK-2.JPG",
-        "imagens/SASK/SASK-3.JPG",
-        "imagens/SASK/SASK-4.JPG",
-        "imagens/SASK/SASK-5.JPG",
-        "imagens/SASK/SASK-6.JPG",
-        "imagens/SASK/SASK-7.JPG",
-        "imagens/SASK/SASK.-10JPG.jpg",
-        "imagens/SASK/SASK.-8JPG.jpg",
-        "imagens/SASK/SASK.-9JPG.jpg",
-        "imagens/SASK/SASK.JPG"
+        "imagens/SVL/SVL-SEMEATO.jpg",
+        "imagens/SVL/SVL-CONT.jpg",
+        "imagens/SVL/CREITO.jpg",
+        "imagens/SVL/KREK-DG.jpg",
+        "imagens/SVL/KREK-DG2.jpg",
+        "imagens/SVL/SLV-DG.jpg",
+        "imagens/SVL/SLV-DG2.jpg",
+        "imagens/SVL/SLV-DG3.jpg",
+        "imagens/SVL/STR+SVL.JPG",
+        "imagens/SVL/STR+SVL-1.jpg",
+        "imagens/SVL/SVL-BCT.jpg",
+        "imagens/SVL/svl-gare.JPG",
+        "imagens/SVL/SVL-TELA.webp",
+        "imagens/SVL/SVL-TRAJE.JPG"
       ]
     },
     {
       "id": "STR",
       "nome": "STR",
+      "categoria": ["pixo"],
       "logo": "imagens/STR/C0K3+STR.jpg",
-      "instagramLink": "https://www.instagram.com/str",
-      "instagramHandle": "@str",
-      "categoria": [
-        "padrão"
-      ],
+      "instagramLink": "https://www.instagram.com/silvastr_",
+      "instagramHandle": "@SILVASTR_",
       "imagens": [
+        "imagens/STR/STR-TRIK.jpg",
         "imagens/STR/C0K3+STR.jpg",
         "imagens/STR/NOX-STR.jpg",
         "imagens/STR/STR+SECA-1.jpg",
         "imagens/STR/STR+SECA-2.jpg",
         "imagens/STR/STR+SLV.JPG",
         "imagens/STR/STR+SVL-1.jpg",
-        "imagens/STR/STR-3.jpg",
-        "imagens/STR/STR-4.jpg",
-        "imagens/STR/STR-5.jpg",
-        "imagens/STR/STR-7.jpg",
-        "imagens/STR/STR-GARE.jpg",
-        "imagens/STR/STR-TRIK.jpg",
         "imagens/STR/STR1.jpg",
         "imagens/STR/STR2.jpg",
+        "imagens/STR/STR-3.jpg",
         "imagens/STR/STR3.webp",
-        "imagens/STR/STR4.webp"
+        "imagens/STR/STR-4.jpg",
+        "imagens/STR/STR4.webp",
+        "imagens/STR/STR-5.jpg",
+        "imagens/STR/STR-7.jpg",
+        "imagens/STR/STR-GARE.jpg"
       ]
     },
     {
-      "id": "SVL",
-      "nome": "SVL",
-      "logo": "imagens/SVL/CREITO.jpg",
-      "instagramLink": "https://www.instagram.com/svl",
-      "instagramHandle": "@svl",
-      "categoria": [
-        "padrão"
-      ],
+      "id": "JOCA",
+      "nome": "JOCA",
+      "categoria": ["pixo","graff"],
+      "logo": "imagens/JOCA/PERFIL-JOCA.jpg",
+      "instagramLink": "https://www.instagram.com/jocaverde/",
+      "instagramHandle": "@JOCAVERDE",
       "imagens": [
-        "imagens/SVL/CREITO.jpg",
-        "imagens/SVL/img-20250830-wa0088.jpg",
-        "imagens/SVL/KREK-DG.jpg",
-        "imagens/SVL/KREK-DG2.jpg",
-        "imagens/SVL/SLV-DG.jpg",
-        "imagens/SVL/SLV-DG2.jpg",
-        "imagens/SVL/SLV-DG3.jpg",
-        "imagens/SVL/STR+SVL-1.jpg",
-        "imagens/SVL/STR+SVL.JPG",
-        "imagens/SVL/SVL-BCT.jpg",
-        "imagens/SVL/SVL-CONT.jpg",
-        "imagens/SVL/svl-gare.JPG",
-        "imagens/SVL/SVL-SEMEATO.jpg",
-        "imagens/SVL/SVL-TELA.webp",
-        "imagens/SVL/SVL-TRAJE.JPG"
-      ]
-    },
+        "imagens/JOCA/JOCA-7.jpg",
+        "imagens/JOCA/JOCA-1.jpg",
+        "imagens/JOCA/JOCA-2.jpg",
+        "imagens/JOCA/JOCA-3.jpg",
+        "imagens/JOCA/JOCA-4.jpg",
+        "imagens/JOCA/JOCA-5.jpg",
+        "imagens/JOCA/JOCA-6.JPG"
+    ]
+  },
     {
-      "id": "TRESUM",
-      "nome": "TRESUM",
-      "logo": "imagens/TRESUM/Screenshot_20250908_180028_Instagram.jpg",
-      "instagramLink": "https://www.instagram.com/tresum",
-      "instagramHandle": "@tresum",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/TRESUM/Screenshot_20250908_180028_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180047_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180111_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180141_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180220_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180253_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180312_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180336_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180404_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180431_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180452_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180514_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180534_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180553_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180625_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180701_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180722_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180734_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180746_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180832_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180851_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_180937_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181035_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181118_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181138_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181226_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181259_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181335_Gallery.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181346_Gallery.jpg",
-        "imagens/TRESUM/Screenshot_20250908_181754_Instagram.jpg",
-        "imagens/TRESUM/Screenshot_20250908_182004_Instagram.jpg",
-        "imagens/TRESUM/TRESUM.LOGO.JPG"
-      ]
-    },
-    {
-      "id": "TRIK",
-      "nome": "TRIK",
-      "logo": "imagens/TRIK/STR-TRIK.jpg",
-      "instagramLink": "https://www.instagram.com/trik",
-      "instagramHandle": "@trik",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/TRIK/STR-TRIK.jpg",
-        "imagens/TRIK/TRIK-1.JPG",
-        "imagens/TRIK/TRIK-3.JPG",
-        "imagens/TRIK/TRIK-4.JPG",
-        "imagens/TRIK/TRIK-CXS.JPG",
-        "imagens/TRIK/TRIK.jpg"
-      ]
-    },
-    {
-      "id": "TRUE",
-      "nome": "TRUE",
-      "logo": "imagens/TRUE/TRUE-1.png",
-      "instagramLink": "https://www.instagram.com/true",
-      "instagramHandle": "@true",
-      "categoria": [
-        "padrão"
-      ],
-      "imagens": [
-        "imagens/TRUE/TRUE-1.png",
-        "imagens/TRUE/TRUE-2.png",
-        "imagens/TRUE/TRUE-3.png",
-        "imagens/TRUE/TRUE-4.png",
-        "imagens/TRUE/TRUE-5.png",
-        "imagens/TRUE/TRUE-6.png",
-        "imagens/TRUE/TRUE-7.png",
-        "imagens/TRUE/TRUE-8.png",
-        "imagens/TRUE/TRUE-9.png",
-        "imagens/TRUE/TRUE-LOGO.jpg"
-      ]
-    }
+  "id": "IUGUE",
+  "nome": "IUGUE",
+  "categoria": ["graff"],
+  "logo": "imagens/IUGUE/IUGUE (36).webp",
+  "instagramLink": "https://www.instagram.com/iugue/",
+  "instagramHandle": "@IUGUE",
+  "imagens": [
+    "imagens/IUGUE/IUGUE (2).webp",
+    "imagens/IUGUE/IUGUE (3).webp",
+    "imagens/IUGUE/IUGUE (4).webp",
+    "imagens/IUGUE/IUGUE (7).webp",
+    "imagens/IUGUE/IUGUE (8).webp",
+    "imagens/IUGUE/IUGUE (9).webp",
+    "imagens/IUGUE/IUGUE (12).webp",
+    "imagens/IUGUE/IUGUE (13).webp",
+    "imagens/IUGUE/IUGUE (14).webp",
+    "imagens/IUGUE/IUGUE (17).webp",
+    "imagens/IUGUE/IUGUE (18).webp",
+    "imagens/IUGUE/IUGUE (19).webp",
+    "imagens/IUGUE/IUGUE (22).webp",
+    "imagens/IUGUE/IUGUE (23).webp",
+    "imagens/IUGUE/IUGUE (24).webp",
+    "imagens/IUGUE/IUGUE (27).webp",
+    "imagens/IUGUE/IUGUE (28).webp",
+    "imagens/IUGUE/IUGUE (29).webp",
+    "imagens/IUGUE/IUGUE (32).webp",
+    "imagens/IUGUE/IUGUE (33).webp",
+    "imagens/IUGUE/IUGUE (34).webp",
+    "imagens/IUGUE/IUGUE (37).webp",
+    "imagens/IUGUE/IUGUE (38).webp",
+    "imagens/IUGUE/IUGUE (39).webp",
+    "imagens/IUGUE/IUGUE (42).webp",
+    "imagens/IUGUE/IUGUE (43).webp",
+    "imagens/IUGUE/IUGUE.webp"
+  ]
+  },
+  {
+  "id": "BUENO",
+  "nome": "BUENO",
+  "categoria": ["pixo","graff"],
+  "logo": "imagens/BUENO/perfil-BUENO.webp",
+  "instagramLink": "https://www.instagram.com/gusta2008bueno/",
+  "instagramHandle": "@GUSTA2008BUENO",
+  "imagens": [
+    "imagens/BUENO/BUENO- (2).webp",
+    "imagens/BUENO/BUENO- (3).webp",
+    "imagens/BUENO/BUENO- (4).webp",
+    "imagens/BUENO/BUENO- (5).webp",
+    "imagens/BUENO/BUENO- (6).webp",
+    "imagens/BUENO/BUENO- (7).webp",
+    "imagens/BUENO/BUENO- (8).webp",
+    "imagens/BUENO/BUENO- (9).webp",
+    "imagens/BUENO/BUENO- (10).webp",
+    "imagens/BUENO/BUENO- (11).webp",
+    "imagens/BUENO/BUENO- (12).webp",
+    "imagens/BUENO/BUENO- (13).webp",
+    "imagens/BUENO/BUENO- (14).webp",
+    "imagens/BUENO/BUENO- (15).webp",
+    "imagens/BUENO/BUENO- (16).webp",
+    "imagens/BUENO/BUENO- (17).webp",
+    "imagens/BUENO/BUENO- (18).webp",
+    "imagens/BUENO/BUENO- (19).webp",
+    "imagens/BUENO/BUENO- (20).webp",
+    "imagens/BUENO/BUENO- (21).webp",
+    "imagens/BUENO/BUENO- (22).webp",
+    "imagens/BUENO/BUENO-(1).webp"
+  ]
+},
+{
+  "id": "TRIK",
+  "nome": "TRIK",
+  "categoria": ["pixo"],
+  "logo": "imagens/TRIK/TRIK.jpg",
+  "instagramLink": "https://www.instagram.com/silvastr_",
+  "instagramHandle": "@SILVASTR_",
+  "imagens": [
+    "imagens/TRIK/STR-TRIK.jpg",
+    "imagens/TRIK/TRIK.jpg",
+    "imagens/TRIK/TRIK-1.JPG",
+    "imagens/TRIK/TRIK-3.JPG",
+    "imagens/TRIK/TRIK-4.JPG",
+    "imagens/TRIK/TRIK-CXS.JPG"
+  ]
+},
+{
+  "id": "C0K3",
+  "nome": "COK3",
+  "categoria": ["pixo"],
+  "logo": "imagens/C0K3/C0K3-1.jpg",
+  "instagramLink": "https://www.instagram.com/c0k3.1312/",
+  "instagramHandle": "@C0K3.1312",
+  "imagens": [
+    "imagens/C0K3/C0K3+CBO.jpg",
+    "imagens/C0K3/C0K3+ECT.jpg",
+    "imagens/C0K3/C0K3+STR.jpg",
+    "imagens/C0K3/C0K3+STR-2.jpg",
+    "imagens/C0K3/C0K3-0.jpg",
+    "imagens/C0K3/C0K3-1.jpg"
+  ]
+},{
+  "id": "LIGHT",
+  "nome": "LIGHT",
+  "categoria": ["graff"],
+  "logo": "imagens/LIGHT/logo-LIGHT.webp",
+  "instagramLink": "https://www.instagram.com/light_452",
+  "instagramHandle": "@LIGHT_452",
+  "imagens": [
+    "imagens/LIGHT/LIGHT-1.webp",
+    "imagens/LIGHT/LIGHT-2.webp",
+    "imagens/LIGHT/LIGHT-3.webp",
+    "imagens/LIGHT/LIGHT-4,1.webp",
+    "imagens/LIGHT/LIGHT-5,1.webp",
+    "imagens/LIGHT/LIGHT-6,1.webp",
+    "imagens/LIGHT/LIGHT-7.webp",
+    "imagens/LIGHT/LIGHT-8.webp",
+    "imagens/LIGHT/LIGHT-9.webp",
+    "imagens/LIGHT/LIGHT-10.webp",
+    "imagens/LIGHT/LIGHT-11.webp",
+    "imagens/LIGHT/LIGHT-12.webp"
+  ]
+},
+{
+  "id": "TRUE",
+  "nome": "TRUE",
+  "categoria": ["pixo"],
+  "logo": "imagens/TRUE/TRUE-LOGO.jpg",
+  "instagramLink": "https://www.instagram.com/true1souza/",
+  "instagramHandle": "@TRUE1SOUZA",
+  "imagens": [
+    "imagens/TRUE/TRUE-1.png",
+    "imagens/TRUE/TRUE-2.png",
+    "imagens/TRUE/TRUE-3.png",
+    "imagens/TRUE/TRUE-4.png",
+    "imagens/TRUE/TRUE-5.png",
+    "imagens/TRUE/TRUE-6.png",
+    "imagens/TRUE/TRUE-7.png",
+    "imagens/TRUE/TRUE-8.png",
+    "imagens/TRUE/TRUE-9.png",
+    "imagens/TRUE/TRUE-LOGO.jpg"
+  ]
+},
+{
+  "id": "JOKER",
+  "nome": "JOKER",
+  "categoria": ["pixo","graff"],
+  "logo": "imagens/JOKER/JOKER-6.webp",
+  "instagramLink": "https://www.instagram.com/",
+  "instagramHandle": "SEM CONTATO",
+  "imagens": [
+    "imagens/JOKER/JOKER-1.jpg",
+    "imagens/JOKER/JOKER-2.jpg",
+    "imagens/JOKER/JOKER-3.jpg",
+    "imagens/JOKER/JOKER-4.jpg",
+    "imagens/JOKER/JOKER-5.jpg",
+    "imagens/JOKER/JOKER-6.webp",
+    "imagens/JOKER/JOKER-7.jpg",
+    "imagens/JOKER/JOKER-8.jpg"
+  ]
+},
+{
+  "id": "CODE",
+  "nome": "CODE",
+  "categoria": ["graff"],
+  "logo": "imagens/CODE/LOGO.jpg",
+  "instagramLink": "https://www.instagram.com/eduardo.code",
+  "instagramHandle": "@EDUARDO.CODE",
+  "imagens": [
+    "imagens/CODE/1.jpg",
+    "imagens/CODE/1MAD_1749.jpeg",
+    "imagens/CODE/2.jpg",
+    "imagens/CODE/3.JPG",
+    "imagens/CODE/4.JPG",
+    "imagens/CODE/BED3FA80-C019-41B0-A61F-CF7ED9316E9E.jpg",
+    "imagens/CODE/IIUB1882.JPG",
+    "imagens/CODE/IMG_0605.JPG",
+    "imagens/CODE/IMG_2421.JPG",
+    "imagens/CODE/IMG_2961.JPG",
+    "imagens/CODE/IMG_6753.jpg",
+    "imagens/CODE/UAJN6980.JPG"
+  ]
+},
+{
+  "id": "OLHOS",
+  "nome": "OLHOS",
+  "categoria": ["graff"],
+  "logo": "imagens/OLHOS/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/olhos_smk/",
+  "instagramHandle": "@OLHOS_SMK",
+  "imagens": [
+    "imagens/OLHOS/IMG_20250905_162635_329.jpg",
+    "imagens/OLHOS/IMG_20250905_162640_824.jpg",
+    "imagens/OLHOS/IMG_20250905_162645_659.jpg",
+    "imagens/OLHOS/IMG_20250905_162657_642.jpg",
+    "imagens/OLHOS/IMG_20250905_162701_396.jpg",
+    "imagens/OLHOS/IMG_20250905_162704_589.jpg",
+    "imagens/OLHOS/IMG_20250905_162707_289.jpg"
+  ]
+},
+{
+  "id": "MANDALEIRA",
+  "nome": "MANDALEIRA",
+  "categoria": ["graff"],
+  "logo": "imagens/MANDALEIRA/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/mandaleiramuri/",
+  "instagramHandle": "@MANDALEIRAMURI",
+  "imagens": [
+    "imagens/MANDALEIRA/3C76E200-7793-4ACE-8A49-442677212039.jpeg",
+    "imagens/MANDALEIRA/6523E65F-AEAE-48B4-83A3-32FA34D5B4F2.jpeg",
+    "imagens/MANDALEIRA/20250216_163019.jpg",
+    "imagens/MANDALEIRA/20250501_164831.jpg",
+    "imagens/MANDALEIRA/FA63058E-D770-42BF-8810-DA6B71FB3F71.jpeg",
+    "imagens/MANDALEIRA/IMG-20241229-WA0111.jpg",
+    "imagens/MANDALEIRA/IMG-20250713-WA0047.jpg",
+    "imagens/MANDALEIRA/IMG-20250729-WA0037.jpg",
+    "imagens/MANDALEIRA/inbound6194958524197455193.jpg",
+    "imagens/MANDALEIRA/Screenshot_20250705_222734_Instagram.jpg"
+  ]
+},
+{
+  "id": "DREIP",
+  "nome": "DREIP",
+  "categoria": ["pixo"],
+  "logo": "imagens/DREIP/LOGO.PNG",
+  "instagramLink": "https://www.instagram.com/manodreip/",
+  "instagramHandle": "@MANODREIP",
+  "imagens": [
+    "imagens/DREIP/LOGO.PNG",
+    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (1).jpeg",
+    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (2).jpeg",
+    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11.jpeg",
+    "imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.12.jpeg",
+    "imagens/DREIP/WhatsApp Image 2025-09-10 at 19.42.30.jpeg"
+  ]
+},
+{
+  "id": "GHOST",
+  "nome": "GHOST",
+  "categoria": ["graff"],
+  "logo": "imagens/GHOST/LOGO.PNG",
+  "instagramLink": "https://www.instagram.com/ghostboygraff",
+  "instagramHandle": "@GHOSTBOYGRAFF",
+  "imagens": [
+    "imagens/GHOST/abd 01.png",
+    "imagens/GHOST/abd 02.png",
+    "imagens/GHOST/arte 01.png",
+    "imagens/GHOST/Av 01.png",
+    "imagens/GHOST/Av 02.png",
+    "imagens/GHOST/Av 03.png",
+    "imagens/GHOST/Billy 01.png",
+    "imagens/GHOST/Billy 02.png",
+    "imagens/GHOST/Blue 01.png",
+    "imagens/GHOST/Bomb house 01.png",
+    "imagens/GHOST/Bomb house 02.png",
+    "imagens/GHOST/Bomb house 03.png",
+    "imagens/GHOST/Escots 01.png",
+    "imagens/GHOST/Green 01.png",
+    "imagens/GHOST/Hen colab 01.png",
+    "imagens/GHOST/Hen colab 02.png",
+    "imagens/GHOST/orange 01.png",
+    "imagens/GHOST/Pink 01.jpg",
+    "imagens/GHOST/Purp 01.png",
+    "imagens/GHOST/Red 01.png",
+    "imagens/GHOST/Red 02.png",
+    "imagens/GHOST/Red 7 ceu.png",
+    "imagens/GHOST/Snow 01.png",
+    "imagens/GHOST/wall 01.png",
+    "imagens/GHOST/Water blue 01.png"
+  ]
+},
+{
+  "id": "DRAKE",
+  "nome": "DRAKE",
+  "categoria": ["graff"],
+  "logo": "imagens/DRAKE/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/drakesgraf",
+  "instagramHandle": "@DRAKESGRAF",
+  "imagens": [
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.18.jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (1).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (2).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (3).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (4).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (5).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (6).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (7).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20.jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (1).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (2).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22 (3).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.22.jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (1).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (2).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23 (3).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.23.jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (1).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (2).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (3).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24 (4).jpeg",
+    "imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.24.jpeg"
+  ]
+},
+{
+  "id": "SASK",
+  "nome": "SASK",
+  "categoria": ["graff"],
+  "logo": "imagens/SASK/LOGO.PNG",
+  "instagramLink": "https://www.instagram.com/cupinxaria_sk",
+  "instagramHandle": "@CUPINXARIA_SK",
+  "imagens": [
+    "imagens/SASK/SASK.-8JPG.jpg",
+    "imagens/SASK/SASK.-9JPG.jpg",
+    "imagens/SASK/SASK.-10JPG.jpg",
+    "imagens/SASK/SASK.JPG",
+    "imagens/SASK/SASK-2.JPG",
+    "imagens/SASK/SASK-3.JPG",
+    "imagens/SASK/SASK-4.JPG",
+    "imagens/SASK/SASK-5.JPG",
+    "imagens/SASK/SASK-6.JPG",
+    "imagens/SASK/SASK-7.JPG",
+    "imagens/SASK/SASK-11.JPG",
+    "imagens/SASK/SASK-12.JPG",
+    "imagens/SASK/SASK-13.JPG",
+    "imagens/SASK/SASK-14.JPG",
+    "imagens/SASK/SASK-15.JPG",
+    "imagens/SASK/SASK-16.JPG",
+    "imagens/SASK/SASK-17.JPG"
+  ]
+},
+{
+  "id": "TRESUM",
+  "nome": "TRESUM",
+  "categoria": ["graff"],
+  "logo": "imagens/TRESUM/TRESUM.LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/_tresum",
+  "instagramHandle": "@_TRESUM",
+  "imagens": [
+    "imagens/TRESUM/Screenshot_20250908_180028_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180047_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180111_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180141_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180220_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180253_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180312_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180336_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180404_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180431_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180452_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180514_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180534_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180553_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180625_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180701_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180722_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180734_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180746_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180832_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180851_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_180937_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181035_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181118_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181138_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181226_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181259_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181335_Gallery.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181346_Gallery.jpg",
+    "imagens/TRESUM/Screenshot_20250908_181754_Instagram.jpg",
+    "imagens/TRESUM/Screenshot_20250908_182004_Instagram.jpg"
+  ]
+},
+{
+  "id": "GIN",
+  "nome": "GIN",
+  "categoria": ["graff"],
+  "logo": "imagens/GIN/LOGO.JPG",
+  "instagramLink": "https://www.instagram.com/gin_arts",
+  "instagramHandle": "@GIN_ARTS",
+  "imagens": [
+    "imagens/GIN/521445531_1258735535744530_2177761672207665036_n.jpg",
+    "imagens/GIN/524449028_1453816849092637_6884885368299985776_n.jpg",
+    "imagens/GIN/528386687_1397314051347361_8080432050808885005_n.jpg",
+    "imagens/GIN/532255655_1454697575873828_5098013903539649038_n.jpg",
+    "imagens/GIN/542917939_713048091767025_2327315821423915960_n.jpg",
+    "imagens/GIN/543714391_1321225072732529_5767126444206613951_n.jpg",
+    "imagens/GIN/545342447_1549670043068765_5435812025153791597_n.jpg"
+  ]
+},
+{
+  "id": "ATHOS",
+  "nome": "ATHOS",
+  "categoria": ["graff"],
+  "logo": "imagens/ATHOS/IMG-20250630-WA0039.jpg",
+  "instagramLink": "https://www.instagram.com/athoszilla",
+  "instagramHandle": "@ATHOSZILLA",
+  "imagens": [
+    "imagens/ATHOS/20250502_135549.jpg",
+    "imagens/ATHOS/20250608_102703.jpg",
+    "imagens/ATHOS/20250628_155817.jpg",
+    "imagens/ATHOS/20250713_110307.jpg",
+    "imagens/ATHOS/IMG_20240807_180132_402.jpg",
+    "imagens/ATHOS/IMG_20250319_113704_196.webp",
+    "imagens/ATHOS/IMG-20250116-WA0022.jpg",
+    "imagens/ATHOS/IMG-20250504-WA0070.jpg",
+    "imagens/ATHOS/IMG-20250511-WA0015.jpg",
+    "imagens/ATHOS/IMG-20250620-WA0008.jpg",
+    "imagens/ATHOS/IMG-20250630-WA0039.jpg"
+  ]
+}
   ]
 }
