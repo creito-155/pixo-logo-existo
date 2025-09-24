@@ -474,6 +474,43 @@
     "imagens/ATHOS/IMG-20250620-WA0008.jpg",
     "imagens/ATHOS/IMG-20250630-WA0039.jpg"
   ]
+},
+{
+  "id": "CACHOS",
+  "nome": "CACHOS",
+  "logo": "imagens/CACHOS/538837081_17860239951470077_1453145643903333882_n.jpg",
+  "instagramLink": "https://www.instagram.com/slvesamu/",
+  "instagramHandle": "@SLVESAMU",
+  "categoria": [
+    "graff",
+    "pixo"
+  ],
+  "imagens": [
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.48.jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (1).jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (2).jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (3).jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49.jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50 (1).jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50 (2).jpeg",
+    "imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50.jpeg"
+  ]
+},
+{
+  "id": "CRICS",
+  "nome": "CRICS",
+  "logo": "imagens/CRICS/342350150_922154485791022_595025869753825545_n.jpg",
+  "instagramLink": "https://www.instagram.com/mal.criada__/",
+  "instagramHandle": "@MAL.CRIADA__",
+  "categoria": ["graff"],
+  "imagens": [
+    "imagens/CRICS/IMG_0117.jpg",
+    "imagens/CRICS/IMG_1100.jpg",
+    "imagens/CRICS/IMG_2226.jpg",
+    "imagens/CRICS/IMG_2367.jpg",
+    "imagens/CRICS/IMG_2379.jpg",
+    "imagens/CRICS/IMG_3144.jpg"
+  ]
 }
   ]
 }
