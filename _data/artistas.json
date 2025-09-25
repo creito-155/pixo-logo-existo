@@ -512,6 +512,43 @@
     "imagens/CRICS/IMG_3144.jpg",
     "imagens/CRICS/IMG_0015.jpg"
   ]
+},{
+  "id": "ORANGE",
+  "nome": "ORANGE",
+  "logo": "imagens/ORANGE/LOGO.jpg",
+  "instagramLink": "https://www.instagram.com/orange_br21",
+  "instagramHandle": "@ORANGE_BR21",
+  "categoria": ["graff"],
+  "imagens": [
+    "imagens/ORANGE/dclassic 2025-04-13 200220.197.jpg",
+    "imagens/ORANGE/IMG_0607.jpg",
+    "imagens/ORANGE/IMG_0631.jpg",
+    "imagens/ORANGE/IMG_0698.jpg",
+    "imagens/ORANGE/IMG_0748.jpg",
+    "imagens/ORANGE/IMG_0764.jpg",
+    "imagens/ORANGE/IMG_1063.jpg",
+    "imagens/ORANGE/IMG_1567.jpg",
+    "imagens/ORANGE/IMG_1778.jpg",
+    "imagens/ORANGE/IMG_1807.jpg",
+    "imagens/ORANGE/IMG_1999.jpg",
+    "imagens/ORANGE/IMG_2683.jpg",
+    "imagens/ORANGE/IMG_3264.jpg",
+    "imagens/ORANGE/IMG_4038.jpg",
+    "imagens/ORANGE/IMG_5404.jpg",
+    "imagens/ORANGE/IMG_6223.jpg",
+    "imagens/ORANGE/IMG_6405.jpg",
+    "imagens/ORANGE/IMG_6581.jpg",
+    "imagens/ORANGE/IMG_6670.jpg",
+    "imagens/ORANGE/IMG_6964.jpg",
+    "imagens/ORANGE/IMG_7018.jpg",
+    "imagens/ORANGE/IMG_7305.jpg",
+    "imagens/ORANGE/IMG_8019.jpg",
+    "imagens/ORANGE/IMG_8065.jpg",
+    "imagens/ORANGE/IMG_8639.jpg",
+    "imagens/ORANGE/IMG_9408.jpg",
+    "imagens/ORANGE/IMG_9467.jpg",
+    "imagens/ORANGE/IMG_9797.jpg"
+  ]
 }
   ]
 }
