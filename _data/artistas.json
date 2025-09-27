@@ -553,8 +553,8 @@
 {
   "id": "PEAGA",
   "nome": "PEAGA",
-  "logo": "imagens/PEAGA/img20.jpg",
-  "instagramLink": "https://www.instagram.com/tal_do_peaga/",
+  "logo": "imagens/PEAGA/img38.jpg",
+  "instagramLink": "https://www.instagram.com/tal_do_peaga",
   "instagramHandle": "@TAL_DO_PEAGA",
   "categoria": ["graff"],
   "imagens": [
@@ -562,18 +562,16 @@
     "imagens/PEAGA/img5.jpg",
     "imagens/PEAGA/img8.jpg",
     "imagens/PEAGA/img11.jpg",
-    "imagens/PEAGA/img14.jpg",
     "imagens/PEAGA/img17.jpg",
     "imagens/PEAGA/img20.jpg",
     "imagens/PEAGA/img23.jpg",
     "imagens/PEAGA/img26.jpg",
-    "imagens/PEAGA/img29.jpg",
     "imagens/PEAGA/img32.jpg",
     "imagens/PEAGA/img35.jpg",
     "imagens/PEAGA/img38.jpg",
     "imagens/PEAGA/img41.jpg",
-    "imagens/PEAGA/img44.jpg",
-    "imagens/PEAGA/img47.jpg"
+    "imagens/PEAGA/img47.jpg",
+    "imagens/PEAGA/img50.jpg"
   ]
 }
   ]
