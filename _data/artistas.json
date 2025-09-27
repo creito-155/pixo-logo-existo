@@ -573,6 +573,32 @@
     "imagens/PEAGA/img47.jpg",
     "imagens/PEAGA/img50.jpg"
   ]
+},{
+  "id": "MALES",
+  "nome": "MALES",
+  "logo": "imagens/MALES/img50.jpg",
+  "instagramLink": "https://www.instagram.com/males_grafiti",
+  "instagramHandle": "@MALES_GRAFITI",
+  "categoria": ["graff"],
+  "imagens": [
+    "imagens/MALES/img1.jpg",
+    "imagens/MALES/img5.jpg",
+    "imagens/MALES/img8.jpg",
+    "imagens/MALES/img11.jpg",
+    "imagens/MALES/img14.jpg",
+    "imagens/MALES/img17.jpg",
+    "imagens/MALES/img20.jpg",
+    "imagens/MALES/img23.jpg",
+    "imagens/MALES/img26.jpg",
+    "imagens/MALES/img29.jpg",
+    "imagens/MALES/img32.jpg",
+    "imagens/MALES/img35.jpg",
+    "imagens/MALES/img38.jpg",
+    "imagens/MALES/img41.jpg",
+    "imagens/MALES/img44.jpg",
+    "imagens/MALES/img47.jpg",
+    "imagens/MALES/img50.jpg"
+  ]
 }
   ]
 }
