@@ -603,12 +603,10 @@
 {
   "id": "NICK",
   "nome": "NICK",
-  "logo": "imagens/NICK/27 Sem Título_20241208173604.png",
+  "logo": "imagens/NICK/27 Sem Título_20241208173604.jpg",
   "instagramLink": "https://www.instagram.com/ups.n1ck",
   "instagramHandle": "@UPS.N1CK",
-  "categoria": [
-    "graff"
-  ],
+  "categoria": ["graff"],
   "imagens": [
     "imagens/NICK/27 Sem Título_20241208173604.jpg",
     "imagens/NICK/20240817_151939.jpg",
