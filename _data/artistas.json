@@ -599,6 +599,28 @@
     "imagens/MALES/img47.jpg",
     "imagens/MALES/img50.jpg"
   ]
+},
+{
+  "id": "NICK",
+  "nome": "NICK",
+  "logo": "imagens/NICK/27 Sem Título_20241208173604.png",
+  "instagramLink": "https://www.instagram.com/ups.n1ck",
+  "instagramHandle": "@UPS.N1CK",
+  "categoria": [
+    "graff"
+  ],
+  "imagens": [
+    "imagens/NICK/27 Sem Título_20241208173604.jpg",
+    "imagens/NICK/20240817_151939.jpg",
+    "imagens/NICK/20241130_170237.jpg",
+    "imagens/NICK/20250413_224827.jpg",
+    "imagens/NICK/20250714_183716.jpg",
+    "imagens/NICK/IMG_20231019_180831_937.jpg",
+    "imagens/NICK/IMG-20250111-WA0007.jpg",
+    "imagens/NICK/IMG-20250406-WA0057.jpg",
+    "imagens/NICK/IMG-20250504-WA0023.jpg",
+    "imagens/NICK/retouch_2025051719082845.jpg"
+  ]
 }
   ]
 }
