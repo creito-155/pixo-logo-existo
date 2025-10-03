@@ -1,12 +1,11 @@
 // ===================================================================
-// main.js - VERSÃO COMPLETA (COM UPLOAD PARA O CLOUDINARY)
+// main.js - VERSÃO COM CORREÇÃO DO UPLOAD PRESET
 // Data: 03 de Outubro de 2025
 // ===================================================================
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-// **ATUALIZADO:** Adicionado 'addDoc' para salvar novos artistas
 import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -56,7 +55,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// **NOVO:** Lógica do formulário de ADICIONAR ARTISTA
+// Lógica do formulário de ADICIONAR ARTISTA
 const formAddArtista = document.getElementById('form-add-artista');
 if (formAddArtista) {
     formAddArtista.addEventListener('submit', async (e) => {
@@ -82,7 +81,8 @@ if (formAddArtista) {
 
         const formData = new FormData();
         formData.append('file', imagemArquivo);
-        formData.append('upload_preset', 'artisas_uploads');
+        // **CORREÇÃO APLICADA AQUI:**
+        formData.append('upload_preset', 'artistas_uploads'); 
 
         const CLOUD_NAME = 'dj053fl2q';
         const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
@@ -183,7 +183,7 @@ async function carregarArtistasNoCarrossel() {
             swiperWrapper.appendChild(slide);
         });
         new Swiper('.artistas-slider', {
-            loop: snapshot.size > 3, // Ativa o loop só se tiver slides suficientes
+            loop: snapshot.size > 3, 
             speed: 1500,
             breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
