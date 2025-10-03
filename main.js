@@ -1,13 +1,13 @@
 // ===================================================================
-// main.js - VERSÃO COM CORREÇÃO DO UPLOAD PRESET
+// main.js - VERSÃO FINAL E ÚNICA
 // Data: 03 de Outubro de 2025
 // ===================================================================
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // Sua configuração do Firebase (projeto v2)
 const firebaseConfig = {
@@ -26,6 +26,37 @@ const auth = getAuth(app);
 
 // --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
 
+// Lógica para o formulário de CADASTRO
+const formCadastro = document.getElementById('form-cadastro');
+if (formCadastro) {
+    formCadastro.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nomeArtista = document.getElementById('artista-nome-cadastro').value;
+        const email = document.getElementById('email-cadastro').value;
+        const senha = document.getElementById('senha-cadastro').value;
+        const statusDiv = document.getElementById('cadastro-status');
+        statusDiv.textContent = "Criando conta...";
+        statusDiv.style.color = "orange";
+        createUserWithEmailAndPassword(auth, email, senha)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                sendEmailVerification(user).then(() => {
+                    statusDiv.textContent = 'Sucesso! Link de verificação enviado para seu e-mail. Confirme antes de fazer login.';
+                    statusDiv.style.color = 'green';
+                    formCadastro.reset();
+                });
+                const userDocRef = doc(db, "usuarios", user.uid);
+                setDoc(userDocRef, { nomeArtista: nomeArtista, email: user.email, criadoEm: new Date() });
+            })
+            .catch((error) => {
+                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
+                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
+                else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
+                statusDiv.style.color = "red";
+            });
+    });
+}
+
 // Lógica para a página de LOGIN
 const formLogin = document.getElementById('form-login');
 if (formLogin) {
@@ -36,7 +67,7 @@ if (formLogin) {
         const erroLogin = document.getElementById('login-error');
         signInWithEmailAndPassword(auth, email, senha)
             .then(() => window.location.href = '/admin.html')
-            .catch((error) => erroLogin.textContent = "Email ou senha inválidos.");
+            .catch((error) => erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.");
     });
 }
 
@@ -55,49 +86,42 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Lógica do formulário de ADICIONAR ARTISTA
+// Lógica do formulário de ADICIONAR/CRIAR PERFIL DE ARTISTA
 const formAddArtista = document.getElementById('form-add-artista');
 if (formAddArtista) {
     formAddArtista.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const botaoSalvar = document.getElementById('botao-salvar-artista');
         const uploadStatus = document.getElementById('upload-status');
-
+        const user = auth.currentUser;
+        if (!user) {
+            uploadStatus.textContent = "Erro: Sessão expirada. Faça o login novamente.";
+            uploadStatus.style.color = 'red';
+            return;
+        }
         const nome = document.getElementById('artista-nome').value;
         const imagemArquivo = document.getElementById('artista-imagem').files[0];
         const instagramHandle = document.getElementById('artista-instagram').value;
         const categoriasInput = document.getElementById('artista-categorias').value;
-
         if (!nome || !imagemArquivo) {
-            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.';
-            uploadStatus.style.color = 'red';
-            return;
+            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return;
         }
-
         botaoSalvar.disabled = true;
         uploadStatus.textContent = 'Enviando imagem para o Cloudinary...';
         uploadStatus.style.color = 'orange';
-
         const formData = new FormData();
         formData.append('file', imagemArquivo);
-        // **CORREÇÃO APLICADA AQUI:**
         formData.append('upload_preset', 'artistas_uploads'); 
-
         const CLOUD_NAME = 'dj053fl2q';
         const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-
         try {
-            // 1. Envia a imagem para o Cloudinary
             const response = await fetch(uploadUrl, { method: 'POST', body: formData });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
-            
             const imageUrl = data.secure_url;
             uploadStatus.textContent = 'Imagem enviada! Salvando no banco de dados...';
-
-            // 2. Prepara os dados para salvar no Firestore
             const artistaDoc = {
+                userId: user.uid,
                 nome: nome,
                 imageUrl: imageUrl,
                 instagramHandle: instagramHandle,
@@ -105,14 +129,10 @@ if (formAddArtista) {
                 categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
                 imagens: []
             };
-            
-            // 3. Adiciona o novo artista no Firestore
             await addDoc(collection(db, 'artistas'), artistaDoc);
-
             uploadStatus.textContent = 'Artista adicionado com sucesso!';
             uploadStatus.style.color = 'green';
             formAddArtista.reset();
-
         } catch (error) {
             console.error("Erro no processo de upload:", error);
             uploadStatus.textContent = `Erro: ${error.message}`;
@@ -125,7 +145,6 @@ if (formAddArtista) {
 
 
 // --- 3. FUNÇÕES DE UI (INTERFACE DO USUÁRIO - SITE PÚBLICO) ---
-
 function criarLightbox(imageUrl) {
     const overlay = document.createElement('div');
     overlay.id = 'lightbox-overlay';
@@ -150,7 +169,6 @@ function criarLightbox(imageUrl) {
 
 
 // --- 4. FUNÇÕES DE DADOS (LÓGICA DO FIREBASE PARA O SITE PÚBLICO) ---
-
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `#/galeria/${artista.id}`; 
@@ -183,7 +201,7 @@ async function carregarArtistasNoCarrossel() {
             swiperWrapper.appendChild(slide);
         });
         new Swiper('.artistas-slider', {
-            loop: snapshot.size > 3, 
+            loop: snapshot.size > 3,
             speed: 1500,
             breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },

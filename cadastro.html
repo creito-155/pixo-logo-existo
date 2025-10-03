@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre-se - Pixo, logo existo</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="admin-body">
+    <div class="login-container">
+        <h1>Crie sua Conta de Artista</h1>
+        <form id="form-cadastro">
+            <div class="form-group">
+                <label for="artista-nome-cadastro">Seu Nome de Artista</label>
+                <input type="text" id="artista-nome-cadastro" required>
+            </div>
+            <div class="form-group">
+                <label for="email-cadastro">Email</label>
+                <input type="email" id="email-cadastro" required>
+            </div>
+            <div class="form-group">
+                <label for="senha-cadastro">Senha (mínimo 6 caracteres)</label>
+                <input type="password" id="senha-cadastro" required>
+            </div>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <div id="cadastro-status" class="status-message"></div>
+        <p class="auth-link">Já tem uma conta? <a href="/login.html">Faça o login</a>.</p>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
