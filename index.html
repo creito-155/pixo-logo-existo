@@ -1,136 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pixo, logo existo</title>
-        <link rel="icon" href="imagens/LOGO/Pixo, logo existo (2).png" type="image/png">
-        <link rel="stylesheet" type="text/css" href="estilo.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    </head>
-    <body>
-        
-        <div id="barra-superior">
-            <div class="logo"><a href="index.html"><img src="imagens/LOGO/Pixo, logo existo (2).png" style="width: 50px;"></a>
-            </div>
-            <a href="index.html">HOME</a> |
-            <a href="artistas.html">ARTISTAS</a> |
-            <a href="quem-somos.html">QUEM SOMOS</a> |
-            <a href="onde-atuamos.html">ONDE ATUAMOS</a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Pixo, logo existo</title>
+    <link rel="icon" href="imagens/LOGO/Pixo, logo existo (2).png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+<body>
+    
+    <header id="barra-superior">
+        <div class="logo">
+            <a href="#/home"><img src="imagens/LOGO/Pixo, logo existo (2).png" style="width: 50px;"></a>
         </div>
+        <nav>
+            <a href="#/home">HOME</a> |
+            <a href="#/artistas">ARTISTAS</a> |
+            <a href="#/quem-somos">QUEM SOMOS</a> |
+            <a href="#/onde-atuamos">ONDE ATUAMOS</a>
+        </nav>
+    </header>
 
-        <!-- NOVA SEÇÃO RECOMENDADOS (SORTEIO) -->
-        <main class="container">
-            <h1 class="titulo-galeria"><a href="index.html">Recomendados</a></h1>
-            <p class="subtitulo-seccao"></p>
-            <div class="gallery-grid" id="recomendados-grid">
-                <!-- Artistas recomendados serão inseridos aqui pelo JavaScript -->
-            </div>
-        </main>
+    <main id="app-content"></main>
 
-        <!-- Carrossel de Todos os Artistas -->
-        <h1 class="titulo-galeria">Todos os Artistas</h1>
-        <div class="swiper artistas-slider">
-            <div class="swiper-wrapper">
-                <!-- O seu carrossel estático atualizado -->
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=SVL"><img src="imagens/SVL/svl-gare.JPG" alt="Grafite 1"><img src="imagens/SVL/SVL-BCT.jpg" alt="Grafite 2"><img src="imagens/SVL/SVL-TELA.webp" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria SVL</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=STR"><img src="imagens/STR/STR-3.jpg" alt="Grafite 1"><img src="imagens/STR/STR-5.jpg" alt="Grafite 2"><img src="imagens/STR/C0K3+STR.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria STR</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=TRIK"><img src="imagens/NOX/trik+nox.JPG" alt="Grafite 1"><img src="imagens/TRIK/TRIK.jpg" alt="Grafite 2"><img src="imagens/TRIK/TRIK-CXS.JPG" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria TRIK</p></div>
-                </div>
-                <div class="swiper-slide">
-                     <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=NOX"><img src="imagens/SVL/svl-gare.JPG" alt="Grafite 1"><img src="imagens/SVL/SVL-BCT.jpg" alt="Grafite 2"><img src="imagens/NOX/trik+nox.JPG" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria NOX</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=JOCA"><img src="imagens/JOCA/JOCA-1.jpg" alt="Grafite 1"><img src="imagens/JOCA/JOCA-2.jpg" alt="Grafite 3"><img src="imagens/JOCA/JOCA-3.jpg" alt="Grafite 2"></a></div><p class="legenda-galeria">Galeria JOCA</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=C0K3"><img src="imagens/C0K3/C0K3+ECT.jpg" alt="Grafite 1"><img src="imagens/C0K3/C0K3+STR.jpg" alt="Grafite 2"><img src="imagens/C0K3/C0K3+CBO.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria C0K3</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=LIGHT"><img src="imagens/LIGHT/LIGHT-2.webp" alt="Grafite 2"><img src="imagens/LIGHT/LIGHT-5,1.webp" alt="Grafite 1"><img src="imagens/LIGHT/LIGHT-3.webp" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria LIGHT</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=TRUE"><img src="imagens/TRUE/TRUE-1.png" alt="Grafite 2"><img src="imagens/TRUE/TRUE-2.png" alt="Grafite 1"><img src="imagens/TRUE/TRUE-7.png" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria TRUE</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=JOKER"><img src="imagens/JOKER/JOKER-2.jpg" alt="Grafite 2"><img src="imagens/JOKER/JOKER-3.jpg" alt="Grafite 1"><img src="imagens/JOKER/JOKER-7.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria JOKER</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=BUENO"><img src="imagens/BUENO/BUENO- (16).webp" alt="Grafite 2"><img src="imagens/BUENO/BUENO- (17).webp" alt="Grafite 1"><img src="imagens/BUENO/BUENO- (18).webp" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria BUENO</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=IUGUE"><img src="imagens/IUGUE/IUGUE (23).webp" alt="Grafite 2"><img src="imagens/IUGUE/IUGUE (13).webp" alt="Grafite 1"><img src="imagens/IUGUE/IUGUE (25).webp" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria IUGUE</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=CODE"><img src="imagens/CODE/4.JPG" alt="Grafite 2"><img src="imagens/CODE/BED3FA80-C019-41B0-A61F-CF7ED9316E9E.jpg" alt="Grafite 1"><img src="imagens/CODE/IMG_2421.JPG" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria CODE</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=OLHOS"><img src="imagens/OLHOS/IMG_20250905_162635_329.jpg" alt="Grafite 2"><img src="imagens/OLHOS/IMG_20250905_162640_824.jpg" alt="Grafite 1"><img src="imagens/OLHOS/IMG_20250905_162645_659.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria OLHOS</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=MANDALEIRA"><img src="imagens/MANDALEIRA/20250216_163019.jpg" alt="Grafite 2"><img src="imagens/MANDALEIRA/20250501_164831.jpg" alt="Grafite 1"><img src="imagens/MANDALEIRA/3C76E200-7793-4ACE-8A49-442677212039.jpeg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria MANDALEIRA</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=DREIP"><img src="imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (1).jpeg" alt="Grafite 2"><img src="imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11 (2).jpeg" alt="Grafite 1"><img src="imagens/DREIP/WhatsApp Image 2025-09-05 at 20.18.11.jpeg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria DREIP</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=GHOST"><img src="imagens/GHOST/Av 02.png" alt="Grafite 2"><img src="imagens/GHOST/Snow 01.png" alt="Grafite 1"><img src="imagens/GHOST/Billy 01.png" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria GHOST</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=DRAKE"><img src="imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.18.jpeg" alt="Grafite 2"><img src="imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (1).jpeg" alt="Grafite 1"><img src="imagens/DRAKE/WhatsApp Image 2025-09-06 at 12.52.20 (5).jpeg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria DRAKE</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=SASK"><img src="imagens/SASK/SASK-11.JPG" alt="Grafite 2"><img src="imagens/SASK/SASK-13.JPG" alt="Grafite 1"><img src="imagens/SASK/SASK.JPG" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria SASK</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=TRESUM"><img src="imagens/TRESUM/Screenshot_20250908_180028_Instagram.jpg" alt="Grafite 2"><img src="imagens/TRESUM/Screenshot_20250908_180141_Instagram.jpg" alt="Grafite 1"><img src="imagens/TRESUM/Screenshot_20250908_180253_Instagram.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria TRESUM</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=GIN"><img src="imagens/GIN/521445531_1258735535744530_2177761672207665036_n.jpg" alt="Grafite 2"><img src="imagens/GIN/524449028_1453816849092637_6884885368299985776_n.jpg" alt="Grafite 1"><img src="imagens/GIN/532255655_1454697575873828_5098013903539649038_n.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria GIN</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=ATHOS"><img src="imagens/ATHOS/20250502_135549.jpg" alt="Grafite 2"><img src="imagens/ATHOS/20250608_102703.jpg" alt="Grafite 1"><img src="imagens/ATHOS/IMG-20250116-WA0022.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria ATHOS</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=CACHOS"><img src="imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.48.jpeg" alt="Grafite 2"><img src="imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.49 (1).jpeg" alt="Grafite 1"><img src="imagens/CACHOS/WhatsApp Image 2025-09-22 at 09.29.50.jpeg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria CACHOS</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=CRICS"><img src="imagens/CRICS/IMG_0117.jpg" alt="Grafite 2"><img src="imagens/CRICS/IMG_1100.jpg" alt="Grafite 1"><img src="imagens/CRICS/IMG_2226.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria CRICS</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=ORANGE"><img src="imagens/ORANGE/dclassic 2025-04-13 200220.197.jpg" alt="Grafite 2"><img src="imagens/ORANGE/IMG_0631.jpg" alt="Grafite 1"><img src="imagens/ORANGE/IMG_0698.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria ORANGE</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=PEAGA"><img src="imagens/PEAGA/img1.jpg 2025-04-13 200220.197.jpg" alt="Grafite 2"><img src="imagens/PEAGA/img11.jpg" alt="Grafite 1"><img src="imagens/PEAGA/img17.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria PEAGA</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=MALES"><img src="imagens/MALES/img1.jpg" alt="Grafite 2"><img src="imagens/MALES/img14.jpg" alt="Grafite 1"><img src="imagens/MALES/img8.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria MALES</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=NICK"><img src="imagens/NICK/20240817_151939.jpg" alt="Grafite 2"><img src="imagens/NICK/20250714_183716.jpg" alt="Grafite 1"><img src="imagens/NICK/27 Sem Título_20241208173604.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria NICK</p></div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container-bloco"><div class="bloco-imagens"><a href="galeria.html?artista=GSR"><img src="imagens/GSR/4ba6dcb8-803b-43c3-be59-470356fc8594.jpg" alt="Grafite 2"><img src="imagens/GSR/IMG_1091.jpg" alt="Grafite 1"><img src="imagens/GSR/IMG_1898.jpg" alt="Grafite 3"></a></div><p class="legenda-galeria">Galeria GSR</p></div>
-                </div>
-            </div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        </div>
-        <footer class="site-footer">
-            <p>&copy; 2025 Pixo, logo existo. Todos os direitos reservados.</p>
-            <p>SEM FINS LUCRATIVOS</p>
-            <p>Todas as imagens são de propriedade de seus respectivos artistas e foram concedidas para exibição neste site.</p>
-            <p>É artista e quer fazer parte da nossa galeria? Entre em contato pelo Instagram: <a href="https://www.instagram.com/https_creito">@https_creito</a></p>
-        </footer>
+    <footer class="site-footer">
+        <p>&copy; 2025 Pixo, logo existo. Todos os direitos reservados.</p>
+        <p>SEM FINS LUCRATIVOS</p>
+        <p>Todas as imagens são de propriedade de seus respectivos artistas e foram concedidas para exibição neste site.</p>
+        <p>É artista e quer fazer parte da nossa galeria? Entre em contato pelo Instagram: <a href="https://www.instagram.com/https_creito">@https_creito</a></p>
+    </footer>
 
-        <!-- Scripts -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="script.js"></script>
-    </body>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script type="module" src="main.js"></script>
+</body>
 </html>
-
