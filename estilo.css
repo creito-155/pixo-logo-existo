@@ -3,11 +3,6 @@
 /* Document
    ========================================================================== */
 
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
-
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -16,26 +11,13 @@ html {
 /* Sections
    ========================================================================== */
 
-/**
- * Remove the margin in all browsers.
- */
-
 body {
   margin: 0;
 }
 
-/**
- * Render the `main` element consistently in IE.
- */
-
 main {
   display: block;
 }
-
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
 
 h1 {
   font-size: 2em;
@@ -45,21 +27,11 @@ h1 {
 /* Grouping content
    ========================================================================== */
 
-/**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
- */
-
 hr {
   box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
   overflow: visible; /* 2 */
 }
-
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
 
 pre {
   font-family: monospace, monospace; /* 1 */
@@ -69,18 +41,9 @@ pre {
 /* Text-level semantics
    ========================================================================== */
 
-/**
- * Remove the gray background on active links in IE 10.
- */
-
 a {
   background-color: transparent;
 }
-
-/**
- * 1. Remove the bottom border in Chrome 57-
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
- */
 
 abbr[title] {
   border-bottom: none; /* 1 */
@@ -88,19 +51,10 @@ abbr[title] {
   text-decoration: underline dotted; /* 2 */
 }
 
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
-
 b,
 strong {
   font-weight: bolder;
 }
-
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
 
 code,
 kbd,
@@ -109,18 +63,9 @@ samp {
   font-size: 1em; /* 2 */
 }
 
-/**
- * Add the correct font size in all browsers.
- */
-
 small {
   font-size: 80%;
 }
-
-/**
- * Prevent `sub` and `sup` elements from affecting the line height in
- * all browsers.
- */
 
 sub,
 sup {
@@ -141,21 +86,12 @@ sup {
 /* Embedded content
    ========================================================================== */
 
-/**
- * Remove the border on images inside links in IE 10.
- */
-
 img {
   border-style: none;
 }
 
 /* Forms
    ========================================================================== */
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
 
 button,
 input,
@@ -168,40 +104,23 @@ textarea {
   margin: 0; /* 2 */
 }
 
-/**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
- */
-
 button,
 input { /* 1 */
   overflow: visible;
 }
-
-/**
- * Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 1. Remove the inheritance of text transform in Firefox.
- */
 
 button,
 select { /* 1 */
   text-transform: none;
 }
 
-/**
- * Correct the inability to style clickable types in iOS and Safari.
- */
-
 button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+  appearance: button;
 }
-
-/**
- * Remove the inner border and padding in Firefox.
- */
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
@@ -211,10 +130,6 @@ button::-moz-focus-inner,
   padding: 0;
 }
 
-/**
- * Restore the focus styles unset by the previous rule.
- */
-
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
@@ -222,20 +137,9 @@ button:-moz-focusring,
   outline: 1px dotted ButtonText;
 }
 
-/**
- * Correct the padding in Firefox.
- */
-
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
-
-/**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Correct the color inheritance from `fieldset` elements in IE.
- * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
- */
 
 legend {
   box-sizing: border-box; /* 1 */
@@ -246,26 +150,13 @@ legend {
   white-space: normal; /* 1 */
 }
 
-/**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
-
 progress {
   vertical-align: baseline;
 }
 
-/**
- * Remove the default vertical scrollbar in IE 10+.
- */
-
 textarea {
   overflow: auto;
 }
-
-/**
- * 1. Add the correct box sizing in IE 10.
- * 2. Remove the padding in IE 10.
- */
 
 [type="checkbox"],
 [type="radio"] {
@@ -273,37 +164,20 @@ textarea {
   padding: 0; /* 2 */
 }
 
-/**
- * Correct the cursor style of increment and decrement buttons in Chrome.
- */
-
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
-/**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
- */
-
 [type="search"] {
   -webkit-appearance: textfield; /* 1 */
+  appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
-
-/**
- * Remove the inner padding in Chrome and Safari on macOS.
- */
 
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-
-/**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
- */
 
 ::-webkit-file-upload-button {
   -webkit-appearance: button; /* 1 */
@@ -313,17 +187,9 @@ textarea {
 /* Interactive
    ========================================================================== */
 
-/*
- * Add the correct display in Edge, IE 10+, and Firefox.
- */
-
 details {
   display: block;
 }
-
-/*
- * Add the correct display in all browsers.
- */
 
 summary {
   display: list-item;
@@ -332,22 +198,17 @@ summary {
 /* Misc
    ========================================================================== */
 
-/**
- * Add the correct display in IE 10+.
- */
-
 template {
   display: none;
 }
 
-/**
- * Add the correct display in IE 10.
- */
-
 [hidden] {
   display: none;
-}/* =================================
-   ESTILOS GERAIS E BARRA SUPERIOR
+}
+
+
+/* =================================
+   SEUS ESTILOS PERSONALIZADOS
    ================================= */
 body {
     background-color: #252525;
@@ -356,21 +217,17 @@ body {
     margin: 0;
     padding-top: 80px;
 }
-
 a:link {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
-
 a:visited {
     color: rgb(194, 194, 194);
 }
-
 a:hover {
     background: rgb(195, 0, 255);
     border-radius: 3px;
 }
-
 #barra-superior {
     font-family: 'Don Graffiti', sans-serif;
     background: #000000cf;
@@ -383,41 +240,25 @@ a:hover {
     text-align: center;
     box-sizing: border-box;
 }
-
 #barra-superior a {
     padding: 5px 10px;
 }
-
 .logo {
   position: absolute;
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
 }
-
-
-/* =================================
-   TÍTULOS
-   ================================= */
 .titulo-galeria {
-    /* A largura da "caixinha" se ajusta automaticamente ao texto */
     width: -moz-fit-content;
     width: fit-content;
-
-    /* A margem 'auto' nas laterais centraliza o elemento */
     margin: 25px auto 40px auto;
-
-    padding: 10px 25px;     /* Espaçamento interno */
+    padding: 10px 25px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
     border-radius: 10px;
 }
-
-
-/* =================================
-   ESTILO ORIGINAL DOS BLOCOS DE ARTISTA
-   ================================= */
 .container-bloco {
     text-align: center; 
     display: flex;
@@ -425,7 +266,6 @@ a:hover {
     align-items: center;
     z-index: 1000;
 }
-
 .bloco-imagens {
     position: relative;
     width: 280px;
@@ -435,11 +275,9 @@ a:hover {
     transition: transform 0.3s ease;
     margin-bottom: 15px;
 }
-
 .bloco-imagens:hover {
     transform: scale(1.05);
 }
-
 .bloco-imagens img {
     position: absolute;
     width: 240px;
@@ -452,34 +290,27 @@ a:hover {
     transition: transform 0.4s ease;
     object-fit: cover;
 }
-
 .bloco-imagens img:nth-child(1) {
     transform: translate(-50%, -50%) rotate(-10deg);
     z-index: 1;
 }
-
 .bloco-imagens img:nth-child(2) {
     transform: translate(-50%, -50%) rotate(5deg);
     z-index: 2;
 }
-
 .bloco-imagens img:nth-child(3) {
     transform: translate(-50%, -50%) rotate(-2deg);
     z-index: 3;
 }
-
 .bloco-imagens:hover img:nth-child(1) {
     transform: translate(-80%, -50%) rotate(-15deg);
 }
-
 .bloco-imagens:hover img:nth-child(2) {
     transform: translate(-50%, -60%) rotate(0deg);
 }
-
 .bloco-imagens:hover img:nth-child(3) {
     transform: translate(-20%, -50%) rotate(15deg);
 }
-
 .legenda-galeria {
     font-family: 'Don Graffiti', sans-serif;
     width: 100px;
@@ -489,168 +320,64 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Padrão para PC: 4 colunas */
-    gap: 30px; /* Espaçamento entre os blocos */
-}
-.creator-header {
-    background-color: #000000a7; /* Fundo preto semi-transparente */
-    padding: 30px 20px;
-    border-bottom: 3px solid rgb(195, 0, 255); /* Linha roxa */
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-/* Estilo para a imagem do criador */
-.creator-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* Deixa a imagem redonda */
-    border: 3px solid rgb(195, 0, 255);
-    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
-    margin-right: 30px;
-}
-                
-/* Textos de informação do criador */
-.creator-info .title {
-    font-size: 28px;
-    color: rgb(195, 0, 255); /* Cor roxa para o título */
-    margin: 0 0 10px 0;
-    font-weight: normal;
-}
-
-/* =================================
-   MEDIA QUERIES (RESPONSIVIDADE)
-   ================================= */
-@media (max-width: 500px) {
-    #barra-superior a {
-        font-size: 14px;
-        padding: 5px;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-        width: 35px;
-        height: 35px;
-    }
-
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-        font-size: 14px;
-    }
-}
-
-/* ==================================================
-   ESTILO DEFINITIVO DOS BOTÕES DO CARROSSEL
-   ================================================== */
-
-/* Remove completamente a seta padrão da biblioteca Swiper */
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    content: '' !important;
-    display: none;
-}
-
-/* Cria um novo container para nossa seta customizada */
-.swiper-button-next,
-.swiper-button-prev {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(10, 10, 10, 0.7) !important;
-    border: 2px solid rgba(255, 255, 255, 0.4) !important;
-    border-radius: 8px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-/* Adiciona nossa seta customizada dentro do novo container */
-.swiper-button-next::before,
-.swiper-button-prev::before {
-    color: white !important; /* Força a cor da seta para branco e anula o azul */
-    font-size: 30px;
-    font-weight: bold;
-    font-family: monospace;
-}
-
-/* Define o caractere de cada seta */
-.swiper-button-next::before {
-    content: '>';
-}
-.swiper-button-prev::before {
-    content: '<';
-}
-
-/* Efeito ao passar o mouse */
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background-color: rgb(195, 0, 255) !important;
-    border-color: rgba(255, 255, 255, 0.8) !important;
-    box-shadow: 0 0 15px rgba(195, 0, 255, 0.7);
-    transform: scale(1.05);
-}
-
-/* Garante que a seta continue branca durante o hover */
-.swiper-button-next:hover::before,
-.swiper-button-prev:hover::before {
-    color: white !important;
-}
-/* =================================
-   ESTILOS DA PÁGINA DE GALERIA
-   ================================= */
-
-/* Contêiner principal para limitar a largura na página da galeria */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
-
-/* Estilos para a galeria de imagens em grade */
 .gallery-grid {
     display: grid;
-    /* Por padrão, 4 colunas em telas grandes */
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px; /* Espaçamento entre as imagens */
+    gap: 30px;
 }
-
-/* Estilos para cada item/bloco da galeria */
+.creator-header {
+    background-color: #000000a7;
+    padding: 30px 20px;
+    border-bottom: 3px solid rgb(195, 0, 255);
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.creator-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid rgb(195, 0, 255);
+    object-fit: cover;
+    margin-right: 30px;
+}
+.creator-info .title {
+    font-size: 28px;
+    color: rgb(195, 0, 255);
+    margin: 0 0 10px 0;
+    font-weight: normal;
+}
 .gallery-item {
     background-color: #000000a7;
     text-align: center;
     border-radius: 8px;
-    overflow: hidden; /* Garante que a imagem não "vaze" das bordas arredondadas */
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    text-decoration: none;
 }
-
-/* Efeito de "levantar" o card ao passar o mouse */
 .gallery-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(195, 0, 255, 0.2);
 }
-
-/* Estilo para a imagem da galeria (A PARTE MAIS IMPORTANTE!) */
 .gallery-image {
-    width: 100%; /* Faz a imagem ocupar toda a largura do item */
-    height: 250px; /* Define uma altura fixa para todas as imagens */
-    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
     cursor: pointer;
     display: block;
 }
-/* Estilos para os cartões na página de todos os artistas */
 .artist-card-name {
     color: white;
     padding: 15px;
     font-weight: bold;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo preto semi-transparente */
+    background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -660,46 +387,10 @@ a:hover {
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 1.1em;
 }
-
-/* Ajuste para o item da galeria ser um link e ter posição relativa */
-.gallery-item {
-    position: relative;
-    text-decoration: none; /* Remove o sublinhado do link */
-}
-
 .gallery-item:hover .artist-card-name {
-    background-color: rgb(195, 0, 255); /* Fica verde ao passar o rato (cor do seu site) */
-    color: #ffffff; /* Cor do texto escura para contraste */
+    background-color: rgb(195, 0, 255);
+    color: #ffffff;
 }
-
-/* =================================
-   AJUSTES PARA TELAS MENORES (RESPONSIVIDADE)
-   ================================= */
-
-/* Para tablets e telas menores */
-@media (max-width: 992px) {
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
-    }
-}
-
-/* Para celulares */
-@media (max-width: 768px) {
-    .creator-header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .creator-image {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-}
-/* =================================
-   ESTILOS DA LIGHTBOX (IMAGEM EXPANDIDA)
-   ================================= */
-
-/* O fundo preto semi-transparente que cobre a tela */
 #lightbox-overlay {
     position: fixed;
     top: 0;
@@ -710,22 +401,18 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Garante que fica por cima de tudo */
+    z-index: 9999;
     cursor: pointer;
     animation: fadeIn 0.3s ease;
 }
-
-/* A imagem expandida */
 #lightbox-image {
-    max-width: 90vw; /* Largura máxima de 90% da tela */
-    max-height: 90vh; /* Altura máxima de 90% da tela */
+    max-width: 90vw;
+    max-height: 90vh;
     object-fit: contain;
     border-radius: 5px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    cursor: default; /* Cursor normal sobre a imagem */
+    cursor: default;
 }
-
-/* O botão de fechar (X) */
 #lightbox-close {
     position: absolute;
     top: 20px;
@@ -735,26 +422,51 @@ a:hover {
     color: white;
     cursor: pointer;
     transition: color 0.2s ease;
-    -webkit-user-select: none; /* Impede a seleção do texto do 'X' */
-    -ms-user-select: none;
     user-select: none;
 }
-
 #lightbox-close:hover {
     color: #ccc;
 }
-
-/* Animação de entrada suave */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-/* Estilos para os filtros na página de artistas */
+.swiper-button-next::after, .swiper-button-prev::after {
+    content: '' !important;
+    display: none;
+}
+.swiper-button-next, .swiper-button-prev {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(10, 10, 10, 0.7) !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 8px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.swiper-button-next::before, .swiper-button-prev::before {
+    color: white !important;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: monospace;
+}
+.swiper-button-next::before { content: '>'; }
+.swiper-button-prev::before { content: '<'; }
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    background-color: rgb(195, 0, 255) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 15px rgba(195, 0, 255, 0.7);
+    transform: scale(1.05);
+}
+.swiper-button-next:hover::before, .swiper-button-prev:hover::before {
+    color: white !important;
+}
 #filtros-container {
     text-align: center;
     margin-bottom: 40px;
 }
-
 .filtro-btn {
     background-color: #282a36;
     color: #f8f8f2;
@@ -768,88 +480,43 @@ a:hover {
     transition: all 0.3s ease;
     outline: none;
 }
-
 .filtro-btn:hover {
     background-color: #44475a;
     border-color: #bd93f9;
 }
-
 .filtro-btn.active {
     background: rgb(195, 0, 255);
     color: white;
     border-color: rgb(195, 0, 255);
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
 }
-/* =================================
-   RODAPÉ DO SITE
-   ================================= */
-.site-footer {
-    background-color: #1a1a1a; /* Um cinza escuro, ligeiramente diferente do fundo */
-    color: #a0a0a0; /* Cinza claro para o texto, para fácil leitura */
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px; /* Adiciona um espaço entre o conteúdo principal e o rodapé */
-    font-size: 14px;
-    line-height: 1.6; /* Melhora a espaçamento entre as linhas */
-    border-top: 3px solid #333; /* Uma linha subtil de separação */
-}
-
-.site-footer p {
-    margin: 10px 0;
-    max-width: 800px; /* Limita a largura do texto em ecrãs grandes para não ficar muito esticado */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.site-footer a {
-    color: #bd93f9; /* Roxo para o link do Instagram, para dar destaque */
-    font-weight: bold; /* Link em negrito, como pedido */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-/* Remove o estilo de hover padrão do site (fundo roxo) e aplica um novo, mais subtil */
-.site-footer a:hover {
-    color: #f8f8f2; /* Cor branca ao passar o rato */
-    text-decoration: underline;
-    background: none; /* Garante que não há fundo colorido */
-}
-/* Aplica a imagem de fundo e garante que ela cubra toda a tela */
 .quem-somos-body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
-    padding-top: 100px; /* Aumenta o espaço para o cabeçalho */
+    background-attachment: fixed;
+    padding-top: 100px;
 }
-
-/* Container principal da página (reutilizável) */
 .quem-somos-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
-
-/* Caixa de texto semi-transparente (reutilizável) */
 .texto-container {
-    background-color: rgba(10, 10, 10, 0.8); /* Fundo escuro e semi-transparente */
-    border-left: 5px solid rgb(195, 0, 255); /* Detalhe roxo na lateral */
+    background-color: rgba(10, 10, 10, 0.8);
+    border-left: 5px solid rgb(195, 0, 255);
     padding: 30px 40px;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
-
-/* Título principal da página (reutilizável) */
 .titulo-quem-somos {
-    font-size: 2.5rem; /* Tamanho grande e impactante */
-    color: rgb(195, 0, 255); /* Cor roxa */
+    font-size: 2.5rem;
+    color: rgb(195, 0, 255);
     margin-top: 0;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
-/* Subtítulo (reutilizável) */
 .subtitulo-quem-somos {
     font-size: 1.5rem;
     color: #f8f8f2;
@@ -858,11 +525,206 @@ a:hover {
     border-bottom: 1px solid #44475a;
     padding-bottom: 10px;
 }
-
-/* Estilo para os parágrafos de texto (reutilizável) */
 .texto-container p {
     font-size: 1.1rem;
-    line-height: 1.7; /* Melhora a legibilidade */
-    color: #cccccc; /* Cinza claro para o texto */
+    line-height: 1.7;
+    color: #cccccc;
     margin-bottom: 20px;
+}
+.site-footer {
+    background-color: #1a1a1a;
+    color: #a0a0a0;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+    font-size: 14px;
+    line-height: 1.6;
+    border-top: 3px solid #333;
+}
+.site-footer p {
+    margin: 10px 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.site-footer a {
+    color: #bd93f9;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.site-footer a:hover {
+    color: #f8f8f2;
+    text-decoration: underline;
+    background: none;
+}
+@media (max-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .creator-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .creator-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+@media (max-width: 500px) {
+    #barra-superior a {
+        font-size: 14px;
+        padding: 5px;
+    }
+    .logo {
+        display: none;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        width: 35px;
+        height: 35px;
+    }
+    .swiper-button-next::after, .swiper-button-prev::after {
+        font-size: 14px;
+    }
+}
+
+
+/* ============================================= */
+/* ESTILOS PARA PÁGINAS DE ADMIN, LOGIN E CADASTRO */
+/* ============================================= */
+
+:root {
+    --admin-fundo: #121212;
+    --admin-caixa: #1e1e1e;
+    --admin-borda: #444;
+    --admin-texto: #e0e0e0;
+    --admin-roxo-principal: #9c27b0;
+    --admin-roxo-hover: #7b1fa2;
+    --admin-sucesso: #4CAF50;
+    --admin-erro: #f44336;
+}
+.admin-body {
+    background-color: var(--admin-fundo);
+    color: var(--admin-texto);
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 0;
+}
+.login-container {
+    background-color: var(--admin-caixa);
+    padding: 2rem 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid var(--admin-borda);
+}
+.login-container h1 {
+    margin-bottom: 2rem;
+    color: var(--admin-texto);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #252525;
+    border: 1px solid var(--admin-borda);
+    border-radius: 4px;
+    color: var(--admin-texto);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--admin-roxo-principal);
+    box-shadow: 0 0 5px var(--admin-roxo-principal);
+}
+.login-container button,
+.admin-container button {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: var(--admin-roxo-principal);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.login-container button:hover,
+.admin-container button:hover {
+    background-color: var(--admin-roxo-hover);
+}
+.admin-container button {
+    margin-top: 1rem;
+}
+.error-message, .status-message {
+    margin-top: 1rem;
+    min-height: 20px;
+    text-align: center;
+}
+.error-message { color: var(--admin-erro); }
+.status-message[style*="color: green;"] { color: var(--admin-sucesso); }
+.status-message[style*="color: orange;"] { color: orange; }
+.auth-link {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+.auth-link a {
+    color: var(--admin-roxo-principal);
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+}
+.auth-link a:hover {
+    text-decoration: underline;
+    background: none;
+}
+.admin-header {
+    position: fixed; /* Header fixo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--admin-caixa);
+    box-sizing: border-box;
+    z-index: 1000;
+}
+.admin-container {
+    background-color: var(--admin-caixa);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 100px; /* Espaço para o header fixo */
+    margin-bottom: 2rem;
+}
+.admin-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+#botao-logout {
+    width: auto;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
 }
