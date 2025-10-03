@@ -5,24 +5,23 @@
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
-// Importa as funções que precisamos do Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Sua configuração do Firebase
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAupMjhUrCyp6PoL94SF1OuNIw5YAvGGkA",
-  authDomain: "pixologoexisto-db.firebaseapp.com",
-  projectId: "pixologoexisto-db",
-  storageBucket: "pixologoexisto-db.firebasestorage.app",
-  messagingSenderId: "467304417056",
-  appId: "1:467304417056:web:4bc011dcbbc30bcfa87945",
-  measurementId: "G-VNSTTLFYHQ"
+  apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
+  authDomain: "pixologoexisto-v2.firebaseapp.com",
+  projectId: "pixologoexisto-v2",
+  storageBucket: "pixologoexisto-v2.firebasestorage.app",
+  messagingSenderId: "816053289271",
+  appId: "1:816053289271:web:bbe46d1b0fb5bee1fd5ab2"
 };
 
-// Inicializa o Firebase e obtém a referência do banco de dados
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 
 // --- 2. FUNÇÕES DE UI (INTERFACE DO USUÁRIO) ---
@@ -66,22 +65,53 @@ function criarLightbox(imageUrl) {
 /**
  * Inicializa o carrossel da Swiper.js na página inicial.
  */
-function inicializarCarrosselHome() {
-    const sliderElement = document.querySelector('.artistas-slider');
-    if (sliderElement && typeof Swiper !== 'undefined') {
-        new Swiper(sliderElement, {
+async function carregarArtistasNoCarrossel() {
+    const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
+    if (!swiperWrapper) return;
+
+    try {
+        const artistasCollection = collection(db, 'artistas');
+        const snapshot = await getDocs(artistasCollection);
+        
+        swiperWrapper.innerHTML = ''; // Limpa o wrapper
+        snapshot.forEach(doc => {
+            const artista = { id: doc.id, ...doc.data() };
+            
+            // Cria o HTML para cada slide
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            // ATENÇÃO: O HTML interno aqui é um exemplo baseado no seu código antigo.
+            // Você pode customizar como quiser.
+            slide.innerHTML = `
+                <div class="container-bloco">
+                    <div class="bloco-imagens">
+                        <a href="#/galeria/${artista.id}">
+                            <img src="${artista.imageUrl}" alt="Imagem de ${artista.nome}">
+                        </a>
+                    </div>
+                    <p class="legenda-galeria">Galeria ${artista.nome}</p>
+                </div>
+            `;
+            swiperWrapper.appendChild(slide);
+        });
+
+        // Agora que os slides foram adicionados, inicializamos o Swiper
+        new Swiper('.artistas-slider', {
             loop: true,
             speed: 1500,
             breakpoints: {
-                320: { slidesPerView: 1, slidesPerGroup: 1 },
-                768: { slidesPerView: 3, slidesPerGroup: 3 },
-                1024: { slidesPerView: 4, slidesPerGroup: 4 }
+                320: { slidesPerView: 1 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
             },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
         });
+
+    } catch (error) {
+        console.error("Erro ao carregar artistas no carrossel:", error);
     }
 }
 
