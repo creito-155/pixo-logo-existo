@@ -2,95 +2,22 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Painel de Administração Local</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #282a36; color: #f8f8f2; padding: 2em; }
-        .container { max-width: 800px; margin: 0 auto; background-color: #44475a; padding: 2em; border-radius: 8px; }
-        h1 { text-align: center; color: #50fa7b; }
-        label { display: block; margin-top: 1em; margin-bottom: 0.5em; font-weight: bold; }
-        input[type="text"], input[type="file"] { width: 100%; padding: 10px; box-sizing: border-box; border-radius: 5px; border: 1px solid #6272a4; background-color: #282a36; color: #f8f8f2; }
-        button { display: block; width: 100%; padding: 15px; margin-top: 2em; border: none; border-radius: 5px; background-color: #50fa7b; color: #282a36; font-size: 1.2em; font-weight: bold; cursor: pointer; }
-        button:hover { background-color: #8affab; }
-        textarea { width: 100%; height: 300px; box-sizing: border-box; margin-top: 1em; background-color: #282a36; color: #f8f8f2; border: 1px solid #6272a4; border-radius: 5px; }
-        .copy-btn { background-color: #bd93f9; margin-top: 1em; }
-        .copy-btn:hover { background-color: #d6baff; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Admin</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Gerador de Galeria de Artista</h1>
-        <form id="artist-form">
-            <label for="artist-id">ID do Artista (Nome da pasta, ex: SVL)</label>
-            <input type="text" id="artist-id" required>
+<body class="admin-body">
 
-            <label for="artist-name">Nome de Exibição</label>
-            <input type="text" id="artist-name" required>
+    <header class="admin-header">
+        <h1>Painel de Administração</h1>
+        <button id="botao-logout">Sair</button>
+    </header>
 
-            <label for="artist-ig-link">Link do Instagram (URL Completa)</label>
-            <input type="text" id="artist-ig-link" required>
+    <main class="admin-container">
+        <h2>Adicionar Novo Artista</h2>
+        <p>Em breve: formulário para adicionar artistas.</p>
+    </main>
 
-            <label for="artist-ig-handle">Usuário do Instagram (ex: @SVL_ART)</label>
-            <input type="text" id="artist-ig-handle" required>
-
-            <!-- CAMPO NOVO ADICIONADO AQUI -->
-            <label for="artist-categories">Categorias (separadas por vírgula, ex: pixo, graff)</label>
-            <input type="text" id="artist-categories" placeholder="pixo, graff" required>
-
-            <label for="artist-logo">Logo do Artista (1 imagem)</label>
-            <input type="file" id="artist-logo" accept="image/*" required>
-
-            <label for="artist-images">Imagens da Galeria (Selecione Várias)</label>
-            <input type="file" id="artist-images" accept="image/*" multiple required>
-
-            <button type="submit">Gerar Código JSON</button>
-        </form>
-        
-        <textarea id="output" readonly placeholder="O seu código JSON para o artista aparecerá aqui..."></textarea>
-        <button id="copy-button" class="copy-btn">Copiar Código</button>
-    </div>
-
-    <script>
-        const form = document.getElementById('artist-form');
-        const output = document.getElementById('output');
-        const copyButton = document.getElementById('copy-button');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const artistId = document.getElementById('artist-id').value;
-            const logoFile = document.getElementById('artist-logo').files[0];
-            const galleryFiles = document.getElementById('artist-images').files;
-
-            // Lógica para as imagens da galeria
-            const imagePaths = [];
-            for (const file of galleryFiles) {
-                imagePaths.push(`imagens/${artistId}/${file.name}`);
-            }
-
-            // LÓGICA NOVA PARA AS CATEGORIAS
-            const categoriesInput = document.getElementById('artist-categories').value;
-            // Separa o texto por vírgulas, remove espaços extra e filtra itens vazios
-            const categoriesArray = categoriesInput.split(',').map(cat => cat.trim().toLowerCase()).filter(cat => cat);
-
-            const artistObject = {
-                id: artistId,
-                nome: document.getElementById('artist-name').value,
-                logo: `imagens/${artistId}/${logoFile.name}`,
-                instagramLink: document.getElementById('artist-ig-link').value,
-                instagramHandle: document.getElementById('artist-ig-handle').value,
-                categoria: categoriesArray, // Adiciona a lista de categorias ao JSON
-                imagens: imagePaths
-            };
-
-            output.value = JSON.stringify(artistObject, null, 2) + ',';
-        });
-        
-        copyButton.addEventListener('click', function() {
-            output.select();
-            document.execCommand('copy');
-            alert('Código copiado para a área de transferência!');
-        });
-    </script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
-
