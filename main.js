@@ -1,80 +1,55 @@
 // ===================================================================
-// main.js - ARQUIVO ÚNICO COM TODA A LÓGICA DO SITE
-// Data: 01 de Outubro de 2025
+// main.js - VERSÃO COMPLETA E CORRIGIDA
+// Data: 03 de Outubro de 2025
 // ===================================================================
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
-    authDomain: "pixologoexisto-v2.firebaseapp.com",
-    projectId: "pixologoexisto-v2",
-    storageBucket: "pixologoexisto-v2.firebasestorage.app",
-    messagingSenderId: "816053289271",
-    appId: "1:816053289271:web:bbe46d1b0fb5bee1fd5ab2"
-  };
+// Sua nova configuração do Firebase (projeto v2)
+const firebaseConfig = {
+  apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
+  authDomain: "pixologoexisto-v2.firebaseapp.com",
+  projectId: "pixologoexisto-v2",
+  storageBucket: "pixologoexisto-v2.appspot.com",
+  messagingSenderId: "816053289271",
+  appId: "1:816053289271:web:bbe46d1b0fb5bee1fd5ab2"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+// Inicializa o Firebase App
+const app = initializeApp(firebaseConfig);
+// **CORREÇÃO:** Define a referência do banco de dados (db) aqui para ser usada por todas as funções
+const db = getFirestore(app);
 
+
+// --- 2. FUNÇÕES DE UI (INTERFACE DO USUÁRIO) ---
 
 /**
- * Inicializa o carrossel da Swiper.js na página inicial.
+ * Cria e exibe uma lightbox (popup de imagem) na tela.
+ * @param {string} imageUrl - A URL da imagem a ser exibida.
  */
-async function carregarArtistasNoCarrossel() {
-    const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
-    if (!swiperWrapper) return;
-
-    try {
-        const artistasCollection = collection(db, 'artistas');
-        const snapshot = await getDocs(artistasCollection);
-        
-        swiperWrapper.innerHTML = ''; // Limpa o wrapper
-        snapshot.forEach(doc => {
-            const artista = { id: doc.id, ...doc.data() };
-            
-            // Cria o HTML para cada slide
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-            // ATENÇÃO: O HTML interno aqui é um exemplo baseado no seu código antigo.
-            // Você pode customizar como quiser.
-            slide.innerHTML = `
-                <div class="container-bloco">
-                    <div class="bloco-imagens">
-                        <a href="#/galeria/${artista.id}">
-                            <img src="${artista.imageUrl}" alt="Imagem de ${artista.nome}">
-                        </a>
-                    </div>
-                    <p class="legenda-galeria">Galeria ${artista.nome}</p>
-                </div>
-            `;
-            swiperWrapper.appendChild(slide);
-        });
-
-        // Agora que os slides foram adicionados, inicializamos o Swiper
-        new Swiper('.artistas-slider', {
-            loop: true,
-            speed: 1500,
-            breakpoints: {
-                320: { slidesPerView: 1 },
-                768: { slidesPerView: 3 },
-                1024: { slidesPerView: 4 }
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-
-    } catch (error) {
-        console.error("Erro ao carregar artistas no carrossel:", error);
-    }
+function criarLightbox(imageUrl) {
+    const overlay = document.createElement('div');
+    overlay.id = 'lightbox-overlay';
+    const closeButton = document.createElement('span');
+    closeButton.id = 'lightbox-close';
+    closeButton.innerHTML = '&times;';
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.id = 'lightbox-image';
+    overlay.appendChild(closeButton);
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+    const closeLightbox = () => document.body.removeChild(overlay);
+    overlay.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function onEsc(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+            document.removeEventListener('keydown', onEsc);
+        }
+    });
 }
 
 
@@ -103,6 +78,54 @@ function criarCartaoArtista(artista) {
     link.appendChild(img);
     link.appendChild(nome);
     return link;
+}
+
+/**
+ * Busca artistas no Firebase, preenche e inicializa o carrossel da página inicial.
+ */
+async function carregarArtistasNoCarrossel() {
+    const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
+    if (!swiperWrapper) return;
+
+    try {
+        const artistasCollection = collection(db, 'artistas');
+        const snapshot = await getDocs(artistasCollection);
+        
+        swiperWrapper.innerHTML = ''; // Limpa o wrapper
+        snapshot.forEach(doc => {
+            const artista = { id: doc.id, ...doc.data() };
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            slide.innerHTML = `
+                <div class="container-bloco">
+                    <div class="bloco-imagens">
+                        <a href="#/galeria/${artista.id}">
+                            <img src="${artista.imageUrl}" alt="Imagem de ${artista.nome}">
+                        </a>
+                    </div>
+                    <p class="legenda-galeria">Galeria ${artista.nome}</p>
+                </div>
+            `;
+            swiperWrapper.appendChild(slide);
+        });
+
+        // Inicializa o Swiper DEPOIS que os slides foram adicionados
+        new Swiper('.artistas-slider', {
+            loop: true,
+            speed: 1500,
+            breakpoints: {
+                320: { slidesPerView: 1 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    } catch (error) {
+        console.error("Erro ao carregar artistas no carrossel:", error);
+    }
 }
 
 /**
@@ -158,7 +181,6 @@ async function carregarGaleriaIndividual() {
             instagramLinkElement.textContent = artistaData.instagramHandle || 'Não informado';
             
             galeriaContainer.innerHTML = '';
-            // Presume que o documento do artista tem um campo 'imagens' que é um array de URLs
             if (artistaData.imagens && Array.isArray(artistaData.imagens) && artistaData.imagens.length > 0) {
                 artistaData.imagens.forEach(urlImagem => {
                     const itemDiv = document.createElement('div');
@@ -194,7 +216,7 @@ async function carregarPaginaDeArtistas() {
 
     try {
         const artistasCollection = collection(db, 'artistas');
-        const q = query(artistasCollection, orderBy("nome")); // Ordena por nome
+        const q = query(artistasCollection, orderBy("nome"));
         const snapshot = await getDocs(q);
         
         let todosArtistas = [];
@@ -209,27 +231,20 @@ async function carregarPaginaDeArtistas() {
             lista.forEach(artista => gridContainer.appendChild(criarCartaoArtista(artista)));
         };
 
-        // Lógica de filtro
         filtrosContainer.addEventListener('click', (event) => {
             if (event.target.tagName !== 'BUTTON') return;
-            
             filtrosContainer.querySelector('.active').classList.remove('active');
             event.target.classList.add('active');
-
             const categoria = event.target.dataset.categoria;
             if (categoria === 'todos') {
                 renderizarArtistas(todosArtistas);
             } else {
-                const filtrados = todosArtistas.filter(artista => 
-                    artista.categoria && artista.categoria.includes(categoria)
-                );
+                const filtrados = todosArtistas.filter(artista => artista.categoria && artista.categoria.includes(categoria));
                 renderizarArtistas(filtrados);
             }
         });
         
-        // Renderização inicial
         renderizarArtistas(todosArtistas);
-
     } catch (error) {
         console.error("Erro ao montar a página de artistas:", error);
         gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar os artistas.</p>';
@@ -254,7 +269,7 @@ const loadContent = async () => {
     if (path.startsWith('/galeria/')) {
         routeFile = routes['/galeria'];
     } else {
-        routeFile = routes[path] || '/pages/404.html'; // Crie um /pages/404.html para erros
+        routeFile = routes[path] || '/pages/404.html';
     }
 
     try {
@@ -266,12 +281,12 @@ const loadContent = async () => {
         if (path.startsWith('/galeria/')) {
             carregarGaleriaIndividual();
         } else if (path === '/home') {
-            inicializarCarrosselHome();
+            // **CORREÇÃO:** Chama a nova função do carrossel
+            carregarArtistasNoCarrossel();
             carregarArtistasRecomendados();
         } else if (path === '/artistas') {
             carregarPaginaDeArtistas();
         }
-        // As páginas estáticas como /quem-somos não precisam de chamada de função.
 
     } catch (error) {
         console.error('Erro ao carregar a página:', error);
@@ -289,5 +304,4 @@ function initializeRouter() {
     loadContent();
 }
 
-// Inicia o roteador assim que a página principal (DOM) for carregada
 document.addEventListener('DOMContentLoaded', initializeRouter);
