@@ -5,62 +5,24 @@
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
-  authDomain: "pixologoexisto-v2.firebaseapp.com",
-  projectId: "pixologoexisto-v2",
-  storageBucket: "pixologoexisto-v2.firebasestorage.app",
-  messagingSenderId: "816053289271",
-  appId: "1:816053289271:web:bbe46d1b0fb5bee1fd5ab2"
-};
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
+    authDomain: "pixologoexisto-v2.firebaseapp.com",
+    projectId: "pixologoexisto-v2",
+    storageBucket: "pixologoexisto-v2.firebasestorage.app",
+    messagingSenderId: "816053289271",
+    appId: "1:816053289271:web:bbe46d1b0fb5bee1fd5ab2"
+  };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
-
-// --- 2. FUNÇÕES DE UI (INTERFACE DO USUÁRIO) ---
-
-/**
- * Cria e exibe uma lightbox (popup de imagem) na tela.
- * @param {string} imageUrl - A URL da imagem a ser exibida.
- */
-function criarLightbox(imageUrl) {
-    const overlay = document.createElement('div');
-    overlay.id = 'lightbox-overlay';
-    
-    const closeButton = document.createElement('span');
-    closeButton.id = 'lightbox-close';
-    closeButton.innerHTML = '&times;';
-    
-    const img = document.createElement('img');
-    img.src = imageUrl;
-    img.id = 'lightbox-image';
-    
-    overlay.appendChild(closeButton);
-    overlay.appendChild(img);
-    document.body.appendChild(overlay);
-    
-    const closeLightbox = () => {
-        if (document.body.contains(overlay)) {
-            document.body.removeChild(overlay);
-        }
-    };
-    
-    overlay.addEventListener('click', closeLightbox);
-    
-    document.addEventListener('keydown', function onEsc(e) {
-        if (e.key === 'Escape') {
-            closeLightbox();
-            document.removeEventListener('keydown', onEsc);
-        }
-    });
-}
 
 /**
  * Inicializa o carrossel da Swiper.js na página inicial.
