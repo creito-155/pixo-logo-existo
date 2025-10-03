@@ -1,0 +1,5 @@
+serviceAccountKey.jsonl
+# Pasta de pacotes do Node - nunca deve ser enviada
+node_modules/
+# Nosso script de migração de uso único
+migracao.js
