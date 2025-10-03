@@ -15,7 +15,32 @@
 
     <main class="admin-container">
         <h2>Adicionar Novo Artista</h2>
-        <p>Em breve: formulário para adicionar artistas.</p>
+        
+        <form id="form-add-artista">
+            <div class="form-group">
+                <label for="artista-nome">Nome do Artista</label>
+                <input type="text" id="artista-nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="artista-imagem">Imagem Principal (Logo/Perfil)</label>
+                <input type="file" id="artista-imagem" accept="image/*" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="artista-instagram">Instagram (Ex: @pixo.sp)</label>
+                <input type="text" id="artista-instagram">
+            </div>
+            
+            <div class="form-group">
+                <label for="artista-categorias">Categorias (separadas por vírgula, ex: Pixo, Graff)</label>
+                <input type="text" id="artista-categorias">
+            </div>
+            
+            <button type="submit" id="botao-salvar-artista">Salvar Artista</button>
+        </form>
+        
+        <div id="upload-status"></div>
     </main>
 
     <script type="module" src="main.js"></script>
