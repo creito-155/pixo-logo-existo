@@ -266,51 +266,6 @@ a:hover {
     align-items: center;
     z-index: 1000;
 }
-.bloco-imagens {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-    margin-bottom: 15px;
-}
-.bloco-imagens:hover {
-    transform: scale(1.05);
-}
-.bloco-imagens img {
-    position: absolute;
-    width: 240px;
-    height: 240px;
-    left: 50%;
-    top: 50%;
-    border: 5px solid white;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.4s ease;
-    object-fit: cover;
-}
-.bloco-imagens img:nth-child(1) {
-    transform: translate(-50%, -50%) rotate(-10deg);
-    z-index: 1;
-}
-.bloco-imagens img:nth-child(2) {
-    transform: translate(-50%, -50%) rotate(5deg);
-    z-index: 2;
-}
-.bloco-imagens img:nth-child(3) {
-    transform: translate(-50%, -50%) rotate(-2deg);
-    z-index: 3;
-}
-.bloco-imagens:hover img:nth-child(1) {
-    transform: translate(-80%, -50%) rotate(-15deg);
-}
-.bloco-imagens:hover img:nth-child(2) {
-    transform: translate(-50%, -60%) rotate(0deg);
-}
-.bloco-imagens:hover img:nth-child(3) {
-    transform: translate(-20%, -50%) rotate(15deg);
-}
 .legenda-galeria {
     font-family: 'Don Graffiti', sans-serif;
     width: 100px;
@@ -320,6 +275,78 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
+
+
+/* ======================================================== */
+/* NOVO ESTILO PARA O CARROSSEL (EFEITO DE 3 IMAGENS) */
+/* ======================================================== */
+.bloco-imagens {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bloco-imagens a {
+    /* Garante que o link não tenha fundo roxo no hover */
+    background: none !important;
+}
+.bloco-imagens:hover {
+    transform: scale(1.05);
+}
+/* A imagem principal, que fica na frente */
+.bloco-imagens img {
+    width: 240px;
+    height: 240px;
+    border: 5px solid white;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    position: relative; /* Imagem fica no fluxo normal */
+    z-index: 3;
+    transition: transform 0.4s ease;
+}
+/* Elementos FALSOS para criar o efeito de stack (pilha) */
+.bloco-imagens::before,
+.bloco-imagens::after {
+    content: '';
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    background-color: #1a1a1a; /* Cor de fundo escura */
+    border: 5px solid #888; /* Borda cinza para simular outras fotos */
+    border-radius: 4px;
+    transition: transform 0.4s ease;
+}
+/* Posição do "card" de trás */
+.bloco-imagens::before {
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+/* Posição do "card" do meio */
+.bloco-imagens::after {
+    transform: rotate(5deg);
+    z-index: 2;
+}
+/* Efeito ao passar o mouse */
+.bloco-imagens:hover::before {
+    transform: translateX(-30%) rotate(-15deg);
+}
+.bloco-imagens:hover::after {
+    transform: translateX(30%) rotate(15deg);
+}
+.bloco-imagens:hover img {
+    transform: translateY(-15%) rotate(0deg) scale(1.1);
+}
+
+
+/* =================================
+   ESTILOS GLOBAIS DA GALERIA
+   ================================= */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -698,7 +725,7 @@ a:hover {
     background: none;
 }
 .admin-header {
-    position: fixed; /* Header fixo */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -716,7 +743,7 @@ a:hover {
     border-radius: 8px;
     width: 100%;
     max-width: 700px;
-    margin-top: 100px; /* Espaço para o header fixo */
+    margin-top: 100px;
     margin-bottom: 2rem;
 }
 .admin-header h1 {
