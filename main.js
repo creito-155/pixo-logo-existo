@@ -1,13 +1,15 @@
 // ===================================================================
-// script.js - VERSÃO FINAL, COMPLETA E CORRIGIDA
+// main.js - VERSÃO FINAL E DEFINITIVA PARA SPA
 // Data: 03 de Outubro de 2025
 // ===================================================================
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+// Sua configuração do Firebase (projeto v2)
 const firebaseConfig = {
   apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
   authDomain: "pixologoexisto-v2.firebaseapp.com",
@@ -19,14 +21,130 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 
-// --- 2. FUNÇÕES GERAIS E DE UI (USADAS EM VÁRIAS PÁGINAS) ---
+// --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
 
-/**
- * Cria e exibe uma lightbox (popup de imagem) na tela.
- * @param {string} imageUrl - A URL da imagem a ser exibida.
- */
+// Lógica para o formulário de CADASTRO
+const formCadastro = document.getElementById('form-cadastro');
+if (formCadastro) {
+    formCadastro.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nomeArtista = document.getElementById('artista-nome-cadastro').value;
+        const email = document.getElementById('email-cadastro').value;
+        const senha = document.getElementById('senha-cadastro').value;
+        const statusDiv = document.getElementById('cadastro-status');
+        statusDiv.textContent = "Criando conta...";
+        statusDiv.style.color = "orange";
+        createUserWithEmailAndPassword(auth, email, senha)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                sendEmailVerification(user).then(() => {
+                    statusDiv.textContent = 'Sucesso! Link de verificação enviado para seu e-mail. Confirme antes de fazer login.';
+                    statusDiv.style.color = 'green';
+                    formCadastro.reset();
+                });
+                const userDocRef = doc(db, "usuarios", user.uid);
+                setDoc(userDocRef, { nomeArtista: nomeArtista, email: user.email, criadoEm: new Date() });
+            })
+            .catch((error) => {
+                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
+                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
+                else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
+                statusDiv.style.color = "red";
+            });
+    });
+}
+
+// Lógica para a página de LOGIN
+const formLogin = document.getElementById('form-login');
+if (formLogin) {
+    formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = formLogin.email.value;
+        const senha = formLogin.senha.value;
+        const erroLogin = document.getElementById('login-error');
+        signInWithEmailAndPassword(auth, email, senha)
+            .then(() => window.location.href = '/admin.html')
+            .catch((error) => erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.");
+    });
+}
+
+// Lógica para o botão de SAIR no painel admin
+const botaoLogout = document.getElementById('botao-logout');
+if (botaoLogout) {
+    botaoLogout.addEventListener('click', () => {
+        signOut(auth).then(() => window.location.href = '/login.html');
+    });
+}
+
+// GUARDIÃO: Protege a página de admin
+onAuthStateChanged(auth, (user) => {
+    if (!user && window.location.pathname.includes('/admin.html')) {
+        window.location.href = '/login.html';
+    }
+});
+
+// Lógica do formulário de ADICIONAR/CRIAR PERFIL DE ARTISTA
+const formAddArtista = document.getElementById('form-add-artista');
+if (formAddArtista) {
+    formAddArtista.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const botaoSalvar = document.getElementById('botao-salvar-artista');
+        const uploadStatus = document.getElementById('upload-status');
+        const user = auth.currentUser;
+        if (!user) {
+            uploadStatus.textContent = "Erro: Sessão expirada. Faça o login novamente.";
+            uploadStatus.style.color = 'red';
+            return;
+        }
+        const nome = document.getElementById('artista-nome').value;
+        const imagemArquivo = document.getElementById('artista-imagem').files[0];
+        const instagramHandle = document.getElementById('artista-instagram').value;
+        const categoriasInput = document.getElementById('artista-categorias').value;
+        if (!nome || !imagemArquivo) {
+            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return;
+        }
+        botaoSalvar.disabled = true;
+        uploadStatus.textContent = 'Enviando imagem para o Cloudinary...';
+        uploadStatus.style.color = 'orange';
+        const formData = new FormData();
+        formData.append('file', imagemArquivo);
+        formData.append('upload_preset', 'artistas_uploads'); 
+        const CLOUD_NAME = 'dj053fl2q';
+        const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+        try {
+            const response = await fetch(uploadUrl, { method: 'POST', body: formData });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
+            const imageUrl = data.secure_url;
+            uploadStatus.textContent = 'Imagem enviada! Salvando no banco de dados...';
+            const artistaDoc = {
+                userId: user.uid,
+                nome: nome,
+                imageUrl: imageUrl,
+                instagramHandle: instagramHandle,
+                instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
+                categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                imagens: []
+            };
+            await addDoc(collection(db, 'artistas'), artistaDoc);
+            uploadStatus.textContent = 'Artista adicionado com sucesso!';
+            uploadStatus.style.color = 'green';
+            formAddArtista.reset();
+        } catch (error) {
+            console.error("Erro no processo de upload:", error);
+            uploadStatus.textContent = `Erro: ${error.message}`;
+            uploadStatus.style.color = 'red';
+        } finally {
+            botaoSalvar.disabled = false;
+        }
+    });
+}
+
+
+// --- 3. FUNÇÕES DE UI (INTERFACE DO USUÁRIO - SITE PÚBLICO) ---
 function criarLightbox(imageUrl) {
     const overlay = document.createElement('div');
     overlay.id = 'lightbox-overlay';
@@ -49,70 +167,47 @@ function criarLightbox(imageUrl) {
     });
 }
 
-/**
- * Cria o elemento HTML (cartão) para um artista.
- * @param {object} artista - O objeto do artista com id, nome, imageUrl.
- * @returns {HTMLElement} O elemento <a> do cartão do artista.
- */
+
+// --- 4. FUNÇÕES DE DADOS (LÓGICA DO FIREBASE PARA O SITE PÚBLICO) ---
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
-    link.href = `/galeria.html?id=${artista.id}`; 
+    link.href = `#/galeria/${artista.id}`; 
     link.className = 'gallery-item';
-    
     const img = document.createElement('img');
     img.src = artista.imageUrl; 
     img.alt = `Foto do artista ${artista.nome}`;
     img.className = 'gallery-image';
     img.loading = 'lazy';
-
     const nome = document.createElement('p');
     nome.textContent = artista.nome;
     nome.className = 'artist-card-name';
-
     link.appendChild(img);
     link.appendChild(nome);
     return link;
 }
 
-
-// --- 3. FUNÇÕES ESPECÍFICAS DE CADA PÁGINA ---
-
-/**
- * Carrega o conteúdo da página inicial (Recomendados e Carrossel).
- */
-async function carregarPaginaHome() {
-    const recomendadosGrid = document.getElementById('recomendados-grid');
+async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
-    if (!recomendadosGrid || !swiperWrapper) return;
-
+    if (!swiperWrapper) return;
     try {
         const artistasCollection = collection(db, 'artistas');
         const snapshot = await getDocs(artistasCollection);
-        
         let todosArtistas = [];
         snapshot.forEach(doc => {
             todosArtistas.push({ id: doc.id, ...doc.data() });
         });
-        
-        // Lógica para Recomendados
-        const sorteados = [...todosArtistas].sort(() => 0.5 - Math.random());
-        const selecionados = sorteados.slice(0, 4);
-        recomendadosGrid.innerHTML = '';
-        selecionados.forEach(artista => recomendadosGrid.appendChild(criarCartaoArtista(artista)));
 
-        // Lógica do Carrossel com 3 imagens
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
             const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
             const img2 = (artista.imagens && artista.imagens[1]) || img1;
             const img3 = (artista.imagens && artista.imagens[2]) || img2;
-
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
             slide.innerHTML = `
                 <div class="container-bloco">
                     <div class="bloco-imagens">
-                        <a href="/galeria.html?id=${artista.id}">
+                        <a href="#/galeria/${artista.id}">
                             <img src="${img1}" alt="Arte de ${artista.nome}">
                             <img src="${img2}" alt="Arte de ${artista.nome}">
                             <img src="${img3}" alt="Arte de ${artista.nome}">
@@ -124,70 +219,48 @@ async function carregarPaginaHome() {
             swiperWrapper.appendChild(slide);
         });
         
-        // Inicializa o Swiper
         new Swiper('.artistas-slider', {
             loop: todosArtistas.length > 3,
+            speed: 1500,
             breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         });
-
-    } catch (error) {
-        console.error("Erro ao carregar a página inicial:", error);
-    }
+    } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
 
-/**
- * Carrega a lista completa de artistas na página 'Artistas'.
- */
-async function carregarPaginaDeArtistas() {
-    const gridContainer = document.getElementById('todos-os-artistas-grid');
-    if (!gridContainer) return;
-
+async function carregarArtistasRecomendados() {
+    const recomendadosGrid = document.getElementById('recomendados-grid');
+    if (!recomendadosGrid) return;
+    recomendadosGrid.innerHTML = '<p>Carregando...</p>';
     try {
         const artistasCollection = collection(db, 'artistas');
-        const q = query(artistasCollection, orderBy("nome"));
-        const snapshot = await getDocs(q);
-        
+        const snapshot = await getDocs(artistasCollection);
         let todosArtistas = [];
-        snapshot.forEach(doc => {
-            todosArtistas.push({ id: doc.id, ...doc.data() });
-        });
-        
-        gridContainer.innerHTML = '';
-        todosArtistas.forEach(artista => gridContainer.appendChild(criarCartaoArtista(artista)));
-        
-    } catch (error) {
-        console.error("Erro ao carregar página de artistas:", error);
-    }
+        snapshot.forEach(doc => todosArtistas.push({ id: doc.id, ...doc.data() }));
+        todosArtistas.sort(() => 0.5 - Math.random());
+        const selecionados = todosArtistas.slice(0, 4);
+        recomendadosGrid.innerHTML = '';
+        selecionados.forEach(artista => recomendadosGrid.appendChild(criarCartaoArtista(artista)));
+    } catch (error) { console.error("Erro ao buscar artistas recomendados:", error); recomendadosGrid.innerHTML = '<p>Erro ao carregar artistas.</p>'; }
 }
 
-/**
- * Carrega a página de galeria de um artista específico.
- */
 async function carregarGaleriaIndividual() {
     const galeriaContainer = document.getElementById('galeria-container');
     if (!galeriaContainer) return;
-
     try {
-        const params = new URLSearchParams(window.location.search);
-        const artistaId = params.get('id');
+        const pathParts = window.location.hash.split('/');
+        const artistaId = pathParts[2];
         if (!artistaId) throw new Error("ID do artista não encontrado na URL.");
-        
         const docRef = doc(db, 'artistas', artistaId);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
             const artistaData = docSnap.data();
             document.title = `Galeria - ${artistaData.nome}`;
             document.getElementById('artista-logo').src = artistaData.imageUrl;
             document.getElementById('artista-nome').textContent = artistaData.nome;
-
             const instagramLinkElement = document.getElementById('artista-instagram-link');
-            if(instagramLinkElement) {
-                instagramLinkElement.href = artistaData.instagramLink || '#';
-                instagramLinkElement.textContent = artistaData.instagramHandle || 'Não informado';
-            }
-            
+            instagramLinkElement.href = artistaData.instagramLink || '#';
+            instagramLinkElement.textContent = artistaData.instagramHandle || 'Não informado';
             galeriaContainer.innerHTML = '';
             if (artistaData.imagens && artistaData.imagens.length > 0) {
                 artistaData.imagens.forEach(urlImagem => {
@@ -205,27 +278,88 @@ async function carregarGaleriaIndividual() {
                  galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
             }
         } else {
+            document.querySelector('.creator-header').style.display = 'none';
             galeriaContainer.innerHTML = '<h1>Artista não encontrado.</h1>';
         }
-    } catch (error) {
-        console.error('Erro ao carregar galeria:', error);
-    }
+    } catch (error) { console.error('Erro ao carregar dados da galeria:', error); galeriaContainer.innerHTML = '<h1>Ocorreu um erro ao carregar o conteúdo.</h1>'; }
 }
 
-// --- 4. O GERENTE (Roda o código certo na página certa) ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Se a página tem a div 'recomendados-grid', então é a página inicial.
-    if (document.getElementById('recomendados-grid')) {
-        carregarPaginaHome();
+async function carregarPaginaDeArtistas() {
+    const gridContainer = document.getElementById('todos-os-artistas-grid');
+    const filtrosContainer = document.getElementById('filtros-container');
+    if (!gridContainer) return;
+    try {
+        const artistasCollection = collection(db, 'artistas');
+        const q = query(artistasCollection, orderBy("nome"));
+        const snapshot = await getDocs(q);
+        let todosArtistas = [];
+        snapshot.forEach(doc => todosArtistas.push({ id: doc.id, ...doc.data() }));
+        const renderizarArtistas = (lista) => {
+            gridContainer.innerHTML = '';
+            if (lista.length === 0) { gridContainer.innerHTML = '<p style="text-align: center; width: 100%;">Nenhum artista encontrado.</p>'; return; }
+            lista.forEach(artista => gridContainer.appendChild(criarCartaoArtista(artista)));
+        };
+        filtrosContainer.addEventListener('click', (event) => {
+            if (event.target.tagName !== 'BUTTON') return;
+            filtrosContainer.querySelector('.active').classList.remove('active');
+            event.target.classList.add('active');
+            const categoria = event.target.dataset.categoria;
+            if (categoria === 'todos') {
+                renderizarArtistas(todosArtistas);
+            } else {
+                const filtrados = todosArtistas.filter(artista => artista.categoria && artista.categoria.includes(categoria));
+                renderizarArtistas(filtrados);
+            }
+        });
+        renderizarArtistas(todosArtistas);
+    } catch (error) { console.error("Erro ao montar a página de artistas:", error); gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar.</p>'; }
+}
+
+
+// --- 5. ROTEADOR (LÓGICA DA SPA PARA O SITE PÚBLICO) ---
+const routes = {
+    '/home': '/pages/home.html',
+    '/artistas': '/pages/artistas.html',
+    '/quem-somos': '/pages/quem-somos.html',
+    '/onde-atuamos': '/pages/onde-atuamos.html',
+    '/galeria': '/pages/galeria.html'
+};
+
+const loadContent = async () => {
+    const contentDiv = document.getElementById('app-content');
+    if (!contentDiv) return;
+    const path = window.location.hash.substring(1) || '/home';
+    let routeFile;
+    if (path.startsWith('/galeria/')) {
+        routeFile = routes['/galeria'];
+    } else {
+        routeFile = routes[path] || '/pages/404.html';
     }
-    // Se a página tem a div 'todos-os-artistas-grid', é a página de artistas.
-    // (A checagem do 'recomendados-grid' acima já cobre a home, então essa checagem
-    // só será verdadeira na página de artistas)
-    if (document.getElementById('todos-os-artistas-grid') && !document.getElementById('recomendados-grid')) {
-        carregarPaginaDeArtistas();
+    try {
+        const response = await fetch(routeFile);
+        const html = await response.text();
+        contentDiv.innerHTML = html;
+        if (path.startsWith('/galeria/')) {
+            carregarGaleriaIndividual();
+        } else if (path === '/home') {
+            carregarArtistasNoCarrossel();
+            carregarArtistasRecomendados();
+        } else if (path === '/artistas') {
+            carregarPaginaDeArtistas();
+        }
+    } catch (error) { console.error('Erro ao carregar a página:', error); contentDiv.innerHTML = '<h1>Erro ao carregar a página.</h1>'; }
+};
+
+
+// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO DO SITE PÚBLICO) ---
+function initializeRouter() {
+    window.addEventListener('hashchange', loadContent);
+    if (!window.location.hash || window.location.hash === '#') {
+        window.location.hash = '#/home';
     }
-    // Se a página tem a div 'galeria-container', é a página da galeria individual.
-    if (document.getElementById('galeria-container')) {
-        carregarGaleriaIndividual();
-    }
-});
+    loadContent();
+}
+
+if (document.getElementById('app-content')) {
+    document.addEventListener('DOMContentLoaded', initializeRouter);
+}
