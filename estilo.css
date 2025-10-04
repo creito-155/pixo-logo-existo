@@ -1,214 +1,8 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
-/* Document
-   ========================================================================== */
-
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
-
-/* Sections
-   ========================================================================== */
-
-body {
-  margin: 0;
-}
-
-main {
-  display: block;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-/* Grouping content
-   ========================================================================== */
-
-hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
-}
-
-pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
-}
-
-/* Text-level semantics
-   ========================================================================== */
-
-a {
-  background-color: transparent;
-}
-
-abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
-}
-
-b,
-strong {
-  font-weight: bolder;
-}
-
-code,
-kbd,
-samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
-}
-
-small {
-  font-size: 80%;
-}
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-sup {
-  top: -0.5em;
-}
-
-/* Embedded content
-   ========================================================================== */
-
-img {
-  border-style: none;
-}
-
-/* Forms
-   ========================================================================== */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-}
-
-button,
-input { /* 1 */
-  overflow: visible;
-}
-
-button,
-select { /* 1 */
-  text-transform: none;
-}
-
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-  appearance: button;
-}
-
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
-
-legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
-}
-
-progress {
-  vertical-align: baseline;
-}
-
-textarea {
-  overflow: auto;
-}
-
-[type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-}
-
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-[type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
-}
-
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
-}
-
-/* Interactive
-   ========================================================================== */
-
-details {
-  display: block;
-}
-
-summary {
-  display: list-item;
-}
-
-/* Misc
-   ========================================================================== */
-
-template {
-  display: none;
-}
-
-[hidden] {
-  display: none;
-}
-
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button;appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template,[hidden]{display:none}
 
 /* =================================
-   SEUS ESTILOS PERSONALIZADOS
+   ESTILOS GERAIS E BARRA SUPERIOR
    ================================= */
 body {
     background-color: #252525;
@@ -249,6 +43,10 @@ a:hover {
   top: 50%;
   transform: translateY(-50%);
 }
+
+/* =================================
+   TÍTULOS
+   ================================= */
 .titulo-galeria {
     width: -moz-fit-content;
     width: fit-content;
@@ -259,12 +57,62 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
+
+/* =================================
+   ESTILO ORIGINAL DO CARROSSEL (COM ANIMAÇÃO CORRETA)
+   ================================= */
 .container-bloco {
     text-align: center; 
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1000;
+}
+.bloco-imagens {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+}
+.bloco-imagens:hover {
+    transform: scale(1.05);
+}
+.bloco-imagens img {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    left: 50%;
+    top: 50%;
+    border: 5px solid white;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease;
+    object-fit: cover;
+}
+/* Posição inicial das 3 imagens empilhadas */
+.bloco-imagens img:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(-10deg);
+    z-index: 1;
+}
+.bloco-imagens img:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(5deg);
+    z-index: 2;
+}
+.bloco-imagens img:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(-2deg);
+    z-index: 3;
+}
+/* EFEITO DE ABRIR AO PASSAR O MOUSE (A ANIMAÇÃO QUE VOCÊ QUER) */
+.bloco-imagens:hover img:nth-child(1) {
+    transform: translate(-80%, -50%) rotate(-15deg);
+}
+.bloco-imagens:hover img:nth-child(2) {
+    transform: translate(-50%, -60%) rotate(0deg);
+}
+.bloco-imagens:hover img:nth-child(3) {
+    transform: translate(-20%, -50%) rotate(15deg);
 }
 .legenda-galeria {
     font-family: 'Don Graffiti', sans-serif;
@@ -275,74 +123,6 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
-
-
-/* ======================================================== */
-/* NOVO ESTILO PARA O CARROSSEL (EFEITO DE 3 IMAGENS) */
-/* ======================================================== */
-.bloco-imagens {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.bloco-imagens a {
-    /* Garante que o link não tenha fundo roxo no hover */
-    background: none !important;
-}
-.bloco-imagens:hover {
-    transform: scale(1.05);
-}
-/* A imagem principal, que fica na frente */
-.bloco-imagens img {
-    width: 240px;
-    height: 240px;
-    border: 5px solid white;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    object-fit: cover;
-    position: relative; /* Imagem fica no fluxo normal */
-    z-index: 3;
-    transition: transform 0.4s ease;
-}
-/* Elementos FALSOS para criar o efeito de stack (pilha) */
-.bloco-imagens::before,
-.bloco-imagens::after {
-    content: '';
-    position: absolute;
-    width: 240px;
-    height: 240px;
-    background-color: #1a1a1a; /* Cor de fundo escura */
-    border: 5px solid #888; /* Borda cinza para simular outras fotos */
-    border-radius: 4px;
-    transition: transform 0.4s ease;
-}
-/* Posição do "card" de trás */
-.bloco-imagens::before {
-    transform: rotate(-10deg);
-    z-index: 1;
-}
-/* Posição do "card" do meio */
-.bloco-imagens::after {
-    transform: rotate(5deg);
-    z-index: 2;
-}
-/* Efeito ao passar o mouse */
-.bloco-imagens:hover::before {
-    transform: translateX(-30%) rotate(-15deg);
-}
-.bloco-imagens:hover::after {
-    transform: translateX(30%) rotate(15deg);
-}
-.bloco-imagens:hover img {
-    transform: translateY(-15%) rotate(0deg) scale(1.1);
-}
-
 
 /* =================================
    ESTILOS GLOBAIS DA GALERIA
@@ -418,6 +198,10 @@ a:hover {
     background-color: rgb(195, 0, 255);
     color: #ffffff;
 }
+
+/* =================================
+   ESTILOS DA LIGHTBOX (IMAGEM EXPANDIDA)
+   ================================= */
 #lightbox-overlay {
     position: fixed;
     top: 0;
@@ -458,6 +242,10 @@ a:hover {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* =================================
+   ESTILOS DO SWIPER (CARROSSEL)
+   ================================= */
 .swiper-button-next::after, .swiper-button-prev::after {
     content: '' !important;
     display: none;
@@ -490,6 +278,10 @@ a:hover {
 .swiper-button-next:hover::before, .swiper-button-prev:hover::before {
     color: white !important;
 }
+
+/* =================================
+   FILTROS DA PÁGINA DE ARTISTAS
+   ================================= */
 #filtros-container {
     text-align: center;
     margin-bottom: 40px;
@@ -517,6 +309,10 @@ a:hover {
     border-color: rgb(195, 0, 255);
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
 }
+
+/* =================================
+   PÁGINAS DE TEXTO (QUEM SOMOS, ONDE ATUAMOS)
+   ================================= */
 .quem-somos-body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
     background-size: cover;
@@ -558,6 +354,10 @@ a:hover {
     color: #cccccc;
     margin-bottom: 20px;
 }
+
+/* =================================
+   RODAPÉ DO SITE
+   ================================= */
 .site-footer {
     background-color: #1a1a1a;
     color: #a0a0a0;
@@ -585,6 +385,10 @@ a:hover {
     text-decoration: underline;
     background: none;
 }
+
+/* =================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ================================= */
 @media (max-width: 992px) {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -754,4 +558,3 @@ a:hover {
     width: auto;
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
-}
