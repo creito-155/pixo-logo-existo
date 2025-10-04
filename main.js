@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO DEFINITIVA (COM LÓGICA DE ADMIN CONDICIONAL)
+// main.js - VERSÃO FINAL, COMPLETA E CORRIGIDA
 // Data: 04 de Outubro de 2025
 // ===================================================================
 
@@ -29,40 +29,51 @@ const auth = getAuth(app);
 // Função que decide o que mostrar na página de admin
 async function setupAdminPage() {
     const user = auth.currentUser;
-    if (!user) { return; }
+    if (!user) { 
+        window.location.href = '/login.html';
+        return; 
+    }
 
     const createSection = document.getElementById('create-profile-section');
     const editSection = document.getElementById('edit-profile-section');
     const loadingAdmin = document.getElementById('loading-admin');
 
-    // Procura por um perfil de artista que pertença ao usuário logado
-    const artistasCollection = collection(db, "artistas");
-    const q = query(artistasCollection, where("userId", "==", user.uid));
-    const querySnapshot = await getDocs(q);
+    // Usamos try...catch para capturar qualquer erro
+    try {
+        const artistasCollection = collection(db, "artistas");
+        const q = query(artistasCollection, where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
 
-    loadingAdmin.style.display = 'none';
+        if(loadingAdmin) loadingAdmin.style.display = 'none';
 
-    if (querySnapshot.empty) {
-        // NENHUM PERFIL ENCONTRADO: Mostra o formulário de criação
-        createSection.style.display = 'block';
-        editSection.style.display = 'none';
-    } else {
-        // PERFIL ENCONTRADO: Mostra a seção de gerenciamento
-        const artistaDoc = querySnapshot.docs[0];
-        const artistaData = artistaDoc.data();
-        const welcomeMessage = document.getElementById('welcome-message');
-        
-        if (welcomeMessage) {
-            welcomeMessage.textContent = `Bem-vindo de volta, ${artistaData.nome}!`;
+        if (querySnapshot.empty) {
+            console.log("Nenhum perfil de artista encontrado. Mostrando formulário de criação.");
+            if(createSection) createSection.style.display = 'block';
+            if(editSection) editSection.style.display = 'none';
+        } else {
+            console.log("Perfil de artista encontrado. Mostrando painel de gerenciamento.");
+            const artistaDoc = querySnapshot.docs[0];
+            const artistaData = artistaDoc.data();
+            const welcomeMessage = document.getElementById('welcome-message');
+            
+            if (welcomeMessage) {
+                welcomeMessage.textContent = `Bem-vindo de volta, ${artistaData.nome}!`;
+            }
+            
+            const editProfileLink = document.getElementById('edit-profile-link');
+            if (editProfileLink) {
+                editProfileLink.href = `/edit-profile.html?id=${artistaDoc.id}`;
+            }
+
+            if(createSection) createSection.style.display = 'none';
+            if(editSection) editSection.style.display = 'block';
         }
-        
-        const editProfileLink = document.getElementById('edit-profile-link');
-        if (editProfileLink) {
-            editProfileLink.href = `/edit-profile.html?id=${artistaDoc.id}`;
+    } catch (error) {
+        console.error("Erro CRÍTICO ao verificar perfil do artista:", error);
+        if(loadingAdmin) {
+            loadingAdmin.textContent = "Ocorreu um erro ao verificar seu perfil. Verifique o console (F12).";
+            loadingAdmin.style.color = "red";
         }
-
-        createSection.style.display = 'none';
-        editSection.style.display = 'block';
     }
 }
 
@@ -194,7 +205,7 @@ if (formAddArtista) {
             uploadStatus.textContent = 'Perfil criado com sucesso!';
             uploadStatus.style.color = 'green';
             formAddArtista.reset();
-            setupAdminPage(); // Re-executa a lógica para mostrar a tela de edição
+            setupAdminPage();
 
         } catch (error) {
             uploadStatus.textContent = `Erro: ${error.message}`;
@@ -228,6 +239,7 @@ function criarLightbox(imageUrl) {
         }
     });
 }
+
 
 // --- 4. FUNÇÕES DE DADOS (SITE PÚBLICO) ---
 function criarCartaoArtista(artista) {
@@ -316,7 +328,7 @@ async function carregarGaleriaIndividual() {
                     galeriaContainer.appendChild(itemDiv);
                 });
             } else {
-                galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
+                 galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
             }
         } else {
             document.querySelector('.creator-header').style.display = 'none';
@@ -408,9 +420,11 @@ if (document.getElementById('app-content')) {
     // Estamos na SPA principal (index.html)
     document.addEventListener('DOMContentLoaded', initializeRouter);
 } else if (window.location.pathname.includes('/admin.html')) {
-    // Estamos na página de admin. A lógica é controlada pelo onAuthStateChanged.
+    // Estamos na página de admin. A lógica de setup é chamada pelo onAuthStateChanged.
     document.addEventListener('DOMContentLoaded', () => {
-        // A função setupAdminPage é chamada dentro do onAuthStateChanged para garantir
-        // que o usuário já esteja logado quando ela rodar.
+        const user = auth.currentUser;
+        if(user) {
+            setupAdminPage();
+        }
     });
 }
