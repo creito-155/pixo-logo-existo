@@ -1,5 +1,5 @@
 // ===================================================================
-// script.js - VERSÃO SIMPLES E CORRIGIDA
+// script.js - VERSÃO FINAL, COMPLETA E CORRIGIDA
 // Data: 03 de Outubro de 2025
 // ===================================================================
 
@@ -21,8 +21,39 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-// --- 2. FUNÇÕES GERAIS (USADAS EM VÁRIAS PÁGINAS) ---
+// --- 2. FUNÇÕES GERAIS E DE UI (USADAS EM VÁRIAS PÁGINAS) ---
 
+/**
+ * Cria e exibe uma lightbox (popup de imagem) na tela.
+ * @param {string} imageUrl - A URL da imagem a ser exibida.
+ */
+function criarLightbox(imageUrl) {
+    const overlay = document.createElement('div');
+    overlay.id = 'lightbox-overlay';
+    const closeButton = document.createElement('span');
+    closeButton.id = 'lightbox-close';
+    closeButton.innerHTML = '&times;';
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.id = 'lightbox-image';
+    overlay.appendChild(closeButton);
+    overlay.appendChild(img);
+    document.body.appendChild(overlay);
+    const closeLightbox = () => document.body.removeChild(overlay);
+    overlay.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function onEsc(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+            document.removeEventListener('keydown', onEsc);
+        }
+    });
+}
+
+/**
+ * Cria o elemento HTML (cartão) para um artista.
+ * @param {object} artista - O objeto do artista com id, nome, imageUrl.
+ * @returns {HTMLElement} O elemento <a> do cartão do artista.
+ */
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `/galeria.html?id=${artista.id}`; 
@@ -46,6 +77,9 @@ function criarCartaoArtista(artista) {
 
 // --- 3. FUNÇÕES ESPECÍFICAS DE CADA PÁGINA ---
 
+/**
+ * Carrega o conteúdo da página inicial (Recomendados e Carrossel).
+ */
 async function carregarPaginaHome() {
     const recomendadosGrid = document.getElementById('recomendados-grid');
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
@@ -66,20 +100,15 @@ async function carregarPaginaHome() {
         recomendadosGrid.innerHTML = '';
         selecionados.forEach(artista => recomendadosGrid.appendChild(criarCartaoArtista(artista)));
 
-        // LÓGICA DO CARROSSEL (A PARTE CORRIGIDA)
+        // Lógica do Carrossel com 3 imagens
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
-            
-            // Pega as 3 primeiras imagens da galeria do artista.
-            // Se não tiver 3, ele repete a primeira para preencher o espaço.
-            const img1 = artista.imagens[0] || artista.imageUrl; // Usa a 1ª da galeria ou a de perfil
-            const img2 = artista.imagens[1] || img1;             // Usa a 2ª ou repete a 1ª
-            const img3 = artista.imagens[2] || img2;             // Usa a 3ª ou repete a 2ª
+            const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
+            const img2 = (artista.imagens && artista.imagens[1]) || img1;
+            const img3 = (artista.imagens && artista.imagens[2]) || img2;
 
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
-
-            // Agora criamos o HTML com as TRÊS imagens, como no seu design original
             slide.innerHTML = `
                 <div class="container-bloco">
                     <div class="bloco-imagens">
@@ -95,7 +124,7 @@ async function carregarPaginaHome() {
             swiperWrapper.appendChild(slide);
         });
         
-        // Inicializa o Swiper depois que tudo foi criado
+        // Inicializa o Swiper
         new Swiper('.artistas-slider', {
             loop: todosArtistas.length > 3,
             breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
@@ -107,6 +136,9 @@ async function carregarPaginaHome() {
     }
 }
 
+/**
+ * Carrega a lista completa de artistas na página 'Artistas'.
+ */
 async function carregarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
     if (!gridContainer) return;
@@ -129,6 +161,9 @@ async function carregarPaginaDeArtistas() {
     }
 }
 
+/**
+ * Carrega a página de galeria de um artista específico.
+ */
 async function carregarGaleriaIndividual() {
     const galeriaContainer = document.getElementById('galeria-container');
     if (!galeriaContainer) return;
@@ -136,7 +171,6 @@ async function carregarGaleriaIndividual() {
     try {
         const params = new URLSearchParams(window.location.search);
         const artistaId = params.get('id');
-
         if (!artistaId) throw new Error("ID do artista não encontrado na URL.");
         
         const docRef = doc(db, 'artistas', artistaId);
@@ -163,15 +197,13 @@ async function carregarGaleriaIndividual() {
                     imgElement.src = urlImagem;
                     imgElement.className = 'gallery-image';
                     imgElement.loading = 'lazy';
-                    // A função criarLightbox não está definida, então comentei por enquanto.
-                    // imgElement.addEventListener('click', () => criarLightbox(urlImagem)); 
+                    imgElement.addEventListener('click', () => criarLightbox(urlImagem));
                     itemDiv.appendChild(imgElement);
                     galeriaContainer.appendChild(itemDiv);
                 });
             } else {
                  galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
             }
-
         } else {
             galeriaContainer.innerHTML = '<h1>Artista não encontrado.</h1>';
         }
@@ -182,12 +214,17 @@ async function carregarGaleriaIndividual() {
 
 // --- 4. O GERENTE (Roda o código certo na página certa) ---
 document.addEventListener('DOMContentLoaded', () => {
+    // Se a página tem a div 'recomendados-grid', então é a página inicial.
     if (document.getElementById('recomendados-grid')) {
         carregarPaginaHome();
     }
-    if (document.getElementById('todos-os-artistas-grid')) {
+    // Se a página tem a div 'todos-os-artistas-grid', é a página de artistas.
+    // (A checagem do 'recomendados-grid' acima já cobre a home, então essa checagem
+    // só será verdadeira na página de artistas)
+    if (document.getElementById('todos-os-artistas-grid') && !document.getElementById('recomendados-grid')) {
         carregarPaginaDeArtistas();
     }
+    // Se a página tem a div 'galeria-container', é a página da galeria individual.
     if (document.getElementById('galeria-container')) {
         carregarGaleriaIndividual();
     }
