@@ -1,12 +1,11 @@
 // ===================================================================
-// main.js - VERSÃO FINAL E DEFINITIVA PARA SPA
-// Data: 03 de Outubro de 2025
+// main.js - VERSÃO DEFINITIVA PARA SPA (COMPLETO E CORRIGIDO)
 // ===================================================================
 
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // Sua configuração do Firebase (projeto v2)
@@ -25,6 +24,33 @@ const auth = getAuth(app);
 
 
 // --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
+
+// Roda em todas as páginas para verificar o status do login e atualizar o cabeçalho
+onAuthStateChanged(auth, async (user) => {
+    const userProfileArea = document.getElementById('user-profile-area');
+    if (!userProfileArea) return;
+
+    if (user) {
+        // --- Usuário está LOGADO ---
+        const artistasCollection = collection(db, "artistas");
+        const q = query(artistasCollection, where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            const artistaDoc = querySnapshot.docs[0];
+            const artistaData = artistaDoc.data();
+            userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${artistaData.imageUrl}" class="profile-pic-header" alt="Foto de perfil"></a>`;
+        } else {
+            userProfileArea.innerHTML = `<a href="/admin.html" class="login-button">Criar Perfil</a>`;
+        }
+    } else {
+        // --- Usuário está DESLOGADO ---
+        userProfileArea.innerHTML = `<a href="/login.html" class="login-button">Login / Cadastrar</a>`;
+        if (window.location.pathname.includes('/admin.html') || window.location.pathname.includes('/edit-profile.html')) {
+            window.location.href = '/login.html';
+        }
+    }
+});
 
 // Lógica para o formulário de CADASTRO
 const formCadastro = document.getElementById('form-cadastro');
@@ -49,8 +75,8 @@ if (formCadastro) {
                 setDoc(userDocRef, { nomeArtista: nomeArtista, email: user.email, criadoEm: new Date() });
             })
             .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
-                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
+                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; }
+                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; }
                 else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
                 statusDiv.style.color = "red";
             });
@@ -78,13 +104,6 @@ if (botaoLogout) {
         signOut(auth).then(() => window.location.href = '/login.html');
     });
 }
-
-// GUARDIÃO: Protege a página de admin
-onAuthStateChanged(auth, (user) => {
-    if (!user && window.location.pathname.includes('/admin.html')) {
-        window.location.href = '/login.html';
-    }
-});
 
 // Lógica do formulário de ADICIONAR/CRIAR PERFIL DE ARTISTA
 const formAddArtista = document.getElementById('form-add-artista');
@@ -196,7 +215,6 @@ async function carregarArtistasNoCarrossel() {
         snapshot.forEach(doc => {
             todosArtistas.push({ id: doc.id, ...doc.data() });
         });
-
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
             const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
@@ -299,24 +317,26 @@ async function carregarPaginaDeArtistas() {
             if (lista.length === 0) { gridContainer.innerHTML = '<p style="text-align: center; width: 100%;">Nenhum artista encontrado.</p>'; return; }
             lista.forEach(artista => gridContainer.appendChild(criarCartaoArtista(artista)));
         };
-        filtrosContainer.addEventListener('click', (event) => {
-            if (event.target.tagName !== 'BUTTON') return;
-            filtrosContainer.querySelector('.active').classList.remove('active');
-            event.target.classList.add('active');
-            const categoria = event.target.dataset.categoria;
-            if (categoria === 'todos') {
-                renderizarArtistas(todosArtistas);
-            } else {
-                const filtrados = todosArtistas.filter(artista => artista.categoria && artista.categoria.includes(categoria));
-                renderizarArtistas(filtrados);
-            }
-        });
+        if(filtrosContainer) {
+            filtrosContainer.addEventListener('click', (event) => {
+                if (event.target.tagName !== 'BUTTON') return;
+                filtrosContainer.querySelector('.active').classList.remove('active');
+                event.target.classList.add('active');
+                const categoria = event.target.dataset.categoria;
+                if (categoria === 'todos') {
+                    renderizarArtistas(todosArtistas);
+                } else {
+                    const filtrados = todosArtistas.filter(artista => artista.categoria && artista.categoria.includes(categoria));
+                    renderizarArtistas(filtrados);
+                }
+            });
+        }
         renderizarArtistas(todosArtistas);
     } catch (error) { console.error("Erro ao montar a página de artistas:", error); gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar.</p>'; }
 }
 
 
-// --- 5. ROTEADOR (LÓGICA DA SPA PARA O SITE PÚBLICO) ---
+// --- 5. ROTEADOR (LÓGICA DA SPA) ---
 const routes = {
     '/home': '/pages/home.html',
     '/artistas': '/pages/artistas.html',
@@ -351,7 +371,7 @@ const loadContent = async () => {
 };
 
 
-// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO DO SITE PÚBLICO) ---
+// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO DO SITE) ---
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
     if (!window.location.hash || window.location.hash === '#') {

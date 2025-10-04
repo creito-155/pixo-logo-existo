@@ -4,8 +4,8 @@
    ========================================================================== */
 
 html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Sections
@@ -28,14 +28,14 @@ h1 {
    ========================================================================== */
 
 hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
 }
 
 pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace;
+  font-size: 1em;
 }
 
 /* Text-level semantics
@@ -46,9 +46,9 @@ a {
 }
 
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
 }
 
 b,
@@ -59,8 +59,8 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: monospace, monospace;
+  font-size: 1em;
 }
 
 small {
@@ -98,19 +98,19 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 }
 
 button,
-input { /* 1 */
+input {
   overflow: visible;
 }
 
 button,
-select { /* 1 */
+select {
   text-transform: none;
 }
 
@@ -142,12 +142,12 @@ fieldset {
 }
 
 legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
 }
 
 progress {
@@ -160,8 +160,8 @@ textarea {
 
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
+  box-sizing: border-box;
+  padding: 0;
 }
 
 [type="number"]::-webkit-inner-spin-button,
@@ -170,9 +170,9 @@ textarea {
 }
 
 [type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  outline-offset: -2px;
 }
 
 [type="search"]::-webkit-search-decoration {
@@ -180,8 +180,8 @@ textarea {
 }
 
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+  -webkit-appearance: button;
+  font: inherit;
 }
 
 /* Interactive
@@ -198,18 +198,15 @@ summary {
 /* Misc
    ========================================================================== */
 
-template {
-  display: none;
-}
-
+template,
 [hidden] {
   display: none;
 }
 
-
 /* =================================
    SEUS ESTILOS PERSONALIZADOS
    ================================= */
+
 body {
     background-color: #252525;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -217,17 +214,21 @@ body {
     margin: 0;
     padding-top: 80px;
 }
+
 a:link {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
+
 a:visited {
     color: rgb(194, 194, 194);
 }
+
 a:hover {
     background: rgb(195, 0, 255);
     border-radius: 3px;
 }
+
 #barra-superior {
     font-family: 'Don Graffiti', sans-serif;
     background: #000000cf;
@@ -236,19 +237,31 @@ a:hover {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 0;
-    text-align: center;
+    padding: 10px 20px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-#barra-superior a {
+
+.logo {
+    flex-shrink: 0;
+}
+
+.main-nav {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.main-nav a {
     padding: 5px 10px;
 }
-.logo {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
+
+#user-profile-area {
+    min-width: 50px;
+    text-align: right;
 }
+
 .titulo-galeria {
     width: -moz-fit-content;
     width: fit-content;
@@ -259,22 +272,26 @@ a:hover {
     text-align: center;
     border-radius: 10px;
 }
+
 .container-bloco {
     text-align: center; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 1000;
 }
+
 .legenda-galeria {
     font-family: 'Don Graffiti', sans-serif;
-    width: 100px;
+    width: auto;
+    min-width: 100px;
     padding: 10px;
     background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
     color: white;
     text-align: center;
     border-radius: 10px;
 }
+
+/* ESTILO ORIGINAL DO CARROSSEL (COM ANIMAÇÃO CORRETA) */
 .bloco-imagens {
     position: relative;
     width: 280px;
@@ -283,9 +300,11 @@ a:hover {
     transition: transform 0.3s ease;
     margin-bottom: 15px;
 }
+
 .bloco-imagens:hover {
     transform: scale(1.05);
 }
+
 .bloco-imagens img {
     position: absolute;
     width: 240px;
@@ -298,37 +317,47 @@ a:hover {
     transition: transform 0.4s ease;
     object-fit: cover;
 }
+
 .bloco-imagens img:nth-child(1) {
     transform: translate(-50%, -50%) rotate(-10deg);
     z-index: 1;
 }
+
 .bloco-imagens img:nth-child(2) {
     transform: translate(-50%, -50%) rotate(5deg);
     z-index: 2;
 }
+
 .bloco-imagens img:nth-child(3) {
     transform: translate(-50%, -50%) rotate(-2deg);
     z-index: 3;
 }
+
 .bloco-imagens:hover img:nth-child(1) {
     transform: translate(-80%, -50%) rotate(-15deg);
 }
+
 .bloco-imagens:hover img:nth-child(2) {
     transform: translate(-50%, -60%) rotate(0deg);
 }
+
 .bloco-imagens:hover img:nth-child(3) {
     transform: translate(-20%, -50%) rotate(15deg);
 }
+
+/* ESTILOS GLOBAIS DA GALERIA */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
+
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
+
 .creator-header {
     background-color: #000000a7;
     padding: 30px 20px;
@@ -337,6 +366,7 @@ a:hover {
     align-items: center;
     margin-bottom: 40px;
 }
+
 .creator-image {
     width: 150px;
     height: 150px;
@@ -345,12 +375,14 @@ a:hover {
     object-fit: cover;
     margin-right: 30px;
 }
+
 .creator-info .title {
     font-size: 28px;
     color: rgb(195, 0, 255);
     margin: 0 0 10px 0;
     font-weight: normal;
 }
+
 .gallery-item {
     background-color: #000000a7;
     text-align: center;
@@ -360,10 +392,12 @@ a:hover {
     position: relative;
     text-decoration: none;
 }
+
 .gallery-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(195, 0, 255, 0.2);
 }
+
 .gallery-image {
     width: 100%;
     height: 250px;
@@ -371,6 +405,7 @@ a:hover {
     cursor: pointer;
     display: block;
 }
+
 .artist-card-name {
     color: white;
     padding: 15px;
@@ -386,10 +421,13 @@ a:hover {
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 1.1em;
 }
+
 .gallery-item:hover .artist-card-name {
     background-color: rgb(195, 0, 255);
     color: #ffffff;
 }
+
+/* ESTILOS DA LIGHTBOX */
 #lightbox-overlay {
     position: fixed;
     top: 0;
@@ -404,6 +442,7 @@ a:hover {
     cursor: pointer;
     animation: fadeIn 0.3s ease;
 }
+
 #lightbox-image {
     max-width: 90vw;
     max-height: 90vh;
@@ -412,6 +451,7 @@ a:hover {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
     cursor: default;
 }
+
 #lightbox-close {
     position: absolute;
     top: 20px;
@@ -423,18 +463,25 @@ a:hover {
     transition: color 0.2s ease;
     user-select: none;
 }
+
 #lightbox-close:hover {
     color: #ccc;
 }
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-.swiper-button-next::after, .swiper-button-prev::after {
+
+/* ESTILOS DO SWIPER */
+.swiper-button-next::after,
+.swiper-button-prev::after {
     content: '' !important;
     display: none;
 }
-.swiper-button-next, .swiper-button-prev {
+
+.swiper-button-next,
+.swiper-button-prev {
     width: 60px;
     height: 60px;
     background-color: rgba(10, 10, 10, 0.7) !important;
@@ -445,27 +492,32 @@ a:hover {
     align-items: center;
     transition: all 0.3s ease;
 }
-.swiper-button-next::before, .swiper-button-prev::before {
+
+.swiper-button-next::before,
+.swiper-button-prev::before {
     color: white !important;
     font-size: 30px;
     font-weight: bold;
     font-family: monospace;
 }
+
 .swiper-button-next::before { content: '>'; }
 .swiper-button-prev::before { content: '<'; }
-.swiper-button-next:hover, .swiper-button-prev:hover {
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
     background-color: rgb(195, 0, 255) !important;
     border-color: rgba(255, 255, 255, 0.8) !important;
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.7);
     transform: scale(1.05);
 }
-.swiper-button-next:hover::before, .swiper-button-prev:hover::before {
-    color: white !important;
-}
+
+/* FILTROS DA PÁGINA DE ARTISTAS */
 #filtros-container {
     text-align: center;
     margin-bottom: 40px;
 }
+
 .filtro-btn {
     background-color: #282a36;
     color: #f8f8f2;
@@ -479,16 +531,20 @@ a:hover {
     transition: all 0.3s ease;
     outline: none;
 }
+
 .filtro-btn:hover {
     background-color: #44475a;
     border-color: #bd93f9;
 }
+
 .filtro-btn.active {
     background: rgb(195, 0, 255);
     color: white;
     border-color: rgb(195, 0, 255);
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
 }
+
+/* PÁGINAS DE TEXTO (QUEM SOMOS, ONDE ATUAMOS) */
 .quem-somos-body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imagens/quem somos.jpg");
     background-size: cover;
@@ -496,11 +552,13 @@ a:hover {
     background-attachment: fixed;
     padding-top: 100px;
 }
+
 .quem-somos-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
+
 .texto-container {
     background-color: rgba(10, 10, 10, 0.8);
     border-left: 5px solid rgb(195, 0, 255);
@@ -508,6 +566,7 @@ a:hover {
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
 .titulo-quem-somos {
     font-size: 2.5rem;
     color: rgb(195, 0, 255);
@@ -516,6 +575,7 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
 .subtitulo-quem-somos {
     font-size: 1.5rem;
     color: #f8f8f2;
@@ -524,12 +584,15 @@ a:hover {
     border-bottom: 1px solid #44475a;
     padding-bottom: 10px;
 }
+
 .texto-container p {
     font-size: 1.1rem;
     line-height: 1.7;
     color: #cccccc;
     margin-bottom: 20px;
 }
+
+/* RODAPÉ DO SITE */
 .site-footer {
     background-color: #1a1a1a;
     color: #a0a0a0;
@@ -540,28 +603,34 @@ a:hover {
     line-height: 1.6;
     border-top: 3px solid #333;
 }
+
 .site-footer p {
     margin: 10px 0;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .site-footer a {
     color: #bd93f9;
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
 .site-footer a:hover {
     color: #f8f8f2;
     text-decoration: underline;
     background: none;
 }
+
+/* RESPONSIVIDADE */
 @media (max-width: 992px) {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media (max-width: 768px) {
     .creator-header {
         flex-direction: column;
@@ -572,6 +641,7 @@ a:hover {
         margin-bottom: 20px;
     }
 }
+
 @media (max-width: 500px) {
     #barra-superior a {
         font-size: 14px;
@@ -604,8 +674,9 @@ a:hover {
     --admin-sucesso: #4CAF50;
     --admin-erro: #f44336;
 }
+
 .admin-body {
-    background-color: var(--admin-fundo);
+    background: var(--admin-fundo) !important; /* Força o fundo */
     color: var(--admin-texto);
     font-family: sans-serif;
     display: flex;
@@ -615,6 +686,7 @@ a:hover {
     margin: 0;
     padding-top: 0;
 }
+
 .login-container {
     background-color: var(--admin-caixa);
     padding: 2rem 3rem;
@@ -625,20 +697,24 @@ a:hover {
     text-align: center;
     border: 1px solid var(--admin-borda);
 }
+
 .login-container h1 {
     margin-bottom: 2rem;
     color: var(--admin-texto);
 }
+
 .form-group {
     margin-bottom: 1.5rem;
     text-align: left;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
     color: #aaa;
 }
+
 .form-group input {
     width: 100%;
     padding: 0.8rem;
@@ -649,11 +725,13 @@ a:hover {
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 .form-group input:focus {
     outline: none;
     border-color: var(--admin-roxo-principal);
     box-shadow: 0 0 5px var(--admin-roxo-principal);
 }
+
 .login-container button,
 .admin-container button {
     width: 100%;
@@ -667,35 +745,43 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .login-container button:hover,
 .admin-container button:hover {
     background-color: var(--admin-roxo-hover);
 }
+
 .admin-container button {
     margin-top: 1rem;
 }
+
 .error-message, .status-message {
     margin-top: 1rem;
     min-height: 20px;
     text-align: center;
 }
+
 .error-message { color: var(--admin-erro); }
 .status-message[style*="color: green;"] { color: var(--admin-sucesso); }
 .status-message[style*="color: orange;"] { color: orange; }
+
 .auth-link {
     margin-top: 2rem;
     font-size: 0.9rem;
 }
+
 .auth-link a {
     color: var(--admin-roxo-principal);
     text-decoration: none;
     font-weight: bold;
     background: none;
 }
+
 .auth-link a:hover {
     text-decoration: underline;
     background: none;
 }
+
 .admin-header {
     position: fixed;
     top: 0;
@@ -709,6 +795,7 @@ a:hover {
     box-sizing: border-box;
     z-index: 1000;
 }
+
 .admin-container {
     background-color: var(--admin-caixa);
     padding: 2rem;
@@ -718,22 +805,23 @@ a:hover {
     margin-top: 100px;
     margin-bottom: 2rem;
 }
+
 .admin-header h1 {
     font-size: 1.5rem;
     margin: 0;
 }
+
 #botao-logout {
     width: auto;
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
 }
 
-/* NOVO ESTILO PARA O BOTÃO DE TESTE */
 .test-button {
     display: inline-block;
     padding: 12px 25px;
-    background-color: #0d6efd; /* Azul para diferenciar */
-    color: white !important; /* Força a cor do texto para branco */
+    background-color: #0d6efd;
+    color: white !important;
     text-decoration: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -741,7 +829,36 @@ a:hover {
     text-align: center;
     transition: background-color 0.3s ease;
 }
+
 .test-button:hover {
-    background: #0b5ed7; /* Azul mais escuro no hover, sem fundo roxo */
+    background: #0b5ed7;
     color: white !important;
+}
+
+/* ESTILOS PARA FOTO DE PERFIL NO HEADER */
+.profile-pic-header {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--admin-roxo-principal, #9c27b0);
+    transition: transform 0.2s ease;
+    background: none !important;
+}
+.profile-pic-header:hover {
+    transform: scale(1.1);
+    background: none !important;
+}
+.login-button {
+    padding: 8px 15px;
+    background-color: var(--admin-roxo-principal, #9c27b0);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-family: sans-serif;
+}
+.login-button:hover {
+    background-color: var(--admin-roxo-hover, #7b1fa2);
 }
