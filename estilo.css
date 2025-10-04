@@ -203,6 +203,7 @@ template,
   display: none;
 }
 
+
 /* =================================
    SEUS ESTILOS PERSONALIZADOS
    ================================= */
@@ -676,7 +677,7 @@ a:hover {
 }
 
 .admin-body {
-    background: var(--admin-fundo) !important; /* Força o fundo */
+    background: var(--admin-fundo) !important;
     color: var(--admin-texto);
     font-family: sans-serif;
     display: flex;
@@ -687,15 +688,18 @@ a:hover {
     padding-top: 0;
 }
 
-.login-container {
+.login-container, .admin-container {
     background-color: var(--admin-caixa);
     padding: 2rem 3rem;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     width: 100%;
+    border: 1px solid var(--admin-borda);
+}
+
+.login-container {
     max-width: 400px;
     text-align: center;
-    border: 1px solid var(--admin-borda);
 }
 
 .login-container h1 {
@@ -797,10 +801,6 @@ a:hover {
 }
 
 .admin-container {
-    background-color: var(--admin-caixa);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 100%;
     max-width: 700px;
     margin-top: 100px;
     margin-bottom: 2rem;
@@ -835,7 +835,6 @@ a:hover {
     color: white !important;
 }
 
-/* ESTILOS PARA FOTO DE PERFIL NO HEADER */
 .profile-pic-header {
     width: 45px;
     height: 45px;
@@ -845,10 +844,12 @@ a:hover {
     transition: transform 0.2s ease;
     background: none !important;
 }
+
 .profile-pic-header:hover {
     transform: scale(1.1);
     background: none !important;
 }
+
 .login-button {
     padding: 8px 15px;
     background-color: var(--admin-roxo-principal, #9c27b0);
@@ -859,6 +860,81 @@ a:hover {
     transition: background-color 0.2s ease;
     font-family: sans-serif;
 }
+
 .login-button:hover {
     background-color: var(--admin-roxo-hover, #7b1fa2);
+}
+
+/* ESTILOS PARA O GERENCIADOR DA GALERIA (ADMIN) */
+.gallery-grid-admin {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.gallery-thumb-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Truque para criar um quadrado perfeito (aspect-ratio: 1/1) */
+}
+
+.gallery-thumb-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--admin-borda);
+}
+
+.delete-image-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--admin-erro);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s ease;
+}
+
+.delete-image-btn:hover {
+    transform: scale(1.1);
+}
+
+.add-image-card {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    background-color: transparent;
+    border: 3px dashed var(--admin-borda);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.add-image-card:hover {
+    border-color: var(--admin-sucesso);
+    background-color: rgba(0, 255, 0, 0.05);
+}
+
+.add-image-card::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color: var(--admin-sucesso);
+    font-weight: lighter;
 }

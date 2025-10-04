@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,48 +17,25 @@
         <section id="edit-main-profile">
             <h2>Editar Informações Principais</h2>
             <form id="form-edit-artista">
-                <div class="form-group">
-                    <label for="artista-nome">Nome do Artista</label>
-                    <input type="text" id="artista-nome" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="artista-imagem">Trocar Imagem Principal (opcional)</label>
-                    <input type="file" id="artista-imagem" accept="image/*">
-                    <p><em>Deixe em branco se não quiser mudar a imagem atual.</em></p>
-                </div>
-                
-                <div class="form-group">
-                    <label for="artista-instagram">Instagram (Ex: @pixo.sp)</label>
-                    <input type="text" id="artista-instagram">
-                </div>
-                
-                <div class="form-group">
-                    <label for="artista-categorias">Categorias (separadas por vírgula)</label>
-                    <input type="text" id="artista-categorias">
-                </div>
-                
-                <button type="submit" id="botao-atualizar-artista">Atualizar Perfil</button>
-            </form>
+                </form>
             <div id="update-status"></div>
         </section>
 
         <hr style="margin: 40px 0;">
 
-        <section id="edit-gallery">
-            <h2>Adicionar Novas Fotos à Galeria</h2>
-            <form id="form-add-gallery">
-                <div class="form-group">
-                    <label for="gallery-imagens">Selecionar Imagens (pode escolher várias)</label>
-                    <input type="file" id="gallery-imagens" accept="image/*" multiple required>
+        <section id="gallery-manager">
+            <h2>Gerenciar Galeria de Fotos</h2>
+            
+            <div class="gallery-grid-admin" id="gallery-grid-admin">
                 </div>
-                <button type="submit" id="botao-add-gallery">Adicionar à Galeria</button>
-            </form>
+            
+            <input type="file" id="gallery-file-input" multiple accept="image/*" style="display: none;">
+            
             <div id="gallery-upload-status"></div>
         </section>
         
     </main>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
