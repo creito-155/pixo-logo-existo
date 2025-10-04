@@ -1,12 +1,11 @@
 // ===================================================================
-// main.js - VERSÃO FINAL E DEFINITIVA
+// main.js - VERSÃO DEFINITIVA (COM LÓGICA DE ADMIN CONDICIONAL)
 // Data: 04 de Outubro de 2025
 // ===================================================================
 
-
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc, where, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // Sua configuração do Firebase (projeto v2)
@@ -23,6 +22,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+// Variável global para guardar o ID do artista que estamos editando
+let currentArtistId = null;
 
 // --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
 
@@ -213,6 +214,89 @@ if (formAddArtista) {
     });
 }
 
+// Lógica para carregar os dados no formulário de EDIÇÃO
+async function carregarDadosParaEdicao() {
+    const params = new URLSearchParams(window.location.search);
+    currentArtistId = params.get('id');
+    if (!currentArtistId) {
+        document.body.innerHTML = '<h1>ID do artista não fornecido.</h1>';
+        return;
+    }
+
+    try {
+        const docRef = doc(db, 'artistas', currentArtistId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const artistaData = docSnap.data();
+            document.getElementById('artista-nome').value = artistaData.nome || '';
+            document.getElementById('artista-instagram').value = artistaData.instagramHandle || '';
+            document.getElementById('artista-categorias').value = (artistaData.categoria || []).join(', ');
+        } else {
+            document.body.innerHTML = '<h1>Artista não encontrado.</h1>';
+        }
+    } catch (error) {
+        console.error("Erro ao carregar dados do artista para edição:", error);
+        document.body.innerHTML = '<h1>Erro ao carregar dados.</h1>';
+    }
+}
+
+// Lógica para o formulário de ATUALIZAR PERFIL
+const formEditArtista = document.getElementById('form-edit-artista');
+if (formEditArtista) {
+    formEditArtista.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!currentArtistId) return;
+
+        const botaoAtualizar = document.getElementById('botao-atualizar-artista');
+        const updateStatus = document.getElementById('update-status');
+        botaoAtualizar.disabled = true;
+        updateStatus.textContent = 'Atualizando perfil...';
+        updateStatus.style.color = 'orange';
+
+        try {
+            const nome = document.getElementById('artista-nome').value;
+            const imagemArquivo = document.getElementById('artista-imagem').files[0];
+            const instagramHandle = document.getElementById('artista-instagram').value;
+            const categoriasInput = document.getElementById('artista-categorias').value;
+
+            const dadosParaAtualizar = {
+                nome: nome,
+                instagramHandle: instagramHandle,
+                instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
+                categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+            };
+
+            if (imagemArquivo) {
+                updateStatus.textContent = 'Enviando nova imagem...';
+                const formData = new FormData();
+                formData.append('file', imagemArquivo);
+                formData.append('upload_preset', 'artistas_uploads');
+                const CLOUD_NAME = 'dj053fl2q';
+                const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+                
+                const response = await fetch(uploadUrl, { method: 'POST', body: formData });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error.message || 'Falha no upload da nova imagem.');
+
+                dadosParaAtualizar.imageUrl = data.secure_url;
+            }
+
+            const docRef = doc(db, 'artistas', currentArtistId);
+            await updateDoc(docRef, dadosParaAtualizar);
+
+            updateStatus.textContent = 'Perfil atualizado com sucesso!';
+            updateStatus.style.color = 'green';
+
+        } catch (error) {
+            console.error("Erro ao atualizar perfil:", error);
+            updateStatus.textContent = `Erro: ${error.message}`;
+            updateStatus.style.color = 'red';
+        } finally {
+            botaoAtualizar.disabled = false;
+        }
+    });
+}
 
 // --- 3. FUNÇÕES DE UI (SITE PÚBLICO) ---
 function criarLightbox(imageUrl) {
@@ -236,7 +320,6 @@ function criarLightbox(imageUrl) {
         }
     });
 }
-
 
 // --- 4. FUNÇÕES DE DADOS (SITE PÚBLICO) ---
 function criarCartaoArtista(artista) {
@@ -379,7 +462,7 @@ const routes = {
 
 const loadContent = async () => {
     const contentDiv = document.getElementById('app-content');
-    if (!contentDiv) return; // Só executa na SPA principal
+    if (!contentDiv) return;
     const path = window.location.hash.substring(1) || '/home';
     let routeFile;
     if (path.startsWith('/galeria/')) {
@@ -404,24 +487,6 @@ const loadContent = async () => {
 
 
 // --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
-
-// Roda o código específico para a página correta
-document.addEventListener('DOMContentLoaded', () => {
-    // Se estivermos na SPA principal (index.html)
-    if (document.getElementById('app-content')) {
-        initializeRouter();
-    }
-    // Se estivermos na página de admin, o setup é chamado pelo onAuthStateChanged
-    else if (window.location.pathname.includes('/admin.html')) {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // Apenas executa a configuração quando temos certeza que o usuário está logado
-                setupAdminPage();
-            }
-        });
-    }
-});
-
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
     if (!window.location.hash || window.location.hash === '#') {
@@ -429,3 +494,18 @@ function initializeRouter() {
     }
     loadContent();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Roda o código da SPA principal
+    if (document.getElementById('app-content')) {
+        initializeRouter();
+    } 
+    // Roda o código das páginas de Admin
+    else if (window.location.pathname.includes('/admin.html')) {
+        onAuthStateChanged(auth, (user) => { if (user) { setupAdminPage(); } });
+    }
+    // Roda o código da página de Edição
+    else if (window.location.pathname.includes('/edit-profile.html')) {
+        onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
+    }
+});
