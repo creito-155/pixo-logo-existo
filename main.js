@@ -1,5 +1,6 @@
 // ===================================================================
-// main.js - VERSÃO DEFINITIVA PARA SPA (COMPLETO E CORRIGIDO)
+// main.js - VERSÃO DEFINITIVA (COM LÓGICA DE ADMIN CONDICIONAL)
+// Data: 04 de Outubro de 2025
 // ===================================================================
 
 
@@ -25,30 +26,70 @@ const auth = getAuth(app);
 
 // --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
 
-// Roda em todas as páginas para verificar o status do login e atualizar o cabeçalho
-onAuthStateChanged(auth, async (user) => {
-    const userProfileArea = document.getElementById('user-profile-area');
-    if (!userProfileArea) return;
+// Função que decide o que mostrar na página de admin
+async function setupAdminPage() {
+    const user = auth.currentUser;
+    if (!user) { return; }
 
-    if (user) {
-        // --- Usuário está LOGADO ---
-        const artistasCollection = collection(db, "artistas");
-        const q = query(artistasCollection, where("userId", "==", user.uid));
-        const querySnapshot = await getDocs(q);
+    const createSection = document.getElementById('create-profile-section');
+    const editSection = document.getElementById('edit-profile-section');
+    const loadingAdmin = document.getElementById('loading-admin');
 
-        if (!querySnapshot.empty) {
-            const artistaDoc = querySnapshot.docs[0];
-            const artistaData = artistaDoc.data();
-            userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${artistaData.imageUrl}" class="profile-pic-header" alt="Foto de perfil"></a>`;
-        } else {
-            userProfileArea.innerHTML = `<a href="/admin.html" class="login-button">Criar Perfil</a>`;
-        }
+    // Procura por um perfil de artista que pertença ao usuário logado
+    const artistasCollection = collection(db, "artistas");
+    const q = query(artistasCollection, where("userId", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+
+    loadingAdmin.style.display = 'none';
+
+    if (querySnapshot.empty) {
+        // NENHUM PERFIL ENCONTRADO: Mostra o formulário de criação
+        createSection.style.display = 'block';
+        editSection.style.display = 'none';
     } else {
-        // --- Usuário está DESLOGADO ---
-        userProfileArea.innerHTML = `<a href="/login.html" class="login-button">Login / Cadastrar</a>`;
-        if (window.location.pathname.includes('/admin.html') || window.location.pathname.includes('/edit-profile.html')) {
-            window.location.href = '/login.html';
+        // PERFIL ENCONTRADO: Mostra a seção de gerenciamento
+        const artistaDoc = querySnapshot.docs[0];
+        const artistaData = artistaDoc.data();
+        const welcomeMessage = document.getElementById('welcome-message');
+        
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Bem-vindo de volta, ${artistaData.nome}!`;
         }
+        
+        const editProfileLink = document.getElementById('edit-profile-link');
+        if (editProfileLink) {
+            editProfileLink.href = `/edit-profile.html?id=${artistaDoc.id}`;
+        }
+
+        createSection.style.display = 'none';
+        editSection.style.display = 'block';
+    }
+}
+
+// Lógica de Autenticação principal que roda em todas as páginas
+onAuthStateChanged(auth, async (user) => {
+    // Atualiza o ícone do perfil no header em todas as páginas
+    const userProfileArea = document.getElementById('user-profile-area');
+    if (userProfileArea) {
+        if (user) {
+            const artistasCollection = collection(db, "artistas");
+            const q = query(artistasCollection, where("userId", "==", user.uid));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                const artistaData = querySnapshot.docs[0].data();
+                userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${artistaData.imageUrl}" class="profile-pic-header" alt="Foto de perfil"></a>`;
+            } else {
+                userProfileArea.innerHTML = `<a href="/admin.html" class="login-button">Criar Perfil</a>`;
+            }
+        } else {
+            userProfileArea.innerHTML = `<a href="/login.html" class="login-button">Login / Cadastrar</a>`;
+        }
+    }
+    
+    // GUARDIÃO: Protege as páginas de admin
+    const onAdminPage = window.location.pathname.includes('/admin.html') || window.location.pathname.includes('/edit-profile.html');
+    if (!user && onAdminPage) {
+        window.location.href = '/login.html';
     }
 });
 
@@ -75,8 +116,8 @@ if (formCadastro) {
                 setDoc(userDocRef, { nomeArtista: nomeArtista, email: user.email, criadoEm: new Date() });
             })
             .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; }
-                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; }
+                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
+                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
                 else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
                 statusDiv.style.color = "red";
             });
@@ -97,7 +138,7 @@ if (formLogin) {
     });
 }
 
-// Lógica para o botão de SAIR no painel admin
+// Lógica para o botão de SAIR
 const botaoLogout = document.getElementById('botao-logout');
 if (botaoLogout) {
     botaoLogout.addEventListener('click', () => {
@@ -113,32 +154,31 @@ if (formAddArtista) {
         const botaoSalvar = document.getElementById('botao-salvar-artista');
         const uploadStatus = document.getElementById('upload-status');
         const user = auth.currentUser;
-        if (!user) {
-            uploadStatus.textContent = "Erro: Sessão expirada. Faça o login novamente.";
-            uploadStatus.style.color = 'red';
-            return;
-        }
+        if (!user) { uploadStatus.textContent = "Erro: Sessão expirada."; return; }
+        
         const nome = document.getElementById('artista-nome').value;
         const imagemArquivo = document.getElementById('artista-imagem').files[0];
         const instagramHandle = document.getElementById('artista-instagram').value;
         const categoriasInput = document.getElementById('artista-categorias').value;
-        if (!nome || !imagemArquivo) {
-            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return;
-        }
+        if (!nome || !imagemArquivo) { uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return; }
+
         botaoSalvar.disabled = true;
-        uploadStatus.textContent = 'Enviando imagem para o Cloudinary...';
-        uploadStatus.style.color = 'orange';
+        uploadStatus.textContent = 'Enviando imagem...';
+        
         const formData = new FormData();
         formData.append('file', imagemArquivo);
         formData.append('upload_preset', 'artistas_uploads'); 
         const CLOUD_NAME = 'dj053fl2q';
         const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
         try {
             const response = await fetch(uploadUrl, { method: 'POST', body: formData });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
+            
             const imageUrl = data.secure_url;
-            uploadStatus.textContent = 'Imagem enviada! Salvando no banco de dados...';
+            uploadStatus.textContent = 'Salvando no banco de dados...';
+
             const artistaDoc = {
                 userId: user.uid,
                 nome: nome,
@@ -148,12 +188,15 @@ if (formAddArtista) {
                 categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
                 imagens: []
             };
+            
             await addDoc(collection(db, 'artistas'), artistaDoc);
-            uploadStatus.textContent = 'Artista adicionado com sucesso!';
+
+            uploadStatus.textContent = 'Perfil criado com sucesso!';
             uploadStatus.style.color = 'green';
             formAddArtista.reset();
+            setupAdminPage(); // Re-executa a lógica para mostrar a tela de edição
+
         } catch (error) {
-            console.error("Erro no processo de upload:", error);
             uploadStatus.textContent = `Erro: ${error.message}`;
             uploadStatus.style.color = 'red';
         } finally {
@@ -163,7 +206,7 @@ if (formAddArtista) {
 }
 
 
-// --- 3. FUNÇÕES DE UI (INTERFACE DO USUÁRIO - SITE PÚBLICO) ---
+// --- 3. FUNÇÕES DE UI (SITE PÚBLICO) ---
 function criarLightbox(imageUrl) {
     const overlay = document.createElement('div');
     overlay.id = 'lightbox-overlay';
@@ -186,8 +229,7 @@ function criarLightbox(imageUrl) {
     });
 }
 
-
-// --- 4. FUNÇÕES DE DADOS (LÓGICA DO FIREBASE PARA O SITE PÚBLICO) ---
+// --- 4. FUNÇÕES DE DADOS (SITE PÚBLICO) ---
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `#/galeria/${artista.id}`; 
@@ -212,9 +254,7 @@ async function carregarArtistasNoCarrossel() {
         const artistasCollection = collection(db, 'artistas');
         const snapshot = await getDocs(artistasCollection);
         let todosArtistas = [];
-        snapshot.forEach(doc => {
-            todosArtistas.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { todosArtistas.push({ id: doc.id, ...doc.data() }); });
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
             const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
@@ -222,27 +262,10 @@ async function carregarArtistasNoCarrossel() {
             const img3 = (artista.imagens && artista.imagens[2]) || img2;
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
-            slide.innerHTML = `
-                <div class="container-bloco">
-                    <div class="bloco-imagens">
-                        <a href="#/galeria/${artista.id}">
-                            <img src="${img1}" alt="Arte de ${artista.nome}">
-                            <img src="${img2}" alt="Arte de ${artista.nome}">
-                            <img src="${img3}" alt="Arte de ${artista.nome}">
-                        </a>
-                    </div>
-                    <p class="legenda-galeria">Galeria ${artista.nome}</p>
-                </div>
-            `;
+            slide.innerHTML = `<div class="container-bloco"><div class="bloco-imagens"><a href="#/galeria/${artista.id}"><img src="${img1}" alt="Arte de ${artista.nome}"><img src="${img2}" alt="Arte de ${artista.nome}"><img src="${img3}" alt="Arte de ${artista.nome}"></a></div><p class="legenda-galeria">Galeria ${artista.nome}</p></div>`;
             swiperWrapper.appendChild(slide);
         });
-        
-        new Swiper('.artistas-slider', {
-            loop: todosArtistas.length > 3,
-            speed: 1500,
-            breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        });
+        new Swiper('.artistas-slider', { loop: todosArtistas.length > 3, speed: 1500, breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' } });
     } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
 
@@ -254,11 +277,11 @@ async function carregarArtistasRecomendados() {
         const artistasCollection = collection(db, 'artistas');
         const snapshot = await getDocs(artistasCollection);
         let todosArtistas = [];
-        snapshot.forEach(doc => todosArtistas.push({ id: doc.id, ...doc.data() }));
+        snapshot.forEach(doc => { todosArtistas.push({ id: doc.id, ...doc.data() }); });
         todosArtistas.sort(() => 0.5 - Math.random());
         const selecionados = todosArtistas.slice(0, 4);
         recomendadosGrid.innerHTML = '';
-        selecionados.forEach(artista => recomendadosGrid.appendChild(criarCartaoArtista(artista)));
+        selecionados.forEach(artista => { recomendadosGrid.appendChild(criarCartaoArtista(artista)); });
     } catch (error) { console.error("Erro ao buscar artistas recomendados:", error); recomendadosGrid.innerHTML = '<p>Erro ao carregar artistas.</p>'; }
 }
 
@@ -293,7 +316,7 @@ async function carregarGaleriaIndividual() {
                     galeriaContainer.appendChild(itemDiv);
                 });
             } else {
-                 galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
+                galeriaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Este artista ainda não possui imagens na galeria.</p>';
             }
         } else {
             document.querySelector('.creator-header').style.display = 'none';
@@ -311,13 +334,13 @@ async function carregarPaginaDeArtistas() {
         const q = query(artistasCollection, orderBy("nome"));
         const snapshot = await getDocs(q);
         let todosArtistas = [];
-        snapshot.forEach(doc => todosArtistas.push({ id: doc.id, ...doc.data() }));
+        snapshot.forEach(doc => { todosArtistas.push({ id: doc.id, ...doc.data() }); });
         const renderizarArtistas = (lista) => {
             gridContainer.innerHTML = '';
             if (lista.length === 0) { gridContainer.innerHTML = '<p style="text-align: center; width: 100%;">Nenhum artista encontrado.</p>'; return; }
-            lista.forEach(artista => gridContainer.appendChild(criarCartaoArtista(artista)));
+            lista.forEach(artista => { gridContainer.appendChild(criarCartaoArtista(artista)); });
         };
-        if(filtrosContainer) {
+        if (filtrosContainer) {
             filtrosContainer.addEventListener('click', (event) => {
                 if (event.target.tagName !== 'BUTTON') return;
                 filtrosContainer.querySelector('.active').classList.remove('active');
@@ -371,7 +394,7 @@ const loadContent = async () => {
 };
 
 
-// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO DO SITE) ---
+// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
     if (!window.location.hash || window.location.hash === '#') {
@@ -380,6 +403,14 @@ function initializeRouter() {
     loadContent();
 }
 
+// Roda o código específico para a página correta
 if (document.getElementById('app-content')) {
+    // Estamos na SPA principal (index.html)
     document.addEventListener('DOMContentLoaded', initializeRouter);
+} else if (window.location.pathname.includes('/admin.html')) {
+    // Estamos na página de admin. A lógica é controlada pelo onAuthStateChanged.
+    document.addEventListener('DOMContentLoaded', () => {
+        // A função setupAdminPage é chamada dentro do onAuthStateChanged para garantir
+        // que o usuário já esteja logado quando ela rodar.
+    });
 }
