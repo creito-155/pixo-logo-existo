@@ -373,7 +373,6 @@ function criarLightbox(imageUrl) {
         }
     });
 }
-
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `#/galeria/${artista.id}`;
@@ -390,7 +389,6 @@ function criarCartaoArtista(artista) {
     link.appendChild(nome);
     return link;
 }
-
 async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
     if (!swiperWrapper) return;
@@ -419,7 +417,6 @@ async function carregarArtistasNoCarrossel() {
         });
     } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
-
 async function carregarArtistasRecomendados() {
     const recomendadosGrid = document.getElementById('recomendados-grid');
     if (!recomendadosGrid) return;
@@ -435,7 +432,6 @@ async function carregarArtistasRecomendados() {
         selecionados.forEach(artista => { recomendadosGrid.appendChild(criarCartaoArtista(artista)); });
     } catch (error) { console.error("Erro ao buscar artistas recomendados:", error); recomendadosGrid.innerHTML = '<p>Erro ao carregar artistas.</p>'; }
 }
-
 async function carregarGaleriaIndividual() {
     const galeriaContainer = document.getElementById('galeria-container');
     if (!galeriaContainer) return;
@@ -477,7 +473,6 @@ async function carregarGaleriaIndividual() {
         }
     } catch (error) { console.error('Erro ao carregar dados da galeria:', error); galeriaContainer.innerHTML = '<h1>Ocorreu um erro ao carregar o conteúdo.</h1>'; }
 }
-
 async function carregarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
     const filtrosContainer = document.getElementById('filtros-container');
@@ -531,7 +526,7 @@ const loadContent = async () => {
     let routeFile;
     if (path.startsWith('/galeria/')) {
         routeFile = routes['/galeria'];
-    } else if (path.startsWith('/edit-profile/')) { // Lógica para a rota de edição
+    } else if (path.startsWith('/edit-profile/')) {
         routeFile = routes['/edit-profile'];
     }
     else {
@@ -543,7 +538,7 @@ const loadContent = async () => {
         contentDiv.innerHTML = html;
         if (path.startsWith('/galeria/')) {
             carregarGaleriaIndividual();
-        } else if (path.startsWith('/edit-profile/')) { // Chama a função de carregar dados para edição
+        } else if (path.startsWith('/edit-profile/')) {
             carregarDadosParaEdicao();
         } else if (path === '/home') {
             carregarArtistasNoCarrossel();

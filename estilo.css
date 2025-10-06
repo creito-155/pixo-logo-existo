@@ -366,6 +366,7 @@ a:hover {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
+    position: relative;
 }
 
 .creator-image {
@@ -524,7 +525,7 @@ a:hover {
     color: #f8f8f2;
     border: 2px solid #44475a;
     padding: 10px 25px;
-    margin: 0 8px;
+    margin: 5px 8px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
@@ -617,6 +618,7 @@ a:hover {
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease;
+    background: none;
 }
 
 .site-footer a:hover {
@@ -675,7 +677,6 @@ a:hover {
 /* ============================================= */
 /* ESTILOS PARA PÁGINAS DE ADMIN, LOGIN E CADASTRO */
 /* ============================================= */
-
 :root {
     --admin-fundo: #121212;
     --admin-caixa: #1e1e1e;
@@ -686,7 +687,6 @@ a:hover {
     --admin-sucesso: #4CAF50;
     --admin-erro: #f44336;
 }
-
 .admin-body {
     background: var(--admin-fundo) !important;
     color: var(--admin-texto);
@@ -699,7 +699,6 @@ a:hover {
     padding-top: 0;
     overflow-y: auto;
 }
-
 .login-container, .admin-container {
     background-color: var(--admin-caixa);
     padding: 2rem 3rem;
@@ -708,29 +707,24 @@ a:hover {
     width: 100%;
     border: 1px solid var(--admin-borda);
 }
-
 .login-container {
     max-width: 400px;
-    align-self: center; /* Centraliza a caixa de login verticalmente */
+    align-self: center;
 }
-
 .login-container h1 {
     margin-bottom: 2rem;
     color: var(--admin-texto);
 }
-
 .form-group {
     margin-bottom: 1.5rem;
     text-align: left;
 }
-
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
     color: #aaa;
 }
-
 .form-group input {
     width: 100%;
     padding: 0.8rem;
@@ -741,13 +735,11 @@ a:hover {
     font-size: 1rem;
     box-sizing: border-box;
 }
-
 .form-group input:focus {
     outline: none;
     border-color: var(--admin-roxo-principal);
     box-shadow: 0 0 5px var(--admin-roxo-principal);
 }
-
 .login-container button,
 .admin-container button {
     width: 100%;
@@ -761,43 +753,35 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 .login-container button:hover,
 .admin-container button:hover {
     background-color: var(--admin-roxo-hover);
 }
-
 .admin-container button {
     margin-top: 1rem;
 }
-
 .error-message, .status-message {
     margin-top: 1rem;
     min-height: 20px;
     text-align: center;
 }
-
 .error-message { color: var(--admin-erro); }
 .status-message[style*="color: green;"] { color: var(--admin-sucesso); }
 .status-message[style*="color: orange;"] { color: orange; }
-
 .auth-link {
     margin-top: 2rem;
     font-size: 0.9rem;
 }
-
 .auth-link a {
     color: var(--admin-roxo-principal);
     text-decoration: none;
     font-weight: bold;
     background: none;
 }
-
 .auth-link a:hover {
     text-decoration: underline;
     background: none;
 }
-
 .admin-header {
     position: fixed;
     top: 0;
@@ -811,24 +795,20 @@ a:hover {
     box-sizing: border-box;
     z-index: 1000;
 }
-
 .admin-container {
     max-width: 700px;
     margin-top: 100px;
     margin-bottom: 2rem;
 }
-
 .admin-header h1 {
     font-size: 1.5rem;
     margin: 0;
 }
-
 #botao-logout {
     width: auto;
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
 }
-
 .test-button {
     display: inline-block;
     padding: 12px 25px;
@@ -841,12 +821,10 @@ a:hover {
     text-align: center;
     transition: background-color 0.3s ease;
 }
-
 .test-button:hover {
     background: #0b5ed7;
     color: white !important;
 }
-
 .profile-pic-header {
     width: 45px;
     height: 45px;
@@ -856,12 +834,10 @@ a:hover {
     transition: transform 0.2s ease;
     background: none !important;
 }
-
 .profile-pic-header:hover {
     transform: scale(1.1);
     background: none !important;
 }
-
 .login-button {
     padding: 8px 15px;
     background-color: var(--admin-roxo-principal, #9c27b0);
@@ -872,75 +848,74 @@ a:hover {
     transition: background-color 0.2s ease;
     font-family: sans-serif;
 }
-
 .login-button:hover {
     background-color: var(--admin-roxo-hover, #7b1fa2);
 }
 
-/* ESTILOS PARA O GERENCIADOR DA GALERIA (ADMIN) */
-.gallery-grid-admin {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-}
-
-.gallery-thumb-container {
-    position: relative;
-    width: 100%;
-    padding-top: 100%;
-}
-
-.gallery-thumb-container img {
+/* ESTILOS PARA EDIÇÃO IN-LOCO DA GALERIA */
+.creator-header .edit-balloon {
+    display: none;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 2px solid var(--admin-borda);
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: var(--admin-roxo-principal);
+    border-radius: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-
-.delete-image-btn {
+.creator-header:hover .edit-balloon {
+    display: block;
+}
+.creator-header .edit-balloon:hover {
+    background-color: var(--admin-roxo-hover);
+}
+.gallery-grid .delete-image-btn {
+    display: none;
+}
+body.edit-mode .delete-image-btn {
+    display: block;
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 5px;
+    right: 5px;
     width: 30px;
     height: 30px;
     background-color: var(--admin-erro);
     color: white;
-    border: none;
+    border: 2px solid white;
     border-radius: 50%;
     font-size: 20px;
     font-weight: bold;
-    line-height: 30px;
+    line-height: 28px;
     text-align: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 10;
     transition: transform 0.2s ease;
 }
-
-.delete-image-btn:hover {
+body.edit-mode .delete-image-btn:hover {
     transform: scale(1.1);
 }
-
 .add-image-card {
+    display: none;
+}
+body.edit-mode .add-image-card {
+    display: block;
     position: relative;
     width: 100%;
-    padding-top: 100%;
+    height: 250px;
     background-color: transparent;
     border: 3px dashed var(--admin-borda);
     border-radius: 8px;
     cursor: pointer;
     transition: border-color 0.3s ease, background-color 0.3s ease;
 }
-
-.add-image-card:hover {
+body.edit-mode .add-image-card:hover {
     border-color: var(--admin-sucesso);
     background-color: rgba(0, 255, 0, 0.05);
 }
-
-.add-image-card::before {
+body.edit-mode .add-image-card::before {
     content: '+';
     position: absolute;
     top: 50%;

@@ -14,8 +14,11 @@
     </header>
 
     <main class="admin-container">
+        
         <section id="edit-main-profile">
             <h2>Editar Informações Principais</h2>
+            <p>Altere os dados abaixo e clique em "Atualizar Perfil" para salvar.</p>
+            
             <form id="form-edit-artista">
                 <div class="form-group">
                     <label for="artista-nome">Nome do Artista</label>
@@ -40,20 +43,8 @@
                 
                 <button type="submit" id="botao-atualizar-artista">Atualizar Perfil</button>
             </form>
+            
             <div id="update-status" class="status-message"></div>
-        </section>
-
-        <hr style="margin: 40px 0; border-color: #444;">
-
-        <section id="gallery-manager">
-            <h2>Gerenciar Galeria de Fotos</h2>
-            
-            <div class="gallery-grid-admin" id="gallery-grid-admin">
-                </div>
-            
-            <input type="file" id="gallery-file-input" multiple accept="image/*" style="display: none;">
-            
-            <div id="gallery-upload-status" class="status-message"></div>
         </section>
         
     </main>
