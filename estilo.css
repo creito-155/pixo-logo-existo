@@ -641,15 +641,26 @@ a:hover {
         margin-right: 0;
         margin-bottom: 20px;
     }
+    #barra-superior {
+        justify-content: center;
+    }
+    .logo, #user-profile-area {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .logo {
+        left: 15px;
+    }
+    #user-profile-area {
+        right: 15px;
+    }
 }
 
 @media (max-width: 500px) {
-    #barra-superior a {
+    .main-nav a {
         font-size: 14px;
         padding: 5px;
-    }
-    .logo {
-        display: none;
     }
     .swiper-button-next, .swiper-button-prev {
         width: 35px;
@@ -682,10 +693,11 @@ a:hover {
     font-family: sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
     padding-top: 0;
+    overflow-y: auto;
 }
 
 .login-container, .admin-container {
@@ -699,7 +711,7 @@ a:hover {
 
 .login-container {
     max-width: 400px;
-    text-align: center;
+    align-self: center; /* Centraliza a caixa de login verticalmente */
 }
 
 .login-container h1 {
@@ -875,7 +887,7 @@ a:hover {
 .gallery-thumb-container {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* Truque para criar um quadrado perfeito (aspect-ratio: 1/1) */
+    padding-top: 100%;
 }
 
 .gallery-thumb-container img {

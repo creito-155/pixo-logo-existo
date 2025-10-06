@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +17,33 @@
         <section id="edit-main-profile">
             <h2>Editar Informações Principais</h2>
             <form id="form-edit-artista">
-                </form>
-            <div id="update-status"></div>
+                <div class="form-group">
+                    <label for="artista-nome">Nome do Artista</label>
+                    <input type="text" id="artista-nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artista-imagem">Trocar Imagem Principal (opcional)</label>
+                    <input type="file" id="artista-imagem" accept="image/*">
+                    <p><em>Deixe em branco se não quiser mudar a imagem atual.</em></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artista-instagram">Instagram (Ex: @pixo.sp)</label>
+                    <input type="text" id="artista-instagram">
+                </div>
+                
+                <div class="form-group">
+                    <label for="artista-categorias">Categorias (separadas por vírgula)</label>
+                    <input type="text" id="artista-categorias">
+                </div>
+                
+                <button type="submit" id="botao-atualizar-artista">Atualizar Perfil</button>
+            </form>
+            <div id="update-status" class="status-message"></div>
         </section>
 
-        <hr style="margin: 40px 0;">
+        <hr style="margin: 40px 0; border-color: #444;">
 
         <section id="gallery-manager">
             <h2>Gerenciar Galeria de Fotos</h2>
@@ -31,7 +53,7 @@
             
             <input type="file" id="gallery-file-input" multiple accept="image/*" style="display: none;">
             
-            <div id="gallery-upload-status"></div>
+            <div id="gallery-upload-status" class="status-message"></div>
         </section>
         
     </main>
