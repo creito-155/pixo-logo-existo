@@ -1,8 +1,7 @@
 // ===================================================================
-// main.js - VERSÃO DEFINITIVA (COM GERENCIADOR DE GALERIA)
-// Data: 04 de Outubro de 2025
+// main.js - VERSÃO FINAL (COM EDIÇÃO DE PERFIL E GALERIA)
+// Data: 06 de Outubro de 2025
 // ===================================================================
-
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -516,7 +515,7 @@ const routes = {
     '/quem-somos': '/pages/quem-somos.html',
     '/onde-atuamos': '/pages/onde-atuamos.html',
     '/galeria': '/pages/galeria.html',
-    '/edit-profile': '/pages/edit-profile.html' // Adiciona a rota para a página de edição
+    '/edit-profile': '/pages/edit-profile.html'
 };
 
 const loadContent = async () => {
@@ -528,8 +527,7 @@ const loadContent = async () => {
         routeFile = routes['/galeria'];
     } else if (path.startsWith('/edit-profile/')) {
         routeFile = routes['/edit-profile'];
-    }
-    else {
+    } else {
         routeFile = routes[path] || '/pages/404.html';
     }
     try {
@@ -565,5 +563,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } 
     else if (window.location.pathname.includes('/admin.html')) {
         onAuthStateChanged(auth, (user) => { if (user) { setupAdminPage(); } });
+    }
+    else if (window.location.pathname.includes('/edit-profile.html')) {
+        onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
     }
 });
