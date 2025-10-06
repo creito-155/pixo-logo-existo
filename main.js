@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO DEFINITIVA (COM GERENCIADOR DE GALERIA)
+// main.js - VERSÃO FINAL (COM GERENCIADOR DE GALERIA)
 // Data: 04 de Outubro de 2025
 // ===================================================================
 
