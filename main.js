@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO FINAL (COM GERENCIADOR DE GALERIA)
+// main.js - VERSÃO DEFINITIVA (COM GERENCIADOR DE GALERIA)
 // Data: 04 de Outubro de 2025
 // ===================================================================
 
@@ -373,6 +373,7 @@ function criarLightbox(imageUrl) {
         }
     });
 }
+
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `#/galeria/${artista.id}`;
@@ -389,6 +390,7 @@ function criarCartaoArtista(artista) {
     link.appendChild(nome);
     return link;
 }
+
 async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
     if (!swiperWrapper) return;
@@ -417,6 +419,7 @@ async function carregarArtistasNoCarrossel() {
         });
     } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
+
 async function carregarArtistasRecomendados() {
     const recomendadosGrid = document.getElementById('recomendados-grid');
     if (!recomendadosGrid) return;
@@ -432,6 +435,7 @@ async function carregarArtistasRecomendados() {
         selecionados.forEach(artista => { recomendadosGrid.appendChild(criarCartaoArtista(artista)); });
     } catch (error) { console.error("Erro ao buscar artistas recomendados:", error); recomendadosGrid.innerHTML = '<p>Erro ao carregar artistas.</p>'; }
 }
+
 async function carregarGaleriaIndividual() {
     const galeriaContainer = document.getElementById('galeria-container');
     if (!galeriaContainer) return;
@@ -473,6 +477,7 @@ async function carregarGaleriaIndividual() {
         }
     } catch (error) { console.error('Erro ao carregar dados da galeria:', error); galeriaContainer.innerHTML = '<h1>Ocorreu um erro ao carregar o conteúdo.</h1>'; }
 }
+
 async function carregarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
     const filtrosContainer = document.getElementById('filtros-container');
@@ -515,7 +520,8 @@ const routes = {
     '/artistas': '/pages/artistas.html',
     '/quem-somos': '/pages/quem-somos.html',
     '/onde-atuamos': '/pages/onde-atuamos.html',
-    '/galeria': '/pages/galeria.html'
+    '/galeria': '/pages/galeria.html',
+    '/edit-profile': '/pages/edit-profile.html' // Adiciona a rota para a página de edição
 };
 
 const loadContent = async () => {
@@ -525,7 +531,10 @@ const loadContent = async () => {
     let routeFile;
     if (path.startsWith('/galeria/')) {
         routeFile = routes['/galeria'];
-    } else {
+    } else if (path.startsWith('/edit-profile/')) { // Lógica para a rota de edição
+        routeFile = routes['/edit-profile'];
+    }
+    else {
         routeFile = routes[path] || '/pages/404.html';
     }
     try {
@@ -534,6 +543,8 @@ const loadContent = async () => {
         contentDiv.innerHTML = html;
         if (path.startsWith('/galeria/')) {
             carregarGaleriaIndividual();
+        } else if (path.startsWith('/edit-profile/')) { // Chama a função de carregar dados para edição
+            carregarDadosParaEdicao();
         } else if (path === '/home') {
             carregarArtistasNoCarrossel();
             carregarArtistasRecomendados();
@@ -559,8 +570,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } 
     else if (window.location.pathname.includes('/admin.html')) {
         onAuthStateChanged(auth, (user) => { if (user) { setupAdminPage(); } });
-    }
-    else if (window.location.pathname.includes('/edit-profile.html')) {
-        onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
     }
 });
