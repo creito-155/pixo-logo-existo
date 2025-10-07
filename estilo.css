@@ -626,65 +626,84 @@ main#app-content {
   background: none !important;
 }
 
-/* EDIÇÃO IN-LOCO DA GALERIA */
-.creator-header .edit-balloon {
-  display: none;
-  position: absolute;
-  bottom: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
-  background-color: var(--roxo-principal);
-  border-radius: 5px;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.creator-header:hover .edit-balloon { display: block; }
-.creator-header .edit-balloon:hover { background-color: var(--roxo-hover); }
+/* EDIÇÃO IN-LOCO DA GALERIA (LEGADO) */
+.creator-header .edit-balloon { display: none; }
 .gallery-grid .delete-image-btn { display: none; }
-body.edit-mode .delete-image-btn {
+
+/* =================================
+   GERENCIADOR DE GALERIA (ADMIN)
+   ================================= */
+
+/* Estilo para o card de adicionar nova imagem */
+.add-image-card {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background-color: #1a1a1a; /* Fundo preto/cinza escuro */
+  border: 3px dashed #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Animação de sombra verde ao passar o mouse */
+.add-image-card:hover {
+  border-color: var(--sucesso);
+  background-color: rgba(76, 175, 80, 0.05);
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5); /* Sombra verde */
+}
+
+/* Estilo para o sinal de "+" no centro */
+.add-image-card::before {
+  content: '+';
+  font-size: 80px;
+  color: #444;
+  font-weight: lighter;
+  transition: color 0.3s ease;
+}
+
+.add-image-card:hover::before {
+  color: var(--sucesso);
+}
+
+/* Estilo para o container de cada imagem na área de admin */
+.admin-thumb {
+    position: relative; /* Necessário para posicionar o botão de deletar */
+}
+
+/* Botão de remover imagem (-) */
+.delete-image-btn {
   display: block;
   position: absolute;
-  top: 5px; right: 5px;
-  width: 30px; height: 30px;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
   background-color: var(--erro);
   color: white;
   border: 2px solid white;
   border-radius: 50%;
   font-size: 20px;
   font-weight: bold;
-  line-height: 28px;
+  line-height: 26px; /* Ajuste para centralizar o "-" */
   text-align: center;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  opacity: 0.8;
 }
-body.edit-mode .delete-image-btn:hover { transform: scale(1.1); }
-.add-image-card { display: none; }
-body.edit-mode .add-image-card {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 250px;
-  background-color: transparent;
-  border: 3px dashed var(--borda-input);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+
+.admin-thumb:hover .delete-image-btn {
+    opacity: 1;
+    transform: scale(1.1);
 }
-body.edit-mode .add-image-card:hover {
-  border-color: var(--sucesso);
-  background-color: rgba(76, 175, 80, 0.05);
-}
-body.edit-mode .add-image-card::before {
-  content: '+';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 80px;
-  color: var(--sucesso);
-  font-weight: lighter;
+
+.delete-image-btn:hover {
+  background-color: #d32f2f; /* Vermelho mais escuro */
+  transform: scale(1.2) !important;
 }
 
 /* =================================
