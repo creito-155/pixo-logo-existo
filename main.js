@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO FINAL OTIMIZADA E SEGURA
+// main.js - VERSÃO FINAL OTIMIZADA E SEGURA (COM CORREÇÕES SPA)
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -89,7 +89,8 @@ async function setupAdminPage() {
             }
             const editProfileLink = document.getElementById('edit-profile-link');
             if (editProfileLink) {
-                editProfileLink.href = `/edit-profile.html?id=${artistaDoc.id}`;
+                // CORREÇÃO: Usar #/ para linkar para a rota de edição
+                editProfileLink.href = `#/edit-profile/${artistaDoc.id}`;
             }
             if (createSection) createSection.style.display = 'none';
             if (editSection) editSection.style.display = 'block';
@@ -111,19 +112,27 @@ onAuthStateChanged(auth, async (user) => {
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
                 const artistaData = querySnapshot.docs[0].data();
-                userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${escapeHTML(artistaData.imageUrl)}" class="profile-pic-header" alt="Foto de perfil"></a>`;
+                // CORREÇÃO: Usar #/admin para linkar para a rota da SPA
+                userProfileArea.innerHTML = `<a href="#/admin" title="Painel de Controle"><img src="${escapeHTML(artistaData.imageUrl)}" class="profile-pic-header" alt="Foto de perfil"></a>`;
             } else {
-                userProfileArea.innerHTML = `<a href="/admin.html" class="login-button">Criar Perfil</a>`;
+                // CORREÇÃO: Usar #/admin (ou #/cadastro) para criar perfil
+                userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Criar Perfil</a>`;
             }
         } else {
-            userProfileArea.innerHTML = `<a href="/login.html" class="login-button">Login / Cadastrar</a>`;
+            // CORREÇÃO: Usar #/login para linkar para a rota da SPA
+            userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
         }
     }
-    const onAdminPage = window.location.pathname.includes('/admin.html') || window.location.pathname.includes('/edit-profile.html');
+    
+    // CORREÇÃO: Lógica de proteção de rotas agora usa o hash
+    const currentHash = window.location.hash;
+    const onAdminPage = currentHash === '#/admin' || currentHash.startsWith('#/edit-profile');
     if (!user && onAdminPage) {
-        window.location.href = '/login.html';
+        // CORREÇÃO: Redireciona via hash para não recarregar a página
+        window.location.hash = '#/login';
     }
 });
+
 
 // --- 3. FORMULÁRIOS DE AUTENTICAÇÃO ---
 const formCadastro = document.getElementById('form-cadastro');
@@ -171,7 +180,8 @@ if (formLogin) {
         const senha = formLogin.senha.value;
         const erroLogin = document.getElementById('login-error');
         signInWithEmailAndPassword(auth, email, senha)
-            .then(() => window.location.href = '/admin.html')
+            // CORREÇÃO: Redireciona via hash para não recarregar a página
+            .then(() => window.location.hash = '#/admin')
             .catch(() => erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.");
     });
 }
@@ -179,7 +189,8 @@ if (formLogin) {
 const botaoLogout = document.getElementById('botao-logout');
 if (botaoLogout) {
     botaoLogout.addEventListener('click', () => {
-        signOut(auth).then(() => window.location.href = '/login.html');
+        // CORREÇÃO: Redireciona via hash para não recarregar a página
+        signOut(auth).then(() => window.location.hash = '#/login');
     });
 }
 
@@ -257,13 +268,13 @@ if (formAddArtista) {
                 const imageUrl = data.secure_url;
 
                 // Salva as categorias com iniciais maiúsculas
-                await addDoc(artistasRef, {
+                const novoArtistaDoc = await addDoc(artistasRef, {
                     userId: user.uid,
                     nome: escapeHTML(nomeArtista),
                     imageUrl: escapeHTML(imageUrl),
                     instagramHandle: escapeHTML(instagramHandle),
                     instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                    categoria: categoriasSelecionadas,
+                    categoria: categoriasArray, // Usando o array formatado
                     imagens: []
                 });
                 artistaId = novoArtistaDoc.id;
@@ -286,13 +297,11 @@ if (formAddArtista) {
 
 // --- 5. FORMULÁRIO DE EDIÇÃO DE ARTISTA ---
 async function carregarDadosParaEdicao() {
-    // Se estiver usando SPA, pegue o ID do artista da URL hash (ex: #/edit-profile/ID)
     let artistaId = null;
     const hash = window.location.hash;
     if (hash.startsWith('#/edit-profile/')) {
         artistaId = hash.split('/')[2];
     } else {
-        // fallback para query string se necessário
         const params = new URLSearchParams(window.location.search);
         artistaId = params.get('id');
     }
@@ -308,7 +317,6 @@ async function carregarDadosParaEdicao() {
             const artistaData = docSnap.data();
             document.getElementById('artista-nome').value = artistaData.nome || '';
             document.getElementById('artista-instagram').value = artistaData.instagramHandle || '';
-            // Preenche os checkboxes de categoria
             if (artistaData.categoria && Array.isArray(artistaData.categoria)) {
                 artistaData.categoria.forEach(cat => {
                     const checkbox = document.querySelector(`#categorias-opcoes input[value="${cat}"]`);
@@ -341,7 +349,6 @@ if (formEditArtista) {
             const nome = document.getElementById('artista-nome').value;
             const imagemArquivo = document.getElementById('artista-imagem').files[0];
             const instagramHandle = document.getElementById('artista-instagram').value;
-            // Pega as categorias selecionadas nos checkboxes
             const categoriasSelecionadas = Array.from(document.querySelectorAll('#categorias-opcoes input[name="categoria"]:checked'))
                 .map(input => input.value);
 
@@ -390,7 +397,6 @@ function renderizarGerenciadorDeGaleria(imagens = []) {
     imagens.forEach(url => {
         const card = document.createElement('div');
         card.className = 'gallery-thumb-container';
-        // url já vem do Cloudinary, mas escapamos por segurança
         card.innerHTML = `<img src="${escapeHTML(url)}" alt="Imagem da galeria"><button class="delete-image-btn" data-url="${escapeHTML(url)}">-</button>`;
         grid.appendChild(card);
     });
@@ -641,58 +647,61 @@ const routes = {
 const loadContent = async () => {
     const contentDiv = document.getElementById('app-content');
     if (!contentDiv) return;
+    // Pega o caminho, ex: /home ou /galeria/ID_DO_ARTISTA
     const path = window.location.hash.substring(1) || '/home';
-    let routeFile;
-    if (path.startsWith('/galeria/')) {
-        routeFile = routes['/galeria'];
-    } else if (path.startsWith('/edit-profile/')) {
-        routeFile = routes['/edit-profile'];
-    } else {
-        routeFile = routes[path] || '/pages/404.html';
-    }
+    // Determina a rota base, ex: /galeria para /galeria/ID
+    const basePath = '/' + path.split('/')[1];
+
+    const routeFile = routes[basePath] || '/pages/404.html';
+    
     try {
         const response = await fetch(routeFile);
+        if (!response.ok) throw new Error("Arquivo da rota não encontrado.");
+        
         const html = await response.text();
         contentDiv.innerHTML = html;
-        if (path.startsWith('/galeria/')) {
+
+        // MELHORIA: Executa a função JS específica para a página APÓS carregar o HTML
+        if (basePath === '/galeria') {
             carregarGaleriaIndividual();
-        } else if (path.startsWith('/edit-profile/')) {
+        } else if (basePath === '/edit-profile') {
             carregarDadosParaEdicao();
-        } else if (path === '/home') {
+        } else if (basePath === '/home') {
             carregarArtistasNoCarrossel();
             carregarArtistasRecomendados();
-        } else if (path === '/artistas') {
+        } else if (basePath === '/artistas') {
             carregarPaginaDeArtistas();
+        } else if (basePath === '/admin') {
+            setupAdminPage();
         }
-    } catch (error) { console.error('Erro ao carregar a página:', error); contentDiv.innerHTML = '<h1>Erro ao carregar a página.</h1>'; }
+
+    } catch (error) { 
+        console.error('Erro ao carregar a página:', error); 
+        contentDiv.innerHTML = '<h1>Erro ao carregar a página. Verifique o console.</h1>'; 
+    }
 };
 
 // --- 9. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
+    // Garante que a home seja carregada se o hash estiver vazio
     if (!window.location.hash || window.location.hash === '#') {
         window.location.hash = '#/home';
+    } else {
+        // Carrega o conteúdo da rota atual no primeiro load da página
+        loadContent();
     }
-    loadContent();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('app-content')) {
-        initializeRouter();
-    } 
-    else if (window.location.pathname.includes('/admin.html')) {
-        onAuthStateChanged(auth, (user) => { if (user) { setupAdminPage(); } });
-    }
-    else if (window.location.pathname.includes('/edit-profile.html')) {
-        onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
+    initializeRouter();
+
+    // --- SCRIPT PARA O MENU HAMBÚRGUER ---
+    const hamburgerButton = document.querySelector('.hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+    if (hamburgerButton && mainNav) {
+        hamburgerButton.addEventListener('click', () => {
+            mainNav.classList.toggle('nav-open');
+        });
     }
 });
-
-// --- SCRIPT PARA O MENU HAMBÚRGUER ---
-const hamburgerButton = document.querySelector('.hamburger-menu');
-const mainNav = document.querySelector('.main-nav');
-if (hamburgerButton && mainNav) {
-    hamburgerButton.addEventListener('click', () => {
-        mainNav.classList.toggle('nav-open');
-    });
-}
