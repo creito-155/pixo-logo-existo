@@ -124,12 +124,7 @@ async function carregarArtistasRecomendados() {
 }
 
 async function carregarTodosArtistasHome() {
-    // Busca o grid principal (exclui o de recomendados)
-    const grids = document.querySelectorAll('.gallery-grid');
-    let grid = null;
-    grids.forEach(g => {
-        if (g.id !== 'recomendados-grid') grid = g;
-    });
+    const grid = document.getElementById('todos-artistas-grid');
     if (!grid) return;
     grid.innerHTML = 'Carregando...';
 
