@@ -568,3 +568,14 @@ document.addEventListener('DOMContentLoaded', () => {
         onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
     }
 });
+// --- SCRIPT PARA O MENU HAMBÚRGUER ---
+
+// Encontra o botão e o menu de navegação no documento
+const hamburgerButton = document.querySelector('.hamburger-menu');
+const mainNav = document.querySelector('.main-nav');
+
+// Adiciona um "ouvinte de evento" que espera por um clique no botão
+hamburgerButton.addEventListener('click', () => {
+    // Quando o botão for clicado, ele adiciona ou remove a classe 'nav-open' do menu
+    mainNav.classList.toggle('nav-open');
+});
