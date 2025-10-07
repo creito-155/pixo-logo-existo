@@ -1004,3 +1004,79 @@ body.edit-mode .add-image-card::before {
         font-size: 14px;
     }
 }
+/* ========================================================== */
+/* ESTILOS PARA HEADER RESPONSIVO E MENU HAMBÚRGUER         */
+/* ========================================================== */
+
+/* Esconde o botão hambúrguer em telas grandes (Desktop) */
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Garante que fique acima de outros elementos */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* --- ESTILOS PARA CELULAR --- */
+@media (max-width: 768px) {
+
+    #barra-superior {
+        justify-content: space-between; /* Espaça os itens: hambúrguer na esquerda, logo no meio, login na direita */
+        padding: 10px 15px;
+    }
+
+    /* Mostra o botão hambúrguer */
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Centraliza o logo (o flex-grow o empurra para o centro) */
+    .logo {
+        flex-grow: 1;
+        text-align: center;
+        margin-left: -45px; /* Ajuste para centralizar o logo corretamente considerando o espaço do hambúrguer */
+    }
+    
+    .logo img {
+        width: 45px; /* Diminui um pouco o logo no celular */
+    }
+    
+    /* Esconde a navegação de texto */
+    .main-nav {
+        display: none; /* Esconde o menu por padrão */
+        flex-direction: column; /* Organiza os links em uma coluna */
+        position: absolute;
+        top: 70px; /* Posição logo abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: #121212; /* Fundo escuro para o menu dropdown */
+        border-top: 1px solid #282828;
+    }
+
+    /* Quando o menu estiver aberto, ele será exibido */
+    .main-nav.nav-open {
+        display: flex;
+    }
+
+    .main-nav a {
+        padding: 15px 20px;
+        text-align: center;
+        border-bottom: 1px solid #282828;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .main-nav a:hover {
+        background-color: #282828;
+    }
+}
