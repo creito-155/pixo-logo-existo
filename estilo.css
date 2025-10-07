@@ -464,7 +464,6 @@ a:hover {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding-top: 0;
 }
 .login-container, .admin-container {
   max-width: 400px;
