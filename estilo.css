@@ -1039,16 +1039,9 @@ body.edit-mode .add-image-card::before {
     .hamburger-menu {
         display: block;
     }
-
-    /* Centraliza o logo (o flex-grow o empurra para o centro) */
-    .logo {
-        flex-grow: 1;
-        text-align: center;
-        margin-left: -45px; /* Ajuste para centralizar o logo corretamente considerando o espaço do hambúrguer */
-    }
     
-    .logo img {
-        width: 45px; /* Diminui um pouco o logo no celular */
+    .logo {
+    display: none;
     }
     
     /* Esconde a navegação de texto */
