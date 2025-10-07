@@ -263,7 +263,7 @@ if (formAddArtista) {
                     imageUrl: escapeHTML(imageUrl),
                     instagramHandle: escapeHTML(instagramHandle),
                     instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                    categoria: categoriasArray,
+                    categoria: categoriasSelecionadas,
                     imagens: []
                 });
                 artistaId = novoArtistaDoc.id;
@@ -349,7 +349,7 @@ if (formEditArtista) {
                 nome: escapeHTML(nome),
                 instagramHandle: escapeHTML(instagramHandle),
                 instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                categoria: categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item),
+                categoria: categoriasSelecionadas,
             };
             if (imagemArquivo) {
                 updateStatus.textContent = 'Enviando nova imagem...';
