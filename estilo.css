@@ -626,10 +626,6 @@ main#app-content {
   background: none !important;
 }
 
-/* EDIÇÃO IN-LOCO DA GALERIA (LEGADO) */
-.creator-header .edit-balloon { display: none; }
-.gallery-grid .delete-image-btn { display: none; }
-
 /* =================================
    GERENCIADOR DE GALERIA (ADMIN)
    ================================= */
@@ -639,7 +635,7 @@ main#app-content {
   position: relative;
   width: 100%;
   height: 250px;
-  background-color: #1a1a1a; /* Fundo preto/cinza escuro */
+  background-color: #1a1a1a;
   border: 3px dashed #444;
   border-radius: 8px;
   cursor: pointer;
@@ -649,14 +645,12 @@ main#app-content {
   align-items: center;
 }
 
-/* Animação de sombra verde ao passar o mouse */
 .add-image-card:hover {
   border-color: var(--sucesso);
   background-color: rgba(76, 175, 80, 0.05);
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5); /* Sombra verde */
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
 }
 
-/* Estilo para o sinal de "+" no centro */
 .add-image-card::before {
   content: '+';
   font-size: 80px;
@@ -669,14 +663,14 @@ main#app-content {
   color: var(--sucesso);
 }
 
-/* Estilo para o container de cada imagem na área de admin */
+/* Container de cada imagem na área de admin */
 .admin-thumb {
-    position: relative; /* Necessário para posicionar o botão de deletar */
+    position: relative;
+    overflow: hidden;
 }
 
 /* Botão de remover imagem (-) */
 .delete-image-btn {
-  display: block;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -688,23 +682,26 @@ main#app-content {
   border-radius: 50%;
   font-size: 20px;
   font-weight: bold;
-  line-height: 26px; /* Ajuste para centralizar o "-" */
+  line-height: 26px;
   text-align: center;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  opacity: 0.8;
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.3s ease;
+  opacity: 0; /* Começa invisível */
+  transform: scale(0.8); /* Começa um pouco menor */
 }
 
+/* Faz o botão aparecer ao passar o mouse sobre o container da imagem */
 .admin-thumb:hover .delete-image-btn {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1);
 }
 
 .delete-image-btn:hover {
-  background-color: #d32f2f; /* Vermelho mais escuro */
-  transform: scale(1.2) !important;
+  background-color: #d32f2f;
+  transform: scale(1.15) !important;
 }
+
 
 /* =================================
    RESPONSIVIDADE
