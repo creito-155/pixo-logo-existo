@@ -1,0 +1,55 @@
+<header class="admin-header">
+    <h1>Painel de Administração</h1>
+    <button id="botao-logout">Sair</button>
+</header>
+
+<main class="admin-container">
+
+    <div id="loading-admin">
+        <p>Verificando seu perfil...</p>
+    </div>
+
+    <section id="create-profile-section" style="display: none;">
+        <h2>Crie seu Perfil de Artista</h2>
+        <p>Como este é seu primeiro acesso, preencha o formulário abaixo para criar seu perfil público.</p>
+        <form id="form-add-artista">
+            <div class="form-group">
+                <label for="artista-nome">Nome do Artista</label>
+                <input type="text" id="artista-nome" required>
+            </div>
+            <div class="form-group">
+                <label for="artista-imagem">Imagem Principal (Logo/Perfil)</label>
+                <input type="file" id="artista-imagem" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="artista-instagram">Instagram (Ex: @pixo.sp)</label>
+                <input type="text" id="artista-instagram">
+            </div>
+            <div class="form-group">
+                <label>Categorias</label>
+                <div id="categorias-opcoes" class="categorias-pilula">
+                    <label class="categoria-btn">
+                        <input type="checkbox" name="categoria" value="Pixo" hidden>
+                        <span>Pixo</span>
+                    </label>
+                    <label class="categoria-btn">
+                        <input type="checkbox" name="categoria" value="Graff" hidden>
+                        <span>Graff</span>
+                    </label>
+                </div>
+                <small>Selecione uma ou mais opções.</small>
+            </div>
+            <button type="submit" id="botao-salvar-artista">Salvar e Criar Perfil</button>
+        </form>
+        <div id="upload-status"></div>
+    </section>
+
+    <section id="edit-profile-section" style="display: none;">
+        <h2 id="welcome-message"></h2>
+        <p>Aqui você poderá editar suas informações e gerenciar sua galeria de fotos.</p>
+        
+        <a href="#/edit-profile" id="edit-profile-link" class="test-button">Editar Informações do Perfil</a>
+        <a href="#/manage-gallery" id="manage-gallery-link" class="test-button">Gerenciar Galeria de Fotos</a>
+    </section>
+    
+</main>

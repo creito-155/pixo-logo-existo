@@ -286,10 +286,19 @@ if (formAddArtista) {
 
 // --- 5. FORMULÁRIO DE EDIÇÃO DE ARTISTA ---
 async function carregarDadosParaEdicao() {
-    const params = new URLSearchParams(window.location.search);
-    currentArtistId = params.get('id');
+    // Se estiver usando SPA, pegue o ID do artista da URL hash (ex: #/edit-profile/ID)
+    let artistaId = null;
+    const hash = window.location.hash;
+    if (hash.startsWith('#/edit-profile/')) {
+        artistaId = hash.split('/')[2];
+    } else {
+        // fallback para query string se necessário
+        const params = new URLSearchParams(window.location.search);
+        artistaId = params.get('id');
+    }
+    currentArtistId = artistaId;
     if (!currentArtistId) {
-        document.body.innerHTML = '<h1>ID do artista não fornecido.</h1>';
+        document.getElementById('app-content').innerHTML = '<h1>ID do artista não fornecido.</h1>';
         return;
     }
     try {
@@ -306,13 +315,15 @@ async function carregarDadosParaEdicao() {
                     if (checkbox) checkbox.checked = true;
                 });
             }
-            renderizarGerenciadorDeGaleria(artistaData.imagens);
+            if (typeof renderizarGerenciadorDeGaleria === "function") {
+                renderizarGerenciadorDeGaleria(artistaData.imagens);
+            }
         } else {
-            document.body.innerHTML = '<h1>Artista não encontrado.</h1>';
+            document.getElementById('app-content').innerHTML = '<h1>Artista não encontrado.</h1>';
         }
     } catch (error) {
         console.error("Erro ao carregar dados do artista para edição:", error);
-        document.body.innerHTML = '<h1>Erro ao carregar dados.</h1>';
+        document.getElementById('app-content').innerHTML = '<h1>Erro ao carregar dados.</h1>';
     }
 }
 
