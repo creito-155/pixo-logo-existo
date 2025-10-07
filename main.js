@@ -188,59 +188,83 @@ const formAddArtista = document.getElementById('form-add-artista');
 if (formAddArtista) {
     formAddArtista.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const botaoSalvar = document.getElementById('botao-salvar-artista');
         const uploadStatus = document.getElementById('upload-status');
         const user = auth.currentUser;
         if (!user) { uploadStatus.textContent = "Erro: Sessão expirada."; return; }
-        
-        const nome = document.getElementById('artista-nome').value;
+
+        // Dados do formulário
+        const nomeArtista = document.getElementById('artista-nome').value.trim();
         const imagemArquivo = document.getElementById('artista-imagem').files[0];
-        const instagramHandle = document.getElementById('artista-instagram').value;
+        const instagramHandle = document.getElementById('artista-instagram').value.trim();
         const categoriasInput = document.getElementById('artista-categorias').value;
 
-        // Validação dos campos
-        if (!validarNome(nome)) { uploadStatus.textContent = 'Nome inválido.'; return; }
-        if (!imagemArquivo) { uploadStatus.textContent = 'Imagem é obrigatória.'; return; }
-        if (!validarInstagram(instagramHandle)) { uploadStatus.textContent = 'Instagram inválido.'; return; }
-        if (!validarCategorias(categoriasInput)) { uploadStatus.textContent = 'Categorias inválidas.'; return; }
-
-        const categoriasFormatadas = formatarCategorias(categoriasInput);
+        if (!nomeArtista || !imagemArquivo) {
+            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.';
+            return;
+        }
 
         botaoSalvar.disabled = true;
-        uploadStatus.textContent = 'Enviando imagem...';
-        
-        const formData = new FormData();
-        formData.append('file', imagemArquivo);
-        formData.append('upload_preset', 'artistas_uploads'); 
-        const CLOUD_NAME = 'dj053fl2q';
-        const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+        uploadStatus.textContent = 'Verificando artista...';
 
         try {
-            const response = await fetch(uploadUrl, { method: 'POST', body: formData });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
-            
-            const imageUrl = data.secure_url;
-            uploadStatus.textContent = 'Salvando no banco de dados...';
+            // Verifica se já existe artista com o mesmo nome
+            const artistasRef = collection(db, 'artistas');
+            const q = query(artistasRef, where("nome", "==", nomeArtista));
+            const querySnapshot = await getDocs(q);
 
-            const artistaDoc = {
-                userId: user.uid,
-                nome: escapeHTML(nome),
-                imageUrl: escapeHTML(imageUrl),
-                instagramHandle: escapeHTML(instagramHandle),
-                instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
-                imagens: []
-            };
-            
-            await addDoc(collection(db, 'artistas'), artistaDoc);
+            let artistaId;
 
-            uploadStatus.textContent = 'Perfil criado com sucesso!';
+            if (!querySnapshot.empty) {
+                // Artista já existe
+                uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
+                const artistaExistente = querySnapshot.docs[0];
+                artistaId = artistaExistente.id;
+
+                // Opcional: Atualiza o userId do artista existente
+                // await updateDoc(doc(db, 'artistas', artistaId), { userId: user.uid });
+
+            } else {
+                // Artista novo, faz upload da imagem
+                uploadStatus.textContent = 'Artista novo! Criando perfil...';
+
+                const formData = new FormData();
+                formData.append('file', imagemArquivo);
+                formData.append('upload_preset', 'artistas_uploads');
+                const CLOUD_NAME = 'dj053fl2q';
+                const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+                const response = await fetch(uploadUrl, { method: 'POST', body: formData });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
+
+                const imageUrl = data.secure_url;
+
+                // Formata categorias
+                const categoriasFormatadas = formatarCategorias(categoriasInput);
+
+                // Cria novo artista
+                const novoArtistaDoc = await addDoc(artistasRef, {
+                    userId: user.uid,
+                    nome: escapeHTML(nomeArtista),
+                    imageUrl: escapeHTML(imageUrl),
+                    instagramHandle: escapeHTML(instagramHandle),
+                    instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
+                    categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                    imagens: []
+                });
+                artistaId = novoArtistaDoc.id;
+            }
+
+            uploadStatus.textContent = 'Perfil associado/criado com sucesso!';
             uploadStatus.style.color = 'green';
             formAddArtista.reset();
             setupAdminPage();
+            // window.location.href = '/admin.html'; // Se quiser redirecionar
 
         } catch (error) {
+            console.error("Erro ao verificar ou criar artista: ", error);
             uploadStatus.textContent = `Erro: ${error.message}`;
             uploadStatus.style.color = 'red';
         } finally {
