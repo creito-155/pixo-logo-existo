@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - SPA otimizado e seguro
+// main.js - SPA completo para Pixo, logo existo
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -56,7 +56,7 @@ function validarInstagram(instagram) {
 }
 
 // --- 4. LOADER SPA ---
-function loadContent() {
+async function loadContent() {
     const contentDiv = document.getElementById('app-content');
     if (!contentDiv) return;
     const path = window.location.hash.substring(1) || '/home';
@@ -68,35 +68,22 @@ function loadContent() {
     } else {
         routeFile = routes[path] || '/pages/404.html';
     }
-    fetch(routeFile)
-        .then(res => res.text())
-        .then(html => {
-            contentDiv.innerHTML = html;
-            inicializarPagina(path);
-            atualizarBarraSuperior();
-        })
-        .catch(() => {
-            contentDiv.innerHTML = '<h1>Erro ao carregar página.</h1>';
-        });
-}
-
-// Função para atualizar a barra superior
-function atualizarBarraSuperior() {
-    onAuthStateChanged(auth, async (user) => {
-        const userProfileArea = document.getElementById('user-profile-area');
-        if (userProfileArea) {
-            if (user) {
-                userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Painel</a>`;
-            } else {
-                userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
-            }
-        }
-    });
+    try {
+        const response = await fetch(routeFile);
+        const html = await response.text();
+        contentDiv.innerHTML = html;
+        inicializarPagina(path);
+        atualizarBarraSuperior();
+    } catch (error) {
+        contentDiv.innerHTML = '<h1>Erro ao carregar página.</h1>';
+    }
 }
 
 // --- 5. INICIALIZAÇÃO DE CADA PÁGINA ---
 function inicializarPagina(path) {
     if (path === '/home') inicializarHome();
+    if (path === '/artistas') inicializarArtistas();
+    if (path === '/galeria') inicializarGaleria();
     if (path === '/login') inicializarLogin();
     if (path === '/cadastro') inicializarCadastro();
     if (path === '/admin') inicializarAdmin();
@@ -104,6 +91,7 @@ function inicializarPagina(path) {
     // Adicione inicialização de outras páginas se necessário
 }
 
+// --- 6. HOME: BOTÃO RECOMENDADOS ---
 function inicializarHome() {
     const botaoRecomendados = document.getElementById('botao-recomendados');
     if (botaoRecomendados) {
@@ -118,7 +106,6 @@ async function carregarArtistasRecomendados() {
     if (!container) return;
     container.innerHTML = 'Carregando...';
 
-    // Exemplo: busca artistas recomendados do Firestore
     const q = query(collection(db, "artistas"), where("recomendado", "==", true));
     const querySnapshot = await getDocs(q);
 
@@ -141,7 +128,63 @@ async function carregarArtistasRecomendados() {
     container.innerHTML = html;
 }
 
-// --- 6. LOGIN ---
+// --- 7. ARTISTAS ---
+function inicializarArtistas() {
+    const container = document.getElementById('lista-artistas');
+    if (!container) return;
+    container.innerHTML = 'Carregando...';
+
+    getDocs(collection(db, "artistas")).then(snapshot => {
+        if (snapshot.empty) {
+            container.innerHTML = '<p>Nenhum artista cadastrado.</p>';
+            return;
+        }
+        let html = '';
+        snapshot.forEach(doc => {
+            const artista = doc.data();
+            html += `
+                <div class="artista-card">
+                    <img src="${artista.imageUrl}" alt="${artista.nome}" style="width:80px;">
+                    <h3>${artista.nome}</h3>
+                    <p>${artista.instagramHandle}</p>
+                    <p>${(artista.categoria || []).join(', ')}</p>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    });
+}
+
+// --- 8. GALERIA ---
+function inicializarGaleria() {
+    const container = document.getElementById('galeria-artistas');
+    if (!container) return;
+    container.innerHTML = 'Carregando...';
+
+    getDocs(collection(db, "artistas")).then(snapshot => {
+        if (snapshot.empty) {
+            container.innerHTML = '<p>Nenhuma imagem encontrada.</p>';
+            return;
+        }
+        let html = '';
+        snapshot.forEach(doc => {
+            const artista = doc.data();
+            if (Array.isArray(artista.imagens)) {
+                artista.imagens.forEach(img => {
+                    html += `
+                        <div class="galeria-card">
+                            <img src="${img}" alt="${artista.nome}" style="width:120px;">
+                            <h4>${artista.nome}</h4>
+                        </div>
+                    `;
+                });
+            }
+        });
+        container.innerHTML = html;
+    });
+}
+
+// --- 9. LOGIN ---
 function inicializarLogin() {
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
@@ -157,7 +200,7 @@ function inicializarLogin() {
     }
 }
 
-// --- 7. CADASTRO ---
+// --- 10. CADASTRO ---
 function inicializarCadastro() {
     const formCadastro = document.getElementById('form-cadastro');
     if (formCadastro) {
@@ -195,7 +238,7 @@ function inicializarCadastro() {
     }
 }
 
-// --- 8. ADMIN ---
+// --- 11. ADMIN ---
 function inicializarAdmin() {
     const botaoLogout = document.getElementById('botao-logout');
     if (botaoLogout) {
@@ -325,7 +368,7 @@ async function setupAdminPage() {
     }
 }
 
-// --- 9. EDITAR PERFIL ---
+// --- 12. EDITAR PERFIL ---
 function inicializarEditProfile() {
     let artistaId = null;
     const hash = window.location.hash;
@@ -420,19 +463,21 @@ async function carregarDadosParaEdicao() {
     }
 }
 
-// --- 10. BOTÃO LOGIN/CADASTRO NA BARRA SUPERIOR ---
-onAuthStateChanged(auth, async (user) => {
-    const userProfileArea = document.getElementById('user-profile-area');
-    if (userProfileArea) {
-        if (user) {
-            userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Painel</a>`;
-        } else {
-            userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
+// --- 13. BOTÃO LOGIN/CADASTRO NA BARRA SUPERIOR ---
+function atualizarBarraSuperior() {
+    onAuthStateChanged(auth, async (user) => {
+        const userProfileArea = document.getElementById('user-profile-area');
+        if (userProfileArea) {
+            if (user) {
+                userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Painel</a>`;
+            } else {
+                userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
+            }
         }
-    }
-});
+    });
+}
 
-// --- 11. INICIALIZAÇÃO SPA ---
+// --- 14. INICIALIZAÇÃO SPA ---
 window.addEventListener('hashchange', loadContent);
 document.addEventListener('DOMContentLoaded', () => {
     if (!window.location.hash || window.location.hash === '#') {
