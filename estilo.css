@@ -213,10 +213,10 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: white;
     margin: 0;
-    padding-top: 80px;
+    padding-top: 70px;
 }
 
-a:link {
+a {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
@@ -228,21 +228,24 @@ a:visited {
 a:hover {
     background: rgb(195, 0, 255);
     border-radius: 3px;
+    color: white !important;
 }
 
 #barra-superior {
     font-family: 'Don Graffiti', sans-serif;
-    background: #000000cf;
+    background: #1a1a1a;
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px 20px;
+    height: 70px;
+    padding: 0 15px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #333;
 }
 
 .logo {
@@ -256,10 +259,12 @@ a:hover {
 
 .main-nav a {
     padding: 5px 10px;
+    font-size: 1.1rem;
+    color: #e0e0e0;
 }
 
 #user-profile-area {
-    min-width: 50px;
+    min-width: 45px;
     text-align: right;
 }
 
@@ -627,7 +632,11 @@ a:hover {
     background: none;
 }
 
-/* RESPONSIVIDADE */
+
+/* =================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ================================= */
+
 @media (max-width: 992px) {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -643,33 +652,14 @@ a:hover {
         margin-right: 0;
         margin-bottom: 20px;
     }
-    #barra-superior {
-        justify-content: center;
-    }
-    .logo, #user-profile-area {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    .logo {
-        left: 15px;
-    }
-    #user-profile-area {
-        right: 15px;
-    }
-}
 
-@media (max-width: 500px) {
-    .main-nav a {
-        font-size: 14px;
-        padding: 5px;
+    /* ESCONDE A NAVEGAÇÃO PRINCIPAL EM CELULARES */
+    .main-nav {
+        display: none;
     }
-    .swiper-button-next, .swiper-button-prev {
-        width: 35px;
-        height: 35px;
-    }
-    .swiper-button-next::after, .swiper-button-prev::after {
-        font-size: 14px;
+
+    #barra-superior {
+        justify-content: space-between;
     }
 }
 
@@ -677,6 +667,7 @@ a:hover {
 /* ============================================= */
 /* ESTILOS PARA PÁGINAS DE ADMIN, LOGIN E CADASTRO */
 /* ============================================= */
+
 :root {
     --admin-fundo: #121212;
     --admin-caixa: #1e1e1e;
@@ -687,6 +678,7 @@ a:hover {
     --admin-sucesso: #4CAF50;
     --admin-erro: #f44336;
 }
+
 .admin-body {
     background: var(--admin-fundo) !important;
     color: var(--admin-texto);
@@ -699,6 +691,7 @@ a:hover {
     padding-top: 0;
     overflow-y: auto;
 }
+
 .login-container, .admin-container {
     background-color: var(--admin-caixa);
     padding: 2rem 3rem;
@@ -707,24 +700,29 @@ a:hover {
     width: 100%;
     border: 1px solid var(--admin-borda);
 }
+
 .login-container {
     max-width: 400px;
     align-self: center;
 }
+
 .login-container h1 {
     margin-bottom: 2rem;
     color: var(--admin-texto);
 }
+
 .form-group {
     margin-bottom: 1.5rem;
     text-align: left;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
     color: #aaa;
 }
+
 .form-group input {
     width: 100%;
     padding: 0.8rem;
@@ -735,11 +733,13 @@ a:hover {
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 .form-group input:focus {
     outline: none;
     border-color: var(--admin-roxo-principal);
     box-shadow: 0 0 5px var(--admin-roxo-principal);
 }
+
 .login-container button,
 .admin-container button {
     width: 100%;
@@ -753,35 +753,43 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .login-container button:hover,
 .admin-container button:hover {
     background-color: var(--admin-roxo-hover);
 }
+
 .admin-container button {
     margin-top: 1rem;
 }
+
 .error-message, .status-message {
     margin-top: 1rem;
     min-height: 20px;
     text-align: center;
 }
+
 .error-message { color: var(--admin-erro); }
 .status-message[style*="color: green;"] { color: var(--admin-sucesso); }
 .status-message[style*="color: orange;"] { color: orange; }
+
 .auth-link {
     margin-top: 2rem;
     font-size: 0.9rem;
 }
+
 .auth-link a {
     color: var(--admin-roxo-principal);
     text-decoration: none;
     font-weight: bold;
     background: none;
 }
+
 .auth-link a:hover {
     text-decoration: underline;
     background: none;
 }
+
 .admin-header {
     position: fixed;
     top: 0;
@@ -795,20 +803,24 @@ a:hover {
     box-sizing: border-box;
     z-index: 1000;
 }
+
 .admin-container {
     max-width: 700px;
     margin-top: 100px;
     margin-bottom: 2rem;
 }
+
 .admin-header h1 {
     font-size: 1.5rem;
     margin: 0;
 }
+
 #botao-logout {
     width: auto;
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
 }
+
 .test-button {
     display: inline-block;
     padding: 12px 25px;
@@ -821,10 +833,12 @@ a:hover {
     text-align: center;
     transition: background-color 0.3s ease;
 }
+
 .test-button:hover {
     background: #0b5ed7;
     color: white !important;
 }
+
 .profile-pic-header {
     width: 45px;
     height: 45px;
@@ -834,10 +848,12 @@ a:hover {
     transition: transform 0.2s ease;
     background: none !important;
 }
+
 .profile-pic-header:hover {
     transform: scale(1.1);
     background: none !important;
 }
+
 .login-button {
     padding: 8px 15px;
     background-color: var(--admin-roxo-principal, #9c27b0);
@@ -848,6 +864,7 @@ a:hover {
     transition: background-color 0.2s ease;
     font-family: sans-serif;
 }
+
 .login-button:hover {
     background-color: var(--admin-roxo-hover, #7b1fa2);
 }
@@ -866,15 +883,19 @@ a:hover {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 .creator-header:hover .edit-balloon {
     display: block;
 }
+
 .creator-header .edit-balloon:hover {
     background-color: var(--admin-roxo-hover);
 }
+
 .gallery-grid .delete-image-btn {
     display: none;
 }
+
 body.edit-mode .delete-image-btn {
     display: block;
     position: absolute;
@@ -894,12 +915,15 @@ body.edit-mode .delete-image-btn {
     z-index: 10;
     transition: transform 0.2s ease;
 }
+
 body.edit-mode .delete-image-btn:hover {
     transform: scale(1.1);
 }
+
 .add-image-card {
     display: none;
 }
+
 body.edit-mode .add-image-card {
     display: block;
     position: relative;
@@ -911,10 +935,12 @@ body.edit-mode .add-image-card {
     cursor: pointer;
     transition: border-color 0.3s ease, background-color 0.3s ease;
 }
+
 body.edit-mode .add-image-card:hover {
     border-color: var(--admin-sucesso);
     background-color: rgba(0, 255, 0, 0.05);
 }
+
 body.edit-mode .add-image-card::before {
     content: '+';
     position: absolute;
