@@ -103,7 +103,6 @@ async function setupAdminPage() {
     }
 }
 
-// Função para ativar os botões que só existem na página de admin
 function ativarBotoesAdmin() {
     const botaoLogout = document.getElementById('botao-logout');
     if (botaoLogout) {
@@ -139,146 +138,154 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// --- 3. FORMULÁRIOS DE AUTENTICAÇÃO ---
-// Lógica do botão de logout foi movida para a função ativarBotoesAdmin() para garantir que o botão exista antes de adicionar o listener.
-const formCadastro = document.getElementById('form-cadastro');
-if (formCadastro) {
-    formCadastro.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nomeArtista = document.getElementById('artista-nome-cadastro').value;
-        const email = document.getElementById('email-cadastro').value;
-        const senha = document.getElementById('senha-cadastro').value;
-        const statusDiv = document.getElementById('cadastro-status');
-        statusDiv.textContent = "Criando conta...";
-        statusDiv.style.color = "orange";
 
-        if (!validarNome(nomeArtista)) {
-            statusDiv.textContent = "Nome inválido.";
-            statusDiv.style.color = "red";
-            return;
-        }
+// --- 3. FUNÇÕES PARA ATIVAR FORMULÁRIOS ---
 
-        createUserWithEmailAndPassword(auth, email, senha)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                sendEmailVerification(user).then(() => {
-                    statusDiv.textContent = 'Sucesso! Link de verificação enviado para seu e-mail. Confirme antes de fazer login.';
-                    statusDiv.style.color = 'green';
-                    formCadastro.reset();
-                });
-                const userDocRef = doc(db, "usuarios", user.uid);
-                setDoc(userDocRef, { nomeArtista: escapeHTML(nomeArtista), email: user.email, criadoEm: new Date() });
-            })
-            .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
-                else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
-                else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
+function ativarFormularioCadastro() {
+    const formCadastro = document.getElementById('form-cadastro');
+    if (formCadastro) {
+        formCadastro.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nomeArtista = document.getElementById('artista-nome-cadastro').value;
+            const email = document.getElementById('email-cadastro').value;
+            const senha = document.getElementById('senha-cadastro').value;
+            const statusDiv = document.getElementById('cadastro-status');
+            statusDiv.textContent = "Criando conta...";
+            statusDiv.style.color = "orange";
+
+            if (!validarNome(nomeArtista)) {
+                statusDiv.textContent = "Nome inválido.";
                 statusDiv.style.color = "red";
-            });
-    });
+                return;
+            }
+
+            createUserWithEmailAndPassword(auth, email, senha)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    sendEmailVerification(user).then(() => {
+                        statusDiv.textContent = 'Sucesso! Link de verificação enviado para seu e-mail. Confirme antes de fazer login.';
+                        statusDiv.style.color = 'green';
+                        formCadastro.reset();
+                    });
+                    const userDocRef = doc(db, "usuarios", user.uid);
+                    setDoc(userDocRef, { nomeArtista: escapeHTML(nomeArtista), email: user.email, criadoEm: new Date() });
+                })
+                .catch((error) => {
+                    if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
+                    else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
+                    else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
+                    statusDiv.style.color = "red";
+                });
+        });
+    }
 }
 
-const formLogin = document.getElementById('form-login');
-if (formLogin) {
-    formLogin.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = formLogin.email.value;
-        const senha = formLogin.senha.value;
-        const erroLogin = document.getElementById('login-error');
-        signInWithEmailAndPassword(auth, email, senha)
-            .then(() => window.location.hash = '#/admin')
-            .catch(() => erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.");
-    });
+function ativarFormularioLogin() {
+    const formLogin = document.getElementById('form-login');
+    if (formLogin) {
+        formLogin.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = formLogin.email.value;
+            const senha = formLogin.senha.value;
+            const erroLogin = document.getElementById('login-error');
+            signInWithEmailAndPassword(auth, email, senha)
+                .then(() => window.location.hash = '#/admin')
+                .catch(() => {
+                    if (erroLogin) erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.";
+                });
+        });
+    }
 }
 
 // --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA ---
-const formAddArtista = document.getElementById('form-add-artista');
-if (formAddArtista) {
-    formAddArtista.addEventListener('submit', async (e) => {
-        e.preventDefault();
+function ativarFormularioAddArtista() {
+    const formAddArtista = document.getElementById('form-add-artista');
+    if (formAddArtista) {
+        formAddArtista.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        const botaoSalvar = document.getElementById('botao-salvar-artista');
-        const uploadStatus = document.getElementById('upload-status');
-        const user = auth.currentUser;
-        if (!user) { uploadStatus.textContent = "Erro: Sessão expirada."; return; }
+            const botaoSalvar = document.getElementById('botao-salvar-artista');
+            const uploadStatus = document.getElementById('upload-status');
+            const user = auth.currentUser;
+            if (!user) { uploadStatus.textContent = "Erro: Sessão expirada."; return; }
 
-        const nomeArtista = document.getElementById('artista-nome').value.trim();
-        const imagemArquivo = document.getElementById('artista-imagem').files[0];
-        const instagramHandle = document.getElementById('artista-instagram').value.trim();
-        const categoriasInput = document.getElementById('artista-categorias').value;
+            const nomeArtista = document.getElementById('artista-nome').value.trim();
+            const imagemArquivo = document.getElementById('artista-imagem').files[0];
+            const instagramHandle = document.getElementById('artista-instagram').value.trim();
+            const categoriasInput = document.getElementById('artista-categorias').value;
 
-        if (!nomeArtista || !imagemArquivo) {
-            uploadStatus.textContent = 'Nome e Imagem são obrigatórios.';
-            return;
-        }
-
-        botaoSalvar.disabled = true;
-        uploadStatus.textContent = 'Verificando artista...';
-
-        try {
-            const artistasRef = collection(db, 'artistas');
-            const q = query(artistasRef, where("nome", "==", nomeArtista));
-            const querySnapshot = await getDocs(q);
-
-            let artistaId;
-
-            function formatarCategorias(categoriasInput) {
-                return categoriasInput
-                    .split(',')
-                    .map(cat => {
-                        return cat.trim().split(' ')
-                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                            .join(' ');
-                    })
-                    .filter(cat => cat)
-                    .join(', ');
+            if (!nomeArtista || !imagemArquivo) {
+                uploadStatus.textContent = 'Nome e Imagem são obrigatórios.';
+                return;
             }
 
-            const categoriasFormatadas = formatarCategorias(categoriasInput);
-            const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
+            botaoSalvar.disabled = true;
+            uploadStatus.textContent = 'Verificando artista...';
 
-            if (!querySnapshot.empty) {
-                uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
-                const artistaExistente = querySnapshot.docs[0];
-                artistaId = artistaExistente.id;
-            } else {
-                uploadStatus.textContent = 'Artista novo! Criando perfil...';
-                const formData = new FormData();
-                formData.append('file', imagemArquivo);
-                formData.append('upload_preset', 'artistas_uploads');
-                const CLOUD_NAME = 'dj053fl2q';
-                const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+            try {
+                const artistasRef = collection(db, 'artistas');
+                const q = query(artistasRef, where("nome", "==", nomeArtista));
+                const querySnapshot = await getDocs(q);
+                let artistaId;
 
-                const response = await fetch(uploadUrl, { method: 'POST', body: formData });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
-                const imageUrl = data.secure_url;
+                function formatarCategorias(categoriasInput) {
+                    return categoriasInput
+                        .split(',')
+                        .map(cat => {
+                            return cat.trim().split(' ')
+                                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                                .join(' ');
+                        })
+                        .filter(cat => cat)
+                        .join(', ');
+                }
 
-                const novoArtistaDoc = await addDoc(artistasRef, {
-                    userId: user.uid,
-                    nome: escapeHTML(nomeArtista),
-                    imageUrl: escapeHTML(imageUrl),
-                    instagramHandle: escapeHTML(instagramHandle),
-                    instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                    categoria: categoriasArray,
-                    imagens: []
-                });
-                artistaId = novoArtistaDoc.id;
+                const categoriasFormatadas = formatarCategorias(categoriasInput);
+                const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
+
+                if (!querySnapshot.empty) {
+                    uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
+                    const artistaExistente = querySnapshot.docs[0];
+                    artistaId = artistaExistente.id;
+                } else {
+                    uploadStatus.textContent = 'Artista novo! Criando perfil...';
+                    const formData = new FormData();
+                    formData.append('file', imagemArquivo);
+                    formData.append('upload_preset', 'artistas_uploads');
+                    const CLOUD_NAME = 'dj053fl2q';
+                    const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+                    const response = await fetch(uploadUrl, { method: 'POST', body: formData });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
+                    const imageUrl = data.secure_url;
+
+                    const novoArtistaDoc = await addDoc(artistasRef, {
+                        userId: user.uid,
+                        nome: escapeHTML(nomeArtista),
+                        imageUrl: escapeHTML(imageUrl),
+                        instagramHandle: escapeHTML(instagramHandle),
+                        instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
+                        categoria: categoriasArray,
+                        imagens: []
+                    });
+                    artistaId = novoArtistaDoc.id;
+                }
+
+                uploadStatus.textContent = 'Perfil associado/criado com sucesso!';
+                uploadStatus.style.color = 'green';
+                formAddArtista.reset();
+                setupAdminPage();
+
+            } catch (error) {
+                console.error("Erro ao verificar ou criar artista: ", error);
+                uploadStatus.textContent = `Erro: ${error.message}`;
+                uploadStatus.style.color = 'red';
+            } finally {
+                botaoSalvar.disabled = false;
             }
-
-            uploadStatus.textContent = 'Perfil associado/criado com sucesso!';
-            uploadStatus.style.color = 'green';
-            formAddArtista.reset();
-            setupAdminPage();
-
-        } catch (error) {
-            console.error("Erro ao verificar ou criar artista: ", error);
-            uploadStatus.textContent = `Erro: ${error.message}`;
-            uploadStatus.style.color = 'red';
-        } finally {
-            botaoSalvar.disabled = false;
-        }
-    });
+        });
+    }
 }
 
 // --- 5. FORMULÁRIO DE EDIÇÃO DE ARTISTA ---
@@ -309,9 +316,7 @@ async function carregarDadosParaEdicao() {
                     if (checkbox) checkbox.checked = true;
                 });
             }
-            if (typeof renderizarGerenciadorDeGaleria === "function") {
-                renderizarGerenciadorDeGaleria(artistaData.imagens);
-            }
+            renderizarGerenciadorDeGaleria(artistaData.imagens);
         } else {
             document.getElementById('app-content').innerHTML = '<h1>Artista não encontrado.</h1>';
         }
@@ -321,59 +326,62 @@ async function carregarDadosParaEdicao() {
     }
 }
 
-const formEditArtista = document.getElementById('form-edit-artista');
-if (formEditArtista) {
-    formEditArtista.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!currentArtistId) return;
-        const botaoAtualizar = document.getElementById('botao-atualizar-artista');
-        const updateStatus = document.getElementById('update-status');
-        botaoAtualizar.disabled = true;
-        updateStatus.textContent = 'Atualizando perfil...';
-        updateStatus.style.color = 'orange';
-        try {
-            const nome = document.getElementById('artista-nome').value;
-            const imagemArquivo = document.getElementById('artista-imagem').files[0];
-            const instagramHandle = document.getElementById('artista-instagram').value;
-            const categoriasSelecionadas = Array.from(document.querySelectorAll('#categorias-opcoes input[name="categoria"]:checked'))
-                .map(input => input.value);
+function ativarFormularioEditArtista() {
+    const formEditArtista = document.getElementById('form-edit-artista');
+    if (formEditArtista) {
+        formEditArtista.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentArtistId) return;
+            const botaoAtualizar = document.getElementById('botao-atualizar-artista');
+            const updateStatus = document.getElementById('update-status');
+            botaoAtualizar.disabled = true;
+            updateStatus.textContent = 'Atualizando perfil...';
+            updateStatus.style.color = 'orange';
+            try {
+                const nome = document.getElementById('artista-nome').value;
+                const imagemArquivo = document.getElementById('artista-imagem').files[0];
+                const instagramHandle = document.getElementById('artista-instagram').value;
+                const categoriasSelecionadas = Array.from(document.querySelectorAll('#categorias-opcoes input[name="categoria"]:checked'))
+                    .map(input => input.value);
 
-            if (!validarNome(nome)) { updateStatus.textContent = 'Nome inválido.'; return; }
-            if (!validarInstagram(instagramHandle)) { updateStatus.textContent = 'Instagram inválido.'; return; }
-            if (categoriasSelecionadas.length === 0) { updateStatus.textContent = 'Selecione pelo menos uma categoria.'; return; }
+                if (!validarNome(nome)) { updateStatus.textContent = 'Nome inválido.'; return; }
+                if (!validarInstagram(instagramHandle)) { updateStatus.textContent = 'Instagram inválido.'; return; }
+                if (categoriasSelecionadas.length === 0) { updateStatus.textContent = 'Selecione pelo menos uma categoria.'; return; }
 
-            const dadosParaAtualizar = {
-                nome: escapeHTML(nome),
-                instagramHandle: escapeHTML(instagramHandle),
-                instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                categoria: categoriasSelecionadas,
-            };
-            if (imagemArquivo) {
-                updateStatus.textContent = 'Enviando nova imagem...';
-                const formData = new FormData();
-                formData.append('file', imagemArquivo);
-                formData.append('upload_preset', 'artistas_uploads');
-                const CLOUD_NAME = 'dj053fl2q';
-                const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-                const response = await fetch(uploadUrl, { method: 'POST', body: formData });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error.message || 'Falha no upload da nova imagem.');
-                dadosParaAtualizar.imageUrl = escapeHTML(data.secure_url);
+                const dadosParaAtualizar = {
+                    nome: escapeHTML(nome),
+                    instagramHandle: escapeHTML(instagramHandle),
+                    instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
+                    categoria: categoriasSelecionadas,
+                };
+                if (imagemArquivo) {
+                    updateStatus.textContent = 'Enviando nova imagem...';
+                    const formData = new FormData();
+                    formData.append('file', imagemArquivo);
+                    formData.append('upload_preset', 'artistas_uploads');
+                    const CLOUD_NAME = 'dj053fl2q';
+                    const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+                    const response = await fetch(uploadUrl, { method: 'POST', body: formData });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error.message || 'Falha no upload da nova imagem.');
+                    dadosParaAtualizar.imageUrl = escapeHTML(data.secure_url);
+                }
+                updateStatus.textContent = 'Salvando no banco de dados...';
+                const docRef = doc(db, 'artistas', currentArtistId);
+                await updateDoc(docRef, dadosParaAtualizar);
+                updateStatus.textContent = 'Perfil atualizado com sucesso!';
+                updateStatus.style.color = 'green';
+            } catch (error) {
+                console.error("Erro ao atualizar perfil:", error);
+                updateStatus.textContent = `Erro: ${error.message}`;
+                updateStatus.style.color = 'red';
+            } finally {
+                botaoAtualizar.disabled = false;
             }
-            updateStatus.textContent = 'Salvando no banco de dados...';
-            const docRef = doc(db, 'artistas', currentArtistId);
-            await updateDoc(docRef, dadosParaAtualizar);
-            updateStatus.textContent = 'Perfil atualizado com sucesso!';
-            updateStatus.style.color = 'green';
-        } catch (error) {
-            console.error("Erro ao atualizar perfil:", error);
-            updateStatus.textContent = `Erro: ${error.message}`;
-            updateStatus.style.color = 'red';
-        } finally {
-            botaoAtualizar.disabled = false;
-        }
-    });
+        });
+    }
 }
+
 
 // --- 6. GERENCIADOR DE GALERIA ---
 function renderizarGerenciadorDeGaleria(imagens = []) {
@@ -393,67 +401,70 @@ function renderizarGerenciadorDeGaleria(imagens = []) {
     grid.appendChild(addCard);
 }
 
-const galleryFileInput = document.getElementById('gallery-file-input');
-if (galleryFileInput) {
-    galleryFileInput.addEventListener('change', async (e) => {
-        if (!currentArtistId) return;
-        const files = e.target.files;
-        const statusDiv = document.getElementById('gallery-upload-status');
-        if (files.length === 0) return;
-        statusDiv.textContent = `Enviando ${files.length} imagem(ns)...`;
-        statusDiv.style.color = 'orange';
-        const CLOUD_NAME = 'dj053fl2q';
-        const UPLOAD_PRESET = 'artistas_uploads';
-        const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-        const uploadPromises = Array.from(files).map(file => {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', UPLOAD_PRESET);
-            return fetch(uploadUrl, { method: 'POST', body: formData }).then(res => res.json());
-        });
-        try {
-            const uploadResults = await Promise.all(uploadPromises);
-            const novasUrls = uploadResults.map(r => r.secure_url).filter(url => url);
-            if (novasUrls.length > 0) {
-                const docRef = doc(db, 'artistas', currentArtistId);
-                await updateDoc(docRef, { imagens: arrayUnion(...novasUrls) });
-                const updatedDocSnap = await getDoc(docRef);
-                renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
-            }
-            statusDiv.textContent = `${novasUrls.length} imagem(ns) adicionada(s) com sucesso!`;
-            statusDiv.style.color = 'green';
-        } catch (error) {
-            statusDiv.textContent = 'Erro no upload. Tente novamente.';
-            statusDiv.style.color = 'red';
-            console.error(error);
-        }
-    });
-}
-
-const galleryGridAdmin = document.getElementById('gallery-grid-admin');
-if (galleryGridAdmin) {
-    galleryGridAdmin.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('delete-image-btn')) {
+function ativarGerenciadorGaleria() {
+    const galleryFileInput = document.getElementById('gallery-file-input');
+    if (galleryFileInput) {
+        galleryFileInput.addEventListener('change', async (e) => {
             if (!currentArtistId) return;
-            if (!confirm('Tem certeza que deseja apagar esta imagem?')) return;
-            const urlParaApagar = e.target.dataset.url;
+            const files = e.target.files;
             const statusDiv = document.getElementById('gallery-upload-status');
-            statusDiv.textContent = 'Apagando imagem...';
+            if (files.length === 0) return;
+            statusDiv.textContent = `Enviando ${files.length} imagem(ns)...`;
+            statusDiv.style.color = 'orange';
+            const CLOUD_NAME = 'dj053fl2q';
+            const UPLOAD_PRESET = 'artistas_uploads';
+            const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+            const uploadPromises = Array.from(files).map(file => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', UPLOAD_PRESET);
+                return fetch(uploadUrl, { method: 'POST', body: formData }).then(res => res.json());
+            });
             try {
-                const docRef = doc(db, 'artistas', currentArtistId);
-                await updateDoc(docRef, { imagens: arrayRemove(urlParaApagar) });
-                const updatedDocSnap = await getDoc(docRef);
-                renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
-                statusDiv.textContent = 'Imagem apagada com sucesso.';
+                const uploadResults = await Promise.all(uploadPromises);
+                const novasUrls = uploadResults.map(r => r.secure_url).filter(url => url);
+                if (novasUrls.length > 0) {
+                    const docRef = doc(db, 'artistas', currentArtistId);
+                    await updateDoc(docRef, { imagens: arrayUnion(...novasUrls) });
+                    const updatedDocSnap = await getDoc(docRef);
+                    renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
+                }
+                statusDiv.textContent = `${novasUrls.length} imagem(ns) adicionada(s) com sucesso!`;
                 statusDiv.style.color = 'green';
             } catch (error) {
-                statusDiv.textContent = 'Erro ao apagar a imagem.';
+                statusDiv.textContent = 'Erro no upload. Tente novamente.';
                 statusDiv.style.color = 'red';
                 console.error(error);
             }
-        }
-    });
+        });
+    }
+
+    const galleryGridAdmin = document.getElementById('gallery-grid-admin');
+    if (galleryGridAdmin) {
+        galleryGridAdmin.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-image-btn')) {
+                if (!currentArtistId) return;
+                if (!confirm('Tem certeza que deseja apagar esta imagem?')) return;
+                const urlParaApagar = e.target.dataset.url;
+                const statusDiv = document.getElementById('gallery-upload-status');
+                statusDiv.textContent = 'Apagando imagem...';
+                try {
+                    const docRef = doc(db, 'artistas', currentArtistId);
+                    await updateDoc(docRef, { imagens: arrayRemove(urlParaApagar) });
+                    const updatedDocSnap = await getDoc(docRef);
+                    renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
+                    statusDiv.textContent = 'Imagem apagada com sucesso.';
+                    statusDiv.style.color = 'green';
+                } catch (error) {
+                    statusDiv.textContent = 'Erro ao apagar a imagem.';
+                    statusDiv.style.color = 'red';
+                    console.error(error);
+                }
+            }
+        });
+    }
 }
+
 
 // --- 7. FUNÇÕES DE UI E DADOS (SITE PÚBLICO) ---
 function criarLightbox(imageUrl) {
@@ -635,13 +646,11 @@ const loadContent = async () => {
     if (!contentDiv) return;
     const path = window.location.hash.substring(1) || '/home';
     const basePath = '/' + path.split('/')[1];
-
     const routeFile = routes[basePath] || '/pages/404.html';
     
     try {
         const response = await fetch(routeFile);
         if (!response.ok) throw new Error("Arquivo da rota não encontrado.");
-        
         const html = await response.text();
         contentDiv.innerHTML = html;
 
@@ -649,6 +658,8 @@ const loadContent = async () => {
             carregarGaleriaIndividual();
         } else if (basePath === '/edit-profile') {
             carregarDadosParaEdicao();
+            ativarFormularioEditArtista();
+            ativarGerenciadorGaleria();
         } else if (basePath === '/home') {
             carregarArtistasNoCarrossel();
             carregarArtistasRecomendados();
@@ -656,7 +667,12 @@ const loadContent = async () => {
             carregarPaginaDeArtistas();
         } else if (basePath === '/admin') {
             setupAdminPage();
-            ativarBotoesAdmin(); 
+            ativarBotoesAdmin();
+            ativarFormularioAddArtista();
+        } else if (basePath === '/login') {
+            ativarFormularioLogin();
+        } else if (basePath === '/cadastro') {
+            ativarFormularioCadastro();
         }
 
     } catch (error) { 
