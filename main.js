@@ -299,7 +299,13 @@ async function carregarDadosParaEdicao() {
             const artistaData = docSnap.data();
             document.getElementById('artista-nome').value = artistaData.nome || '';
             document.getElementById('artista-instagram').value = artistaData.instagramHandle || '';
-            document.getElementById('artista-categorias').value = (artistaData.categoria || []).join(', ');
+            // Preenche os checkboxes de categoria
+            if (artistaData.categoria && Array.isArray(artistaData.categoria)) {
+                artistaData.categoria.forEach(cat => {
+                    const checkbox = document.querySelector(`#categorias-opcoes input[value="${cat}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
             renderizarGerenciadorDeGaleria(artistaData.imagens);
         } else {
             document.body.innerHTML = '<h1>Artista não encontrado.</h1>';
@@ -324,26 +330,13 @@ if (formEditArtista) {
             const nome = document.getElementById('artista-nome').value;
             const imagemArquivo = document.getElementById('artista-imagem').files[0];
             const instagramHandle = document.getElementById('artista-instagram').value;
-            const categoriasInput = document.getElementById('artista-categorias').value;
+            // Pega as categorias selecionadas nos checkboxes
+            const categoriasSelecionadas = Array.from(document.querySelectorAll('#categorias-opcoes input[name="categoria"]:checked'))
+                .map(input => input.value);
 
             if (!validarNome(nome)) { updateStatus.textContent = 'Nome inválido.'; return; }
             if (!validarInstagram(instagramHandle)) { updateStatus.textContent = 'Instagram inválido.'; return; }
-            if (!validarCategorias(categoriasInput)) { updateStatus.textContent = 'Categorias inválidas.'; return; }
-
-            // Função para formatar cada categoria com iniciais maiúsculas
-            function formatarCategorias(categoriasInput) {
-                return categoriasInput
-                    .split(',')
-                    .map(cat => {
-                        return cat.trim().split(' ')
-                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                            .join(' ');
-                    })
-                    .filter(cat => cat)
-                    .join(', ');
-            }
-
-            const categoriasFormatadas = formatarCategorias(categoriasInput);
+            if (categoriasSelecionadas.length === 0) { updateStatus.textContent = 'Selecione pelo menos uma categoria.'; return; }
 
             const dadosParaAtualizar = {
                 nome: escapeHTML(nome),
