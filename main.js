@@ -216,12 +216,26 @@ if (formAddArtista) {
 
             let artistaId;
 
+            // Função para formatar cada categoria com iniciais maiúsculas
+            function formatarCategorias(categoriasInput) {
+                return categoriasInput
+                    .split(',')
+                    .map(cat => {
+                        return cat.trim().split(' ')
+                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                            .join(' ');
+                    })
+                    .filter(cat => cat)
+                    .join(', ');
+            }
+
+            const categoriasFormatadas = formatarCategorias(categoriasInput);
+
             if (!querySnapshot.empty) {
                 // Artista já existe
                 uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
                 const artistaExistente = querySnapshot.docs[0];
                 artistaId = artistaExistente.id;
-
                 // Opcional: Atualiza o userId do artista existente
                 // await updateDoc(doc(db, 'artistas', artistaId), { userId: user.uid });
 
@@ -241,8 +255,8 @@ if (formAddArtista) {
 
                 const imageUrl = data.secure_url;
 
-                // Formata categorias
-                const categoriasFormatadas = formatarCategorias(categoriasInput);
+                // Salva as categorias com iniciais maiúsculas
+                const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
 
                 // Cria novo artista
                 const novoArtistaDoc = await addDoc(artistasRef, {
@@ -251,7 +265,7 @@ if (formAddArtista) {
                     imageUrl: escapeHTML(imageUrl),
                     instagramHandle: escapeHTML(instagramHandle),
                     instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                    categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                    categoria: categoriasArray,
                     imagens: []
                 });
                 artistaId = novoArtistaDoc.id;
@@ -261,7 +275,6 @@ if (formAddArtista) {
             uploadStatus.style.color = 'green';
             formAddArtista.reset();
             setupAdminPage();
-            // window.location.href = '/admin.html'; // Se quiser redirecionar
 
         } catch (error) {
             console.error("Erro ao verificar ou criar artista: ", error);
