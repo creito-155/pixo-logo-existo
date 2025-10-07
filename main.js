@@ -87,10 +87,19 @@ async function setupAdminPage() {
             if (welcomeMessage) {
                 welcomeMessage.textContent = `Bem-vindo de volta, ${escapeHTML(artistaData.nome)}!`;
             }
+            
+            // Link de Editar Perfil
             const editProfileLink = document.getElementById('edit-profile-link');
             if (editProfileLink) {
                 editProfileLink.href = `#/edit-profile/${artistaDoc.id}`;
             }
+
+            // Link de Gerenciar Galeria
+            const manageGalleryLink = document.getElementById('manage-gallery-link');
+            if (manageGalleryLink) {
+                manageGalleryLink.href = `#/gerenciar-galeria/${artistaDoc.id}`;
+            }
+
             if (createSection) createSection.style.display = 'none';
             if (editSection) editSection.style.display = 'block';
         }
@@ -132,7 +141,7 @@ onAuthStateChanged(auth, async (user) => {
     }
     
     const currentHash = window.location.hash;
-    const onAdminPage = currentHash === '#/admin' || currentHash.startsWith('#/edit-profile');
+    const onAdminPage = currentHash === '#/admin' || currentHash.startsWith('#/edit-profile') || currentHash.startsWith('#/gerenciar-galeria');
     if (!user && onAdminPage) {
         window.location.hash = '#/login';
     }
@@ -294,9 +303,6 @@ async function carregarDadosParaEdicao() {
     const hash = window.location.hash;
     if (hash.startsWith('#/edit-profile/')) {
         artistaId = hash.split('/')[2];
-    } else {
-        const params = new URLSearchParams(window.location.search);
-        artistaId = params.get('id');
     }
     currentArtistId = artistaId;
     if (!currentArtistId) {
@@ -384,42 +390,87 @@ function ativarFormularioEditArtista() {
 
 
 // --- 6. GERENCIADOR DE GALERIA ---
+async function carregarDadosParaGerenciarGaleria() {
+    let artistaId = null;
+    const hash = window.location.hash;
+    if (hash.startsWith('#/gerenciar-galeria/')) {
+        artistaId = hash.split('/')[2];
+    }
+    currentArtistId = artistaId;
+    if (!currentArtistId) {
+        document.getElementById('app-content').innerHTML = '<h1>ID do artista não fornecido.</h1>';
+        return;
+    }
+    try {
+        const docRef = doc(db, 'artistas', currentArtistId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const artistaData = docSnap.data();
+            document.getElementById('artista-logo').src = artistaData.imageUrl;
+            document.getElementById('artista-nome').textContent = artistaData.nome;
+            renderizarGerenciadorDeGaleria(artistaData.imagens);
+        } else {
+            document.getElementById('app-content').innerHTML = '<h1>Artista não encontrado.</h1>';
+        }
+    } catch (error) {
+        console.error("Erro ao carregar dados do artista para gerenciar galeria:", error);
+        document.getElementById('app-content').innerHTML = '<h1>Erro ao carregar dados.</h1>';
+    }
+}
+
 function renderizarGerenciadorDeGaleria(imagens = []) {
     const grid = document.getElementById('gallery-grid-admin');
     if (!grid) return;
     grid.innerHTML = '';
-    imagens.forEach(url => {
-        const card = document.createElement('div');
-        card.className = 'gallery-thumb-container';
-        card.innerHTML = `<img src="${escapeHTML(url)}" alt="Imagem da galeria"><button class="delete-image-btn" data-url="${escapeHTML(url)}">-</button>`;
-        grid.appendChild(card);
-    });
+    
+    // Card de Adicionar
     const addCard = document.createElement('div');
     addCard.className = 'add-image-card';
     addCard.title = 'Adicionar novas imagens';
+    addCard.innerHTML = `<input type="file" id="gallery-file-input" multiple accept="image/*" style="display: none;">`;
     addCard.onclick = () => { document.getElementById('gallery-file-input').click(); };
     grid.appendChild(addCard);
+
+    // Cards das imagens existentes
+    if (imagens) {
+        imagens.forEach(url => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'gallery-item admin-thumb'; // Use as classes certas para o estilo
+            itemDiv.innerHTML = `
+                <img src="${escapeHTML(url)}" alt="Imagem da galeria" class="gallery-image">
+                <button class="delete-image-btn" data-url="${escapeHTML(url)}" title="Remover imagem">-</button>
+            `;
+            grid.appendChild(itemDiv);
+        });
+    }
 }
 
 function ativarGerenciadorGaleria() {
-    const galleryFileInput = document.getElementById('gallery-file-input');
-    if (galleryFileInput) {
-        galleryFileInput.addEventListener('change', async (e) => {
+    const grid = document.getElementById('gallery-grid-admin');
+    if (!grid) return;
+
+    // Listener para o input de arquivo (que está dentro do card de adicionar)
+    grid.addEventListener('change', async (e) => {
+        if (e.target.id === 'gallery-file-input') {
             if (!currentArtistId) return;
             const files = e.target.files;
             const statusDiv = document.getElementById('gallery-upload-status');
             if (files.length === 0) return;
+
             statusDiv.textContent = `Enviando ${files.length} imagem(ns)...`;
             statusDiv.style.color = 'orange';
+
             const CLOUD_NAME = 'dj053fl2q';
             const UPLOAD_PRESET = 'artistas_uploads';
             const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+            
             const uploadPromises = Array.from(files).map(file => {
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('upload_preset', UPLOAD_PRESET);
                 return fetch(uploadUrl, { method: 'POST', body: formData }).then(res => res.json());
             });
+
             try {
                 const uploadResults = await Promise.all(uploadPromises);
                 const novasUrls = uploadResults.map(r => r.secure_url).filter(url => url);
@@ -436,33 +487,33 @@ function ativarGerenciadorGaleria() {
                 statusDiv.style.color = 'red';
                 console.error(error);
             }
-        });
-    }
+        }
+    });
 
-    const galleryGridAdmin = document.getElementById('gallery-grid-admin');
-    if (galleryGridAdmin) {
-        galleryGridAdmin.addEventListener('click', async (e) => {
-            if (e.target.classList.contains('delete-image-btn')) {
-                if (!currentArtistId) return;
-                if (!confirm('Tem certeza que deseja apagar esta imagem?')) return;
-                const urlParaApagar = e.target.dataset.url;
-                const statusDiv = document.getElementById('gallery-upload-status');
-                statusDiv.textContent = 'Apagando imagem...';
-                try {
-                    const docRef = doc(db, 'artistas', currentArtistId);
-                    await updateDoc(docRef, { imagens: arrayRemove(urlParaApagar) });
-                    const updatedDocSnap = await getDoc(docRef);
-                    renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
-                    statusDiv.textContent = 'Imagem apagada com sucesso.';
-                    statusDiv.style.color = 'green';
-                } catch (error) {
-                    statusDiv.textContent = 'Erro ao apagar a imagem.';
-                    statusDiv.style.color = 'red';
-                    console.error(error);
-                }
+    // Listener para os botões de apagar
+    grid.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('delete-image-btn')) {
+            if (!currentArtistId) return;
+            if (!confirm('Tem certeza que deseja apagar esta imagem?')) return;
+            
+            const urlParaApagar = e.target.dataset.url;
+            const statusDiv = document.getElementById('gallery-upload-status');
+            statusDiv.textContent = 'Apagando imagem...';
+            
+            try {
+                const docRef = doc(db, 'artistas', currentArtistId);
+                await updateDoc(docRef, { imagens: arrayRemove(urlParaApagar) });
+                const updatedDocSnap = await getDoc(docRef);
+                renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
+                statusDiv.textContent = 'Imagem apagada com sucesso.';
+                statusDiv.style.color = 'green';
+            } catch (error) {
+                statusDiv.textContent = 'Erro ao apagar a imagem.';
+                statusDiv.style.color = 'red';
+                console.error(error);
             }
-        });
-    }
+        }
+    });
 }
 
 
@@ -638,7 +689,8 @@ const routes = {
     '/edit-profile': '/pages/edit-profile.html',
     '/login': '/pages/login.html',
     '/cadastro': '/pages/cadastro.html',
-    '/admin': '/pages/admin.html'
+    '/admin': '/pages/admin.html',
+    '/gerenciar-galeria': '/pages/gerenciar-galeria.html'
 };
 
 const loadContent = async () => {
@@ -657,8 +709,11 @@ const loadContent = async () => {
         if (basePath === '/galeria') {
             carregarGaleriaIndividual();
         } else if (basePath === '/edit-profile') {
-            carregarDadosParaEdicao();
+            await carregarDadosParaEdicao();
             ativarFormularioEditArtista();
+            ativarGerenciadorGaleria();
+        } else if (basePath === '/gerenciar-galeria') {
+            await carregarDadosParaGerenciarGaleria();
             ativarGerenciadorGaleria();
         } else if (basePath === '/home') {
             carregarArtistasNoCarrossel();
