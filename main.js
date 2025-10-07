@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO FINAL OTIMIZADA E SEGURA (COM CORREÇÕES SPA)
+// main.js - VERSÃO FINAL OTIMIZADA E SEGURA (COM TODAS AS CORREÇÕES)
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -89,7 +89,6 @@ async function setupAdminPage() {
             }
             const editProfileLink = document.getElementById('edit-profile-link');
             if (editProfileLink) {
-                // CORREÇÃO: Usar #/ para linkar para a rota de edição
                 editProfileLink.href = `#/edit-profile/${artistaDoc.id}`;
             }
             if (createSection) createSection.style.display = 'none';
@@ -104,6 +103,18 @@ async function setupAdminPage() {
     }
 }
 
+// Função para ativar os botões que só existem na página de admin
+function ativarBotoesAdmin() {
+    const botaoLogout = document.getElementById('botao-logout');
+    if (botaoLogout) {
+        botaoLogout.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.hash = '#/login';
+            });
+        });
+    }
+}
+
 onAuthStateChanged(auth, async (user) => {
     const userProfileArea = document.getElementById('user-profile-area');
     if (userProfileArea) {
@@ -112,29 +123,24 @@ onAuthStateChanged(auth, async (user) => {
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
                 const artistaData = querySnapshot.docs[0].data();
-                // CORREÇÃO: Usar #/admin para linkar para a rota da SPA
                 userProfileArea.innerHTML = `<a href="#/admin" title="Painel de Controle"><img src="${escapeHTML(artistaData.imageUrl)}" class="profile-pic-header" alt="Foto de perfil"></a>`;
             } else {
-                // CORREÇÃO: Usar #/admin (ou #/cadastro) para criar perfil
                 userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Criar Perfil</a>`;
             }
         } else {
-            // CORREÇÃO: Usar #/login para linkar para a rota da SPA
             userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
         }
     }
     
-    // CORREÇÃO: Lógica de proteção de rotas agora usa o hash
     const currentHash = window.location.hash;
     const onAdminPage = currentHash === '#/admin' || currentHash.startsWith('#/edit-profile');
     if (!user && onAdminPage) {
-        // CORREÇÃO: Redireciona via hash para não recarregar a página
         window.location.hash = '#/login';
     }
 });
 
-
 // --- 3. FORMULÁRIOS DE AUTENTICAÇÃO ---
+// Lógica do botão de logout foi movida para a função ativarBotoesAdmin() para garantir que o botão exista antes de adicionar o listener.
 const formCadastro = document.getElementById('form-cadastro');
 if (formCadastro) {
     formCadastro.addEventListener('submit', (e) => {
@@ -180,17 +186,8 @@ if (formLogin) {
         const senha = formLogin.senha.value;
         const erroLogin = document.getElementById('login-error');
         signInWithEmailAndPassword(auth, email, senha)
-            // CORREÇÃO: Redireciona via hash para não recarregar a página
             .then(() => window.location.hash = '#/admin')
             .catch(() => erroLogin.textContent = "Email ou senha inválidos. Verifique se você já confirmou seu e-mail.");
-    });
-}
-
-const botaoLogout = document.getElementById('botao-logout');
-if (botaoLogout) {
-    botaoLogout.addEventListener('click', () => {
-        // CORREÇÃO: Redireciona via hash para não recarregar a página
-        signOut(auth).then(() => window.location.hash = '#/login');
     });
 }
 
@@ -205,7 +202,6 @@ if (formAddArtista) {
         const user = auth.currentUser;
         if (!user) { uploadStatus.textContent = "Erro: Sessão expirada."; return; }
 
-        // Dados do formulário
         const nomeArtista = document.getElementById('artista-nome').value.trim();
         const imagemArquivo = document.getElementById('artista-imagem').files[0];
         const instagramHandle = document.getElementById('artista-instagram').value.trim();
@@ -220,14 +216,12 @@ if (formAddArtista) {
         uploadStatus.textContent = 'Verificando artista...';
 
         try {
-            // Verifica se já existe artista com o mesmo nome
             const artistasRef = collection(db, 'artistas');
             const q = query(artistasRef, where("nome", "==", nomeArtista));
             const querySnapshot = await getDocs(q);
 
             let artistaId;
 
-            // Função para formatar cada categoria com iniciais maiúsculas
             function formatarCategorias(categoriasInput) {
                 return categoriasInput
                     .split(',')
@@ -244,17 +238,11 @@ if (formAddArtista) {
             const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
 
             if (!querySnapshot.empty) {
-                // Artista já existe
                 uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
                 const artistaExistente = querySnapshot.docs[0];
                 artistaId = artistaExistente.id;
-                // Opcional: Atualiza o userId do artista existente
-                // await updateDoc(doc(db, 'artistas', artistaId), { userId: user.uid });
-
             } else {
-                // Artista novo, faz upload da imagem
                 uploadStatus.textContent = 'Artista novo! Criando perfil...';
-
                 const formData = new FormData();
                 formData.append('file', imagemArquivo);
                 formData.append('upload_preset', 'artistas_uploads');
@@ -264,17 +252,15 @@ if (formAddArtista) {
                 const response = await fetch(uploadUrl, { method: 'POST', body: formData });
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error.message || 'Falha no upload.');
-
                 const imageUrl = data.secure_url;
 
-                // Salva as categorias com iniciais maiúsculas
                 const novoArtistaDoc = await addDoc(artistasRef, {
                     userId: user.uid,
                     nome: escapeHTML(nomeArtista),
                     imageUrl: escapeHTML(imageUrl),
                     instagramHandle: escapeHTML(instagramHandle),
                     instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                    categoria: categoriasArray, // Usando o array formatado
+                    categoria: categoriasArray,
                     imagens: []
                 });
                 artistaId = novoArtistaDoc.id;
@@ -647,9 +633,7 @@ const routes = {
 const loadContent = async () => {
     const contentDiv = document.getElementById('app-content');
     if (!contentDiv) return;
-    // Pega o caminho, ex: /home ou /galeria/ID_DO_ARTISTA
     const path = window.location.hash.substring(1) || '/home';
-    // Determina a rota base, ex: /galeria para /galeria/ID
     const basePath = '/' + path.split('/')[1];
 
     const routeFile = routes[basePath] || '/pages/404.html';
@@ -661,7 +645,6 @@ const loadContent = async () => {
         const html = await response.text();
         contentDiv.innerHTML = html;
 
-        // MELHORIA: Executa a função JS específica para a página APÓS carregar o HTML
         if (basePath === '/galeria') {
             carregarGaleriaIndividual();
         } else if (basePath === '/edit-profile') {
@@ -673,6 +656,7 @@ const loadContent = async () => {
             carregarPaginaDeArtistas();
         } else if (basePath === '/admin') {
             setupAdminPage();
+            ativarBotoesAdmin(); 
         }
 
     } catch (error) { 
@@ -684,11 +668,9 @@ const loadContent = async () => {
 // --- 9. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
-    // Garante que a home seja carregada se o hash estiver vazio
     if (!window.location.hash || window.location.hash === '#') {
         window.location.hash = '#/home';
     } else {
-        // Carrega o conteúdo da rota atual no primeiro load da página
         loadContent();
     }
 }
@@ -696,7 +678,6 @@ function initializeRouter() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeRouter();
 
-    // --- SCRIPT PARA O MENU HAMBÚRGUER ---
     const hamburgerButton = document.querySelector('.hamburger-menu');
     const mainNav = document.querySelector('.main-nav');
     if (hamburgerButton && mainNav) {
