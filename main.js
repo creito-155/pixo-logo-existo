@@ -56,7 +56,7 @@ function validarInstagram(instagram) {
 }
 
 // --- 4. LOADER SPA ---
-async function loadContent() {
+function loadContent() {
     const contentDiv = document.getElementById('app-content');
     if (!contentDiv) return;
     const path = window.location.hash.substring(1) || '/home';
@@ -68,23 +68,77 @@ async function loadContent() {
     } else {
         routeFile = routes[path] || '/pages/404.html';
     }
-    try {
-        const response = await fetch(routeFile);
-        const html = await response.text();
-        contentDiv.innerHTML = html;
-        inicializarPagina(path);
-    } catch (error) {
-        contentDiv.innerHTML = '<h1>Erro ao carregar página.</h1>';
-    }
+    fetch(routeFile)
+        .then(res => res.text())
+        .then(html => {
+            contentDiv.innerHTML = html;
+            inicializarPagina(path);
+            atualizarBarraSuperior();
+        })
+        .catch(() => {
+            contentDiv.innerHTML = '<h1>Erro ao carregar página.</h1>';
+        });
+}
+
+// Função para atualizar a barra superior
+function atualizarBarraSuperior() {
+    onAuthStateChanged(auth, async (user) => {
+        const userProfileArea = document.getElementById('user-profile-area');
+        if (userProfileArea) {
+            if (user) {
+                userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Painel</a>`;
+            } else {
+                userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
+            }
+        }
+    });
 }
 
 // --- 5. INICIALIZAÇÃO DE CADA PÁGINA ---
 function inicializarPagina(path) {
+    if (path === '/home') inicializarHome();
     if (path === '/login') inicializarLogin();
     if (path === '/cadastro') inicializarCadastro();
     if (path === '/admin') inicializarAdmin();
     if (path.startsWith('/edit-profile')) inicializarEditProfile();
     // Adicione inicialização de outras páginas se necessário
+}
+
+function inicializarHome() {
+    const botaoRecomendados = document.getElementById('botao-recomendados');
+    if (botaoRecomendados) {
+        botaoRecomendados.addEventListener('click', async () => {
+            await carregarArtistasRecomendados();
+        });
+    }
+}
+
+async function carregarArtistasRecomendados() {
+    const container = document.getElementById('artistas-recomendados');
+    if (!container) return;
+    container.innerHTML = 'Carregando...';
+
+    // Exemplo: busca artistas recomendados do Firestore
+    const q = query(collection(db, "artistas"), where("recomendado", "==", true));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+        container.innerHTML = '<p>Nenhum artista recomendado encontrado.</p>';
+        return;
+    }
+
+    let html = '';
+    querySnapshot.forEach(doc => {
+        const artista = doc.data();
+        html += `
+            <div class="artista-card">
+                <img src="${artista.imageUrl}" alt="${artista.nome}" style="width:80px;">
+                <h3>${artista.nome}</h3>
+                <p>${artista.instagramHandle}</p>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
 }
 
 // --- 6. LOGIN ---

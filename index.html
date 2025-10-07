@@ -49,10 +49,8 @@
             const userProfileArea = document.getElementById('user-profile-area');
             if (userProfileArea) {
                 if (user) {
-                    // Se logado, mostra perfil ou painel
                     userProfileArea.innerHTML = `<a href="#/admin" class="login-button">Painel</a>`;
                 } else {
-                    // Se não logado, mostra login/cadastro
                     userProfileArea.innerHTML = `<a href="#/login" class="login-button">Login / Cadastrar</a>`;
                 }
             }
