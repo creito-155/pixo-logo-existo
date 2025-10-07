@@ -1,6 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO FINAL (COM EDIÇÃO DE PERFIL E GALERIA)
-// Data: 06 de Outubro de 2025
+// main.js - VERSÃO FINAL OTIMIZADA
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -8,7 +7,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, getDocs, doc, getDoc, orderBy, query, addDoc, setDoc, where, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Sua configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyB-lXZDVgx-sbcm8QbmWy2lQ8tgDmFNKr8",
   authDomain: "pixologoexisto-v2.firebaseapp.com",
@@ -22,14 +20,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Variável global para guardar o ID do artista que estamos editando
 let currentArtistId = null;
 
-// --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
+// --- FUNÇÃO UTILITÁRIA PARA FORMATAR CATEGORIAS ---
+function formatarCategorias(categoriasInput) {
+    return categoriasInput
+        .split(',')
+        .map(cat => {
+            const trimmedCat = cat.trim();
+            if (trimmedCat) {
+                return trimmedCat.charAt(0).toUpperCase() + trimmedCat.slice(1).toLowerCase();
+            }
+            return '';
+        })
+        .filter(cat => cat)
+        .join(', ');
+}
 
+// --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
 async function setupAdminPage() {
     const user = auth.currentUser;
-    if (!user) { return; }
+    if (!user) return;
 
     const createSection = document.getElementById('create-profile-section');
     const editSection = document.getElementById('edit-profile-section');
@@ -39,11 +50,11 @@ async function setupAdminPage() {
         const q = query(collection(db, "artistas"), where("userId", "==", user.uid));
         const querySnapshot = await getDocs(q);
 
-        if(loadingAdmin) loadingAdmin.style.display = 'none';
+        if (loadingAdmin) loadingAdmin.style.display = 'none';
 
         if (querySnapshot.empty) {
-            if(createSection) createSection.style.display = 'block';
-            if(editSection) editSection.style.display = 'none';
+            if (createSection) createSection.style.display = 'block';
+            if (editSection) editSection.style.display = 'none';
         } else {
             const artistaDoc = querySnapshot.docs[0];
             const artistaData = artistaDoc.data();
@@ -55,12 +66,12 @@ async function setupAdminPage() {
             if (editProfileLink) {
                 editProfileLink.href = `/edit-profile.html?id=${artistaDoc.id}`;
             }
-            if(createSection) createSection.style.display = 'none';
-            if(editSection) editSection.style.display = 'block';
+            if (createSection) createSection.style.display = 'none';
+            if (editSection) editSection.style.display = 'block';
         }
     } catch (error) {
         console.error("Erro CRÍTICO ao verificar perfil do artista:", error);
-        if(loadingAdmin) {
+        if (loadingAdmin) {
             loadingAdmin.textContent = "Ocorreu um erro ao verificar seu perfil.";
             loadingAdmin.style.color = "red";
         }
@@ -89,6 +100,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
+// --- 3. FORMULÁRIOS DE AUTENTICAÇÃO ---
 const formCadastro = document.getElementById('form-cadastro');
 if (formCadastro) {
     formCadastro.addEventListener('submit', (e) => {
@@ -108,7 +120,7 @@ if (formCadastro) {
                     formCadastro.reset();
                 });
                 const userDocRef = doc(db, "usuarios", user.uid);
-                setDoc(userDocRef, { nomeArtista: nomeArtista, email: user.email, criadoEm: new Date() });
+                setDoc(userDocRef, { nomeArtista, email: user.email, criadoEm: new Date() });
             })
             .catch((error) => {
                 if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
@@ -139,6 +151,7 @@ if (botaoLogout) {
     });
 }
 
+// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA ---
 const formAddArtista = document.getElementById('form-add-artista');
 if (formAddArtista) {
     formAddArtista.addEventListener('submit', async (e) => {
@@ -153,6 +166,9 @@ if (formAddArtista) {
         const instagramHandle = document.getElementById('artista-instagram').value;
         const categoriasInput = document.getElementById('artista-categorias').value;
         if (!nome || !imagemArquivo) { uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return; }
+
+        // NOVA LÓGICA DE FORMATAÇÃO
+        const categoriasFormatadas = formatarCategorias(categoriasInput);
 
         botaoSalvar.disabled = true;
         uploadStatus.textContent = 'Enviando imagem...';
@@ -173,11 +189,11 @@ if (formAddArtista) {
 
             const artistaDoc = {
                 userId: user.uid,
-                nome: nome,
-                imageUrl: imageUrl,
-                instagramHandle: instagramHandle,
+                nome,
+                imageUrl,
+                instagramHandle,
                 instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
-                categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
                 imagens: []
             };
             
@@ -197,6 +213,7 @@ if (formAddArtista) {
     });
 }
 
+// --- 5. FORMULÁRIO DE EDIÇÃO DE ARTISTA ---
 async function carregarDadosParaEdicao() {
     const params = new URLSearchParams(window.location.search);
     currentArtistId = params.get('id');
@@ -237,11 +254,15 @@ if (formEditArtista) {
             const imagemArquivo = document.getElementById('artista-imagem').files[0];
             const instagramHandle = document.getElementById('artista-instagram').value;
             const categoriasInput = document.getElementById('artista-categorias').value;
+
+            // NOVA LÓGICA DE FORMATAÇÃO
+            const categoriasFormatadas = formatarCategorias(categoriasInput);
+
             const dadosParaAtualizar = {
-                nome: nome,
-                instagramHandle: instagramHandle,
+                nome,
+                instagramHandle,
                 instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
-                categoria: categoriasInput.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
             };
             if (imagemArquivo) {
                 updateStatus.textContent = 'Enviando nova imagem...';
@@ -270,6 +291,7 @@ if (formEditArtista) {
     });
 }
 
+// --- 6. GERENCIADOR DE GALERIA ---
 function renderizarGerenciadorDeGaleria(imagens = []) {
     const grid = document.getElementById('gallery-grid-admin');
     if (!grid) return;
@@ -349,8 +371,7 @@ if (galleryGridAdmin) {
     });
 }
 
-
-// --- 3. FUNÇÕES DE UI E DADOS (SITE PÚBLICO) ---
+// --- 7. FUNÇÕES DE UI E DADOS (SITE PÚBLICO) ---
 function criarLightbox(imageUrl) {
     const overlay = document.createElement('div');
     overlay.id = 'lightbox-overlay';
@@ -372,6 +393,7 @@ function criarLightbox(imageUrl) {
         }
     });
 }
+
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
     link.href = `#/galeria/${artista.id}`;
@@ -388,6 +410,7 @@ function criarCartaoArtista(artista) {
     link.appendChild(nome);
     return link;
 }
+
 async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
     if (!swiperWrapper) return;
@@ -416,6 +439,7 @@ async function carregarArtistasNoCarrossel() {
         });
     } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
+
 async function carregarArtistasRecomendados() {
     const recomendadosGrid = document.getElementById('recomendados-grid');
     if (!recomendadosGrid) return;
@@ -431,6 +455,7 @@ async function carregarArtistasRecomendados() {
         selecionados.forEach(artista => { recomendadosGrid.appendChild(criarCartaoArtista(artista)); });
     } catch (error) { console.error("Erro ao buscar artistas recomendados:", error); recomendadosGrid.innerHTML = '<p>Erro ao carregar artistas.</p>'; }
 }
+
 async function carregarGaleriaIndividual() {
     const galeriaContainer = document.getElementById('galeria-container');
     if (!galeriaContainer) return;
@@ -472,6 +497,7 @@ async function carregarGaleriaIndividual() {
         }
     } catch (error) { console.error('Erro ao carregar dados da galeria:', error); galeriaContainer.innerHTML = '<h1>Ocorreu um erro ao carregar o conteúdo.</h1>'; }
 }
+
 async function carregarPaginaDeArtistas() {
     const gridContainer = document.getElementById('todos-os-artistas-grid');
     const filtrosContainer = document.getElementById('filtros-container');
@@ -507,8 +533,7 @@ async function carregarPaginaDeArtistas() {
     } catch (error) { console.error("Erro ao montar a página de artistas:", error); gridContainer.innerHTML = '<p>Ocorreu um erro ao carregar.</p>'; }
 }
 
-
-// --- 5. ROTEADOR (LÓGICA DA SPA) ---
+// --- 8. ROTEADOR (LÓGICA DA SPA) ---
 const routes = {
     '/home': '/pages/home.html',
     '/artistas': '/pages/artistas.html',
@@ -547,8 +572,7 @@ const loadContent = async () => {
     } catch (error) { console.error('Erro ao carregar a página:', error); contentDiv.innerHTML = '<h1>Erro ao carregar a página.</h1>'; }
 };
 
-
-// --- 6. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
+// --- 9. PONTO DE ENTRADA (INICIALIZAÇÃO) ---
 function initializeRouter() {
     window.addEventListener('hashchange', loadContent);
     if (!window.location.hash || window.location.hash === '#') {
@@ -568,14 +592,12 @@ document.addEventListener('DOMContentLoaded', () => {
         onAuthStateChanged(auth, (user) => { if (user) { carregarDadosParaEdicao(); } });
     }
 });
-// --- SCRIPT PARA O MENU HAMBÚRGUER ---
 
-// Encontra o botão e o menu de navegação no documento
+// --- SCRIPT PARA O MENU HAMBÚRGUER ---
 const hamburgerButton = document.querySelector('.hamburger-menu');
 const mainNav = document.querySelector('.main-nav');
-
-// Adiciona um "ouvinte de evento" que espera por um clique no botão
-hamburgerButton.addEventListener('click', () => {
-    // Quando o botão for clicado, ele adiciona ou remove a classe 'nav-open' do menu
-    mainNav.classList.toggle('nav-open');
-});
+if (hamburgerButton && mainNav) {
+    hamburgerButton.addEventListener('click', () => {
+        mainNav.classList.toggle('nav-open');
+    });
+}
