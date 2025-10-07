@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO FINAL OTIMIZADA
+// main.js - VERSÃO FINAL OTIMIZADA E SEGURA
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -22,7 +22,32 @@ const auth = getAuth(app);
 
 let currentArtistId = null;
 
-// --- FUNÇÃO UTILITÁRIA PARA FORMATAR CATEGORIAS ---
+// --- FUNÇÕES DE SEGURANÇA E VALIDAÇÃO ---
+function escapeHTML(str) {
+    if (typeof str !== "string") return "";
+    return str.replace(/[&<>"']/g, function(m) {
+        return ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        })[m];
+    });
+}
+
+function validarNome(nome) {
+    return typeof nome === "string" && nome.trim().length >= 2 && /^[a-zA-ZÀ-ÿ0-9\s]+$/.test(nome.trim());
+}
+
+function validarInstagram(instagram) {
+    return typeof instagram === "string" && instagram.trim().length > 0 && /^@?[a-zA-Z0-9._]+$/.test(instagram.trim());
+}
+
+function validarCategorias(categoriasInput) {
+    return typeof categoriasInput === "string" && categoriasInput.split(',').every(cat => /^[a-zA-ZÀ-ÿ0-9\s]+$/.test(cat.trim()) || cat.trim() === "");
+}
+
 function formatarCategorias(categoriasInput) {
     return categoriasInput
         .split(',')
@@ -60,7 +85,7 @@ async function setupAdminPage() {
             const artistaData = artistaDoc.data();
             const welcomeMessage = document.getElementById('welcome-message');
             if (welcomeMessage) {
-                welcomeMessage.textContent = `Bem-vindo de volta, ${artistaData.nome}!`;
+                welcomeMessage.textContent = `Bem-vindo de volta, ${escapeHTML(artistaData.nome)}!`;
             }
             const editProfileLink = document.getElementById('edit-profile-link');
             if (editProfileLink) {
@@ -86,7 +111,7 @@ onAuthStateChanged(auth, async (user) => {
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
                 const artistaData = querySnapshot.docs[0].data();
-                userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${artistaData.imageUrl}" class="profile-pic-header" alt="Foto de perfil"></a>`;
+                userProfileArea.innerHTML = `<a href="/admin.html" title="Painel de Controle"><img src="${escapeHTML(artistaData.imageUrl)}" class="profile-pic-header" alt="Foto de perfil"></a>`;
             } else {
                 userProfileArea.innerHTML = `<a href="/admin.html" class="login-button">Criar Perfil</a>`;
             }
@@ -111,6 +136,13 @@ if (formCadastro) {
         const statusDiv = document.getElementById('cadastro-status');
         statusDiv.textContent = "Criando conta...";
         statusDiv.style.color = "orange";
+
+        if (!validarNome(nomeArtista)) {
+            statusDiv.textContent = "Nome inválido.";
+            statusDiv.style.color = "red";
+            return;
+        }
+
         createUserWithEmailAndPassword(auth, email, senha)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -120,7 +152,7 @@ if (formCadastro) {
                     formCadastro.reset();
                 });
                 const userDocRef = doc(db, "usuarios", user.uid);
-                setDoc(userDocRef, { nomeArtista, email: user.email, criadoEm: new Date() });
+                setDoc(userDocRef, { nomeArtista: escapeHTML(nomeArtista), email: user.email, criadoEm: new Date() });
             })
             .catch((error) => {
                 if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
@@ -165,9 +197,13 @@ if (formAddArtista) {
         const imagemArquivo = document.getElementById('artista-imagem').files[0];
         const instagramHandle = document.getElementById('artista-instagram').value;
         const categoriasInput = document.getElementById('artista-categorias').value;
-        if (!nome || !imagemArquivo) { uploadStatus.textContent = 'Nome e Imagem são obrigatórios.'; return; }
 
-        // NOVA LÓGICA DE FORMATAÇÃO
+        // Validação dos campos
+        if (!validarNome(nome)) { uploadStatus.textContent = 'Nome inválido.'; return; }
+        if (!imagemArquivo) { uploadStatus.textContent = 'Imagem é obrigatória.'; return; }
+        if (!validarInstagram(instagramHandle)) { uploadStatus.textContent = 'Instagram inválido.'; return; }
+        if (!validarCategorias(categoriasInput)) { uploadStatus.textContent = 'Categorias inválidas.'; return; }
+
         const categoriasFormatadas = formatarCategorias(categoriasInput);
 
         botaoSalvar.disabled = true;
@@ -189,10 +225,10 @@ if (formAddArtista) {
 
             const artistaDoc = {
                 userId: user.uid,
-                nome,
-                imageUrl,
-                instagramHandle,
-                instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
+                nome: escapeHTML(nome),
+                imageUrl: escapeHTML(imageUrl),
+                instagramHandle: escapeHTML(instagramHandle),
+                instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                 categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
                 imagens: []
             };
@@ -255,13 +291,16 @@ if (formEditArtista) {
             const instagramHandle = document.getElementById('artista-instagram').value;
             const categoriasInput = document.getElementById('artista-categorias').value;
 
-            // NOVA LÓGICA DE FORMATAÇÃO
+            if (!validarNome(nome)) { updateStatus.textContent = 'Nome inválido.'; return; }
+            if (!validarInstagram(instagramHandle)) { updateStatus.textContent = 'Instagram inválido.'; return; }
+            if (!validarCategorias(categoriasInput)) { updateStatus.textContent = 'Categorias inválidas.'; return; }
+
             const categoriasFormatadas = formatarCategorias(categoriasInput);
 
             const dadosParaAtualizar = {
-                nome,
-                instagramHandle,
-                instagramLink: `https://www.instagram.com/${instagramHandle.replace('@', '')}`,
+                nome: escapeHTML(nome),
+                instagramHandle: escapeHTML(instagramHandle),
+                instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                 categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
             };
             if (imagemArquivo) {
@@ -274,7 +313,7 @@ if (formEditArtista) {
                 const response = await fetch(uploadUrl, { method: 'POST', body: formData });
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.error.message || 'Falha no upload da nova imagem.');
-                dadosParaAtualizar.imageUrl = data.secure_url;
+                dadosParaAtualizar.imageUrl = escapeHTML(data.secure_url);
             }
             updateStatus.textContent = 'Salvando no banco de dados...';
             const docRef = doc(db, 'artistas', currentArtistId);
@@ -299,7 +338,8 @@ function renderizarGerenciadorDeGaleria(imagens = []) {
     imagens.forEach(url => {
         const card = document.createElement('div');
         card.className = 'gallery-thumb-container';
-        card.innerHTML = `<img src="${url}" alt="Imagem da galeria"><button class="delete-image-btn" data-url="${url}">-</button>`;
+        // url já vem do Cloudinary, mas escapamos por segurança
+        card.innerHTML = `<img src="${escapeHTML(url)}" alt="Imagem da galeria"><button class="delete-image-btn" data-url="${escapeHTML(url)}">-</button>`;
         grid.appendChild(card);
     });
     const addCard = document.createElement('div');
@@ -379,7 +419,7 @@ function criarLightbox(imageUrl) {
     closeButton.id = 'lightbox-close';
     closeButton.innerHTML = '&times;';
     const img = document.createElement('img');
-    img.src = imageUrl;
+    img.src = escapeHTML(imageUrl);
     img.id = 'lightbox-image';
     overlay.appendChild(closeButton);
     overlay.appendChild(img);
@@ -396,11 +436,11 @@ function criarLightbox(imageUrl) {
 
 function criarCartaoArtista(artista) {
     const link = document.createElement('a');
-    link.href = `#/galeria/${artista.id}`;
+    link.href = `#/galeria/${escapeHTML(artista.id)}`;
     link.className = 'gallery-item';
     const img = document.createElement('img');
-    img.src = artista.imageUrl;
-    img.alt = `Foto do artista ${artista.nome}`;
+    img.src = escapeHTML(artista.imageUrl);
+    img.alt = `Foto do artista ${escapeHTML(artista.nome)}`;
     img.className = 'gallery-image';
     img.loading = 'lazy';
     const nome = document.createElement('p');
@@ -428,7 +468,7 @@ async function carregarArtistasNoCarrossel() {
             const img3 = (artista.imagens && artista.imagens[2]) || img2;
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
-            slide.innerHTML = `<div class="container-bloco"><div class="bloco-imagens"><a href="#/galeria/${artista.id}"><img src="${img1}" alt="Arte de ${artista.nome}"><img src="${img2}" alt="Arte de ${artista.nome}"><img src="${img3}" alt="Arte de ${artista.nome}"></a></div><p class="legenda-galeria">Galeria ${artista.nome}</p></div>`;
+            slide.innerHTML = `<div class="container-bloco"><div class="bloco-imagens"><a href="#/galeria/${escapeHTML(artista.id)}"><img src="${escapeHTML(img1)}" alt="Arte de ${escapeHTML(artista.nome)}"><img src="${escapeHTML(img2)}" alt="Arte de ${escapeHTML(artista.nome)}"><img src="${escapeHTML(img3)}" alt="Arte de ${escapeHTML(artista.nome)}"></a></div><p class="legenda-galeria">Galeria ${escapeHTML(artista.nome)}</p></div>`;
             swiperWrapper.appendChild(slide);
         });
         new Swiper('.artistas-slider', {
@@ -467,8 +507,8 @@ async function carregarGaleriaIndividual() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             const artistaData = docSnap.data();
-            document.title = `Galeria - ${artistaData.nome}`;
-            document.getElementById('artista-logo').src = artistaData.imageUrl;
+            document.title = `Galeria - ${escapeHTML(artistaData.nome)}`;
+            document.getElementById('artista-logo').src = escapeHTML(artistaData.imageUrl);
             document.getElementById('artista-nome').textContent = artistaData.nome;
             const instagramLinkElement = document.getElementById('artista-instagram-link');
             instagramLinkElement.href = artistaData.instagramLink || '#';
@@ -479,7 +519,7 @@ async function carregarGaleriaIndividual() {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'gallery-item';
                     const imgElement = document.createElement('img');
-                    imgElement.src = urlImagem;
+                    imgElement.src = escapeHTML(urlImagem);
                     imgElement.className = 'gallery-image';
                     imgElement.loading = 'lazy';
                     imgElement.addEventListener('click', () => criarLightbox(urlImagem));
