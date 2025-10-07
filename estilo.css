@@ -142,9 +142,11 @@ a:hover {
    ESTRUTURA PRINCIPAL (SITE PÚBLICO)
    ================================= */
 
-/* CORREÇÃO DEFINITIVA: Aplica o espaçamento superior diretamente no container principal da SPA */
+/* CORREÇÃO DEFINITIVA: Aplica o espaçamento superior e o z-index diretamente no container da SPA */
 main#app-content {
   padding-top: 80px;
+  position: relative; /* Cria um contexto de empilhamento */
+  z-index: 1;       /* Garante que o conteúdo fique abaixo do header */
 }
 
 #barra-superior {
@@ -152,7 +154,7 @@ main#app-content {
   background: #121212;
   border-bottom: 1px solid #282828;
   position: fixed;
-  z-index: 1000;
+  z-index: 1000; /* Z-index alto para ficar sempre na frente */
   top: 0;
   left: 0;
   width: 100%;
