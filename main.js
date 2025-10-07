@@ -332,13 +332,26 @@ if (formEditArtista) {
             if (!validarInstagram(instagramHandle)) { updateStatus.textContent = 'Instagram inválido.'; return; }
             if (!validarCategorias(categoriasInput)) { updateStatus.textContent = 'Categorias inválidas.'; return; }
 
+            // Função para formatar cada categoria com iniciais maiúsculas
+            function formatarCategorias(categoriasInput) {
+                return categoriasInput
+                    .split(',')
+                    .map(cat => {
+                        return cat.trim().split(' ')
+                            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                            .join(' ');
+                    })
+                    .filter(cat => cat)
+                    .join(', ');
+            }
+
             const categoriasFormatadas = formatarCategorias(categoriasInput);
 
             const dadosParaAtualizar = {
                 nome: escapeHTML(nome),
                 instagramHandle: escapeHTML(instagramHandle),
                 instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                categoria: categoriasFormatadas.split(',').map(item => item.trim().toLowerCase()).filter(item => item),
+                categoria: categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item),
             };
             if (imagemArquivo) {
                 updateStatus.textContent = 'Enviando nova imagem...';
