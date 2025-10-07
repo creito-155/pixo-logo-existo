@@ -230,6 +230,7 @@ if (formAddArtista) {
             }
 
             const categoriasFormatadas = formatarCategorias(categoriasInput);
+            const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
 
             if (!querySnapshot.empty) {
                 // Artista já existe
@@ -256,10 +257,7 @@ if (formAddArtista) {
                 const imageUrl = data.secure_url;
 
                 // Salva as categorias com iniciais maiúsculas
-                const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
-
-                // Cria novo artista
-                const novoArtistaDoc = await addDoc(artistasRef, {
+                await addDoc(artistasRef, {
                     userId: user.uid,
                     nome: escapeHTML(nomeArtista),
                     imageUrl: escapeHTML(imageUrl),
