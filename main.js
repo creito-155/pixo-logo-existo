@@ -632,7 +632,10 @@ const routes = {
     '/quem-somos': '/pages/quem-somos.html',
     '/onde-atuamos': '/pages/onde-atuamos.html',
     '/galeria': '/pages/galeria.html',
-    '/edit-profile': '/pages/edit-profile.html'
+    '/edit-profile': '/pages/edit-profile.html',
+    '/login': '/pages/login.html',
+    '/cadastro': '/pages/cadastro.html',
+    '/admin': '/pages/admin.html'
 };
 
 const loadContent = async () => {
