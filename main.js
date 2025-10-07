@@ -22,7 +22,6 @@ const auth = getAuth(app);
 
 let currentArtistId = null;
 
-// --- 2. ROTAS SPA ---
 const routes = {
     '/home': '/pages/home.html',
     '/artistas': '/pages/artistas.html',
@@ -35,7 +34,6 @@ const routes = {
     '/admin': '/pages/admin.html'
 };
 
-// --- 3. FUNÇÕES DE SEGURANÇA E VALIDAÇÃO ---
 function escapeHTML(str) {
     if (typeof str !== "string") return "";
     return str.replace(/[&<>"']/g, function(m) {
@@ -55,7 +53,6 @@ function validarInstagram(instagram) {
     return typeof instagram === "string" && instagram.trim().length > 0 && /^@?[a-zA-Z0-9._]+$/.test(instagram.trim());
 }
 
-// --- 4. LOADER SPA ---
 async function loadContent() {
     const contentDiv = document.getElementById('app-content');
     if (!contentDiv) return;
@@ -79,7 +76,6 @@ async function loadContent() {
     }
 }
 
-// --- 5. INICIALIZAÇÃO DE CADA PÁGINA ---
 function inicializarPagina(path) {
     if (path === '/home') inicializarHome();
     if (path === '/artistas') inicializarArtistas();
@@ -88,10 +84,8 @@ function inicializarPagina(path) {
     if (path === '/cadastro') inicializarCadastro();
     if (path === '/admin') inicializarAdmin();
     if (path.startsWith('/edit-profile')) inicializarEditProfile();
-    // Adicione inicialização de outras páginas se necessário
 }
 
-// --- 6. HOME: BOTÃO RECOMENDADOS ---
 function inicializarHome() {
     const botaoRecomendados = document.getElementById('botao-recomendados');
     if (botaoRecomendados) {
@@ -99,18 +93,19 @@ function inicializarHome() {
             await carregarArtistasRecomendados();
         });
     }
+    carregarTodosArtistasHome();
 }
 
 async function carregarArtistasRecomendados() {
-    const container = document.getElementById('artistas-recomendados');
-    if (!container) return;
-    container.innerHTML = 'Carregando...';
+    const grid = document.getElementById('recomendados-grid');
+    if (!grid) return;
+    grid.innerHTML = 'Carregando...';
 
     const q = query(collection(db, "artistas"), where("recomendado", "==", true));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-        container.innerHTML = '<p>Nenhum artista recomendado encontrado.</p>';
+        grid.innerHTML = '<p>Nenhum artista recomendado encontrado.</p>';
         return;
     }
 
@@ -125,10 +120,39 @@ async function carregarArtistasRecomendados() {
             </div>
         `;
     });
-    container.innerHTML = html;
+    grid.innerHTML = html;
 }
 
-// --- 7. ARTISTAS ---
+async function carregarTodosArtistasHome() {
+    // Busca o grid principal (exclui o de recomendados)
+    const grids = document.querySelectorAll('.gallery-grid');
+    let grid = null;
+    grids.forEach(g => {
+        if (g.id !== 'recomendados-grid') grid = g;
+    });
+    if (!grid) return;
+    grid.innerHTML = 'Carregando...';
+
+    const snapshot = await getDocs(collection(db, "artistas"));
+    if (snapshot.empty) {
+        grid.innerHTML = '<p>Nenhum artista cadastrado.</p>';
+        return;
+    }
+    let html = '';
+    snapshot.forEach(doc => {
+        const artista = doc.data();
+        html += `
+            <div class="artista-card">
+                <img src="${artista.imageUrl}" alt="${artista.nome}" style="width:80px;">
+                <h3>${artista.nome}</h3>
+                <p>${artista.instagramHandle}</p>
+                <p>${(artista.categoria || []).join(', ')}</p>
+            </div>
+        `;
+    });
+    grid.innerHTML = html;
+}
+
 function inicializarArtistas() {
     const container = document.getElementById('lista-artistas');
     if (!container) return;
@@ -155,7 +179,6 @@ function inicializarArtistas() {
     });
 }
 
-// --- 8. GALERIA ---
 function inicializarGaleria() {
     const container = document.getElementById('galeria-artistas');
     if (!container) return;
@@ -184,7 +207,6 @@ function inicializarGaleria() {
     });
 }
 
-// --- 9. LOGIN ---
 function inicializarLogin() {
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
@@ -200,7 +222,6 @@ function inicializarLogin() {
     }
 }
 
-// --- 10. CADASTRO ---
 function inicializarCadastro() {
     const formCadastro = document.getElementById('form-cadastro');
     if (formCadastro) {
@@ -238,7 +259,6 @@ function inicializarCadastro() {
     }
 }
 
-// --- 11. ADMIN ---
 function inicializarAdmin() {
     const botaoLogout = document.getElementById('botao-logout');
     if (botaoLogout) {
@@ -287,7 +307,6 @@ async function setupAdminPage() {
         }
     }
 
-    // Cadastro de artista
     const formAddArtista = document.getElementById('form-add-artista');
     if (formAddArtista) {
         formAddArtista.addEventListener('submit', async (e) => {
@@ -368,7 +387,6 @@ async function setupAdminPage() {
     }
 }
 
-// --- 12. EDITAR PERFIL ---
 function inicializarEditProfile() {
     let artistaId = null;
     const hash = window.location.hash;
@@ -463,7 +481,6 @@ async function carregarDadosParaEdicao() {
     }
 }
 
-// --- 13. BOTÃO LOGIN/CADASTRO NA BARRA SUPERIOR ---
 function atualizarBarraSuperior() {
     onAuthStateChanged(auth, async (user) => {
         const userProfileArea = document.getElementById('user-profile-area');
@@ -477,7 +494,6 @@ function atualizarBarraSuperior() {
     });
 }
 
-// --- 14. INICIALIZAÇÃO SPA ---
 window.addEventListener('hashchange', loadContent);
 document.addEventListener('DOMContentLoaded', () => {
     if (!window.location.hash || window.location.hash === '#') {
