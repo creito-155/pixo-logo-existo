@@ -205,19 +205,31 @@ template,
 
 
 /* =================================
-   SEUS ESTILOS PERSONALIZADOS
+   ESTILOS GLOBAIS E UNIFICADOS
    ================================= */
+:root {
+    --roxo-principal: rgb(195, 0, 255);
+    --roxo-hover: rgb(165, 0, 215);
+    --fundo-principal: #252525;
+    --fundo-bloco: rgba(10, 10, 10, 0.8);
+    --fundo-bloco-solido: #1a1a1a;
+    --texto-principal: white;
+    --texto-secundario: #cccccc;
+    --sucesso: #4CAF50;
+    --erro: #f44336;
+    --borda-input: #444;
+}
 
 body {
-    background-color: #252525;
+    background-color: var(--fundo-principal);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: white;
+    color: var(--texto-principal);
     margin: 0;
-    padding-top: 70px;
+    padding-top: 80px; /* Espaço para o header fixo */
 }
 
 a {
-    color: rgb(255, 255, 255);
+    color: var(--texto-principal);
     text-decoration: none;
 }
 
@@ -226,26 +238,27 @@ a:visited {
 }
 
 a:hover {
-    background: rgb(195, 0, 255);
+    background: var(--roxo-principal);
     border-radius: 3px;
-    color: white !important;
 }
+
+/* =================================
+   ESTRUTURA PRINCIPAL (SITE PÚBLICO)
+   ================================= */
 
 #barra-superior {
     font-family: 'Don Graffiti', sans-serif;
-    background: #1a1a1a;
+    background: #000000cf;
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    padding: 0 15px;
+    padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #333;
 }
 
 .logo {
@@ -259,22 +272,19 @@ a:hover {
 
 .main-nav a {
     padding: 5px 10px;
-    font-size: 1.1rem;
-    color: #e0e0e0;
 }
 
 #user-profile-area {
-    min-width: 45px;
+    min-width: 50px;
     text-align: right;
 }
 
 .titulo-galeria {
-    width: -moz-fit-content;
     width: fit-content;
     margin: 25px auto 40px auto;
     padding: 10px 25px;
-    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
-    color: white;
+    background: radial-gradient(circle, var(--roxo-principal), rgb(0, 0, 0));
+    color: var(--texto-principal);
     text-align: center;
     border-radius: 10px;
 }
@@ -291,8 +301,8 @@ a:hover {
     width: auto;
     min-width: 100px;
     padding: 10px;
-    background: radial-gradient(circle, rgb(195, 0, 255), rgb(0, 0, 0));
-    color: white;
+    background: radial-gradient(circle, var(--roxo-principal), rgb(0, 0, 0));
+    color: var(--texto-principal);
     text-align: center;
     border-radius: 10px;
 }
@@ -317,7 +327,7 @@ a:hover {
     height: 240px;
     left: 50%;
     top: 50%;
-    border: 5px solid white;
+    border: 5px solid var(--texto-principal);
     border-radius: 4px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.4s ease;
@@ -351,7 +361,9 @@ a:hover {
     transform: translate(-20%, -50%) rotate(15deg);
 }
 
-/* ESTILOS GLOBAIS DA GALERIA */
+/* =================================
+   ESTILOS DA GALERIA E ARTISTAS
+   ================================= */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -367,7 +379,7 @@ a:hover {
 .creator-header {
     background-color: #000000a7;
     padding: 30px 20px;
-    border-bottom: 3px solid rgb(195, 0, 255);
+    border-bottom: 3px solid var(--roxo-principal);
     display: flex;
     align-items: center;
     margin-bottom: 40px;
@@ -378,14 +390,14 @@ a:hover {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 3px solid rgb(195, 0, 255);
+    border: 3px solid var(--roxo-principal);
     object-fit: cover;
     margin-right: 30px;
 }
 
 .creator-info .title {
     font-size: 28px;
-    color: rgb(195, 0, 255);
+    color: var(--roxo-principal);
     margin: 0 0 10px 0;
     font-weight: normal;
 }
@@ -414,7 +426,7 @@ a:hover {
 }
 
 .artist-card-name {
-    color: white;
+    color: var(--texto-principal);
     padding: 15px;
     font-weight: bold;
     text-align: center;
@@ -430,7 +442,7 @@ a:hover {
 }
 
 .gallery-item:hover .artist-card-name {
-    background-color: rgb(195, 0, 255);
+    background-color: var(--roxo-principal);
     color: #ffffff;
 }
 
@@ -465,7 +477,7 @@ a:hover {
     right: 30px;
     font-size: 45px;
     font-weight: bold;
-    color: white;
+    color: var(--texto-principal);
     cursor: pointer;
     transition: color 0.2s ease;
     user-select: none;
@@ -502,7 +514,7 @@ a:hover {
 
 .swiper-button-next::before,
 .swiper-button-prev::before {
-    color: white !important;
+    color: var(--texto-principal) !important;
     font-size: 30px;
     font-weight: bold;
     font-family: monospace;
@@ -513,7 +525,7 @@ a:hover {
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background-color: rgb(195, 0, 255) !important;
+    background-color: var(--roxo-principal) !important;
     border-color: rgba(255, 255, 255, 0.8) !important;
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.7);
     transform: scale(1.05);
@@ -541,13 +553,13 @@ a:hover {
 
 .filtro-btn:hover {
     background-color: #44475a;
-    border-color: #bd93f9;
+    border-color: var(--roxo-principal);
 }
 
 .filtro-btn.active {
-    background: rgb(195, 0, 255);
-    color: white;
-    border-color: rgb(195, 0, 255);
+    background: var(--roxo-principal);
+    color: var(--texto-principal);
+    border-color: var(--roxo-principal);
     box-shadow: 0 0 15px rgba(195, 0, 255, 0.5);
 }
 
@@ -567,8 +579,8 @@ a:hover {
 }
 
 .texto-container {
-    background-color: rgba(10, 10, 10, 0.8);
-    border-left: 5px solid rgb(195, 0, 255);
+    background-color: var(--fundo-bloco);
+    border-left: 5px solid var(--roxo-principal);
     padding: 30px 40px;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -576,7 +588,7 @@ a:hover {
 
 .titulo-quem-somos {
     font-size: 2.5rem;
-    color: rgb(195, 0, 255);
+    color: var(--roxo-principal);
     margin-top: 0;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -595,13 +607,13 @@ a:hover {
 .texto-container p {
     font-size: 1.1rem;
     line-height: 1.7;
-    color: #cccccc;
+    color: var(--texto-secundario);
     margin-bottom: 20px;
 }
 
 /* RODAPÉ DO SITE */
 .site-footer {
-    background-color: #1a1a1a;
+    background-color: var(--fundo-bloco-solido);
     color: #a0a0a0;
     text-align: center;
     padding: 30px 20px;
@@ -619,10 +631,8 @@ a:hover {
 }
 
 .site-footer a {
-    color: #bd93f9;
+    color: var(--roxo-principal);
     font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
     background: none;
 }
 
@@ -632,11 +642,275 @@ a:hover {
     background: none;
 }
 
+/* ================================================== */
+/* ESTILOS UNIFICADOS PARA LOGIN, CADASTRO & ADMIN    */
+/* ================================================== */
+
+/* Body especial para centralizar o conteúdo */
+.admin-body {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza verticalmente */
+    min-height: 100vh;
+    padding-top: 0; /* Remove o padding do body geral */
+}
+
+/* Container principal para formulários e painel */
+.login-container, .admin-container {
+    background-color: var(--fundo-bloco);
+    border-left: 5px solid var(--roxo-principal);
+    padding: 2rem 3rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+.login-container {
+    max-width: 400px;
+}
+
+.login-container h1, .admin-container h1, .admin-container h2 {
+    color: var(--roxo-principal);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--fundo-principal);
+    border: 1px solid var(--borda-input);
+    border-radius: 4px;
+    color: var(--texto-principal);
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--roxo-principal);
+    box-shadow: 0 0 8px rgba(195, 0, 255, 0.5);
+}
+
+/* Botões para toda a área de admin */
+.login-container button,
+.admin-container button,
+.test-button {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--roxo-principal);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Para o .test-button */
+    text-align: center;   /* Para o .test-button */
+    box-sizing: border-box; /* Para o .test-button */
+}
+
+.login-container button:hover,
+.admin-container button:hover,
+.test-button:hover {
+    background: var(--roxo-hover);
+    transform: translateY(-2px);
+    color: white !important; /* Força a cor no hover do link */
+}
+
+.admin-container button {
+    margin-top: 1rem;
+}
+
+.test-button {
+    text-decoration: none;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Mensagens de status e erro */
+.error-message, .status-message {
+    margin-top: 1rem;
+    min-height: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.error-message { color: var(--erro); }
+.status-message[style*="color: green;"] { color: var(--sucesso) !important; }
+.status-message[style*="color: orange;"] { color: orange !important; }
+#cadastro-status { color: var(--sucesso); } /* Cor padrão para sucesso no cadastro */
+
+/* Links de autenticação */
+.auth-link {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.auth-link a {
+    color: var(--roxo-principal);
+    font-weight: bold;
+    background: none;
+}
+.auth-link a:hover {
+    text-decoration: underline;
+    background: none;
+}
+
+/* Cabeçalho do Admin */
+.admin-header {
+    position: fixed; /* Header fixo no painel */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: rgba(10, 10, 10, 0.9);
+    border-bottom: 2px solid var(--roxo-principal);
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.admin-body .admin-container {
+    margin-top: 120px; /* Espaço para o header fixo */
+    margin-bottom: 2rem;
+    max-width: 700px;
+}
+
+.admin-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--texto-principal);
+}
+
+#botao-logout {
+    width: auto;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+}
+
+/* Ícone de perfil no header principal */
+.profile-pic-header {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--roxo-principal);
+    transition: transform 0.2s ease;
+    background: none !important;
+}
+.profile-pic-header:hover {
+    transform: scale(1.1);
+    background: none !important;
+}
+
+.login-button {
+    padding: 8px 15px;
+    background-color: var(--roxo-principal);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-family: sans-serif;
+}
+
+.login-button:hover {
+    background-color: var(--roxo-hover);
+}
+
+/* ESTILOS PARA EDIÇÃO IN-LOCO DA GALERIA */
+.creator-header .edit-balloon {
+    display: none;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: var(--roxo-principal);
+    border-radius: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.creator-header:hover .edit-balloon {
+    display: block;
+}
+.creator-header .edit-balloon:hover {
+    background-color: var(--roxo-hover);
+}
+.gallery-grid .delete-image-btn {
+    display: none;
+}
+body.edit-mode .delete-image-btn {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--erro);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+body.edit-mode .delete-image-btn:hover {
+    transform: scale(1.1);
+}
+.add-image-card {
+    display: none;
+}
+body.edit-mode .add-image-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background-color: transparent;
+    border: 3px dashed var(--borda-input);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+body.edit-mode .add-image-card:hover {
+    border-color: var(--sucesso);
+    background-color: rgba(76, 175, 80, 0.05);
+}
+body.edit-mode .add-image-card::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color: var(--sucesso);
+    font-weight: lighter;
+}
+
 
 /* =================================
-   MEDIA QUERIES (RESPONSIVIDADE)
+   RESPONSIVIDADE
    ================================= */
-
 @media (max-width: 992px) {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -652,302 +926,35 @@ a:hover {
         margin-right: 0;
         margin-bottom: 20px;
     }
-
-    /* ESCONDE A NAVEGAÇÃO PRINCIPAL EM CELULARES */
-    .main-nav {
-        display: none;
-    }
-
     #barra-superior {
-        justify-content: space-between;
+        justify-content: center;
+    }
+    .logo, #user-profile-area {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .logo {
+        left: 15px;
+    }
+    #user-profile-area {
+        right: 15px;
+    }
+    .login-container, .admin-container {
+        padding: 2rem 1.5rem;
     }
 }
 
-
-/* ============================================= */
-/* ESTILOS PARA PÁGINAS DE ADMIN, LOGIN E CADASTRO */
-/* ============================================= */
-
-:root {
-    --admin-fundo: #121212;
-    --admin-caixa: #1e1e1e;
-    --admin-borda: #444;
-    --admin-texto: #e0e0e0;
-    --admin-roxo-principal: #9c27b0;
-    --admin-roxo-hover: #7b1fa2;
-    --admin-sucesso: #4CAF50;
-    --admin-erro: #f44336;
-}
-
-.admin-body {
-    background: var(--admin-fundo) !important;
-    color: var(--admin-texto);
-    font-family: sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding-top: 0;
-    overflow-y: auto;
-}
-
-.login-container, .admin-container {
-    background-color: var(--admin-caixa);
-    padding: 2rem 3rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    border: 1px solid var(--admin-borda);
-}
-
-.login-container {
-    max-width: 400px;
-    align-self: center;
-}
-
-.login-container h1 {
-    margin-bottom: 2rem;
-    color: var(--admin-texto);
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #aaa;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #252525;
-    border: 1px solid var(--admin-borda);
-    border-radius: 4px;
-    color: var(--admin-texto);
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--admin-roxo-principal);
-    box-shadow: 0 0 5px var(--admin-roxo-principal);
-}
-
-.login-container button,
-.admin-container button {
-    width: 100%;
-    padding: 0.9rem;
-    background-color: var(--admin-roxo-principal);
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.login-container button:hover,
-.admin-container button:hover {
-    background-color: var(--admin-roxo-hover);
-}
-
-.admin-container button {
-    margin-top: 1rem;
-}
-
-.error-message, .status-message {
-    margin-top: 1rem;
-    min-height: 20px;
-    text-align: center;
-}
-
-.error-message { color: var(--admin-erro); }
-.status-message[style*="color: green;"] { color: var(--admin-sucesso); }
-.status-message[style*="color: orange;"] { color: orange; }
-
-.auth-link {
-    margin-top: 2rem;
-    font-size: 0.9rem;
-}
-
-.auth-link a {
-    color: var(--admin-roxo-principal);
-    text-decoration: none;
-    font-weight: bold;
-    background: none;
-}
-
-.auth-link a:hover {
-    text-decoration: underline;
-    background: none;
-}
-
-.admin-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--admin-caixa);
-    box-sizing: border-box;
-    z-index: 1000;
-}
-
-.admin-container {
-    max-width: 700px;
-    margin-top: 100px;
-    margin-bottom: 2rem;
-}
-
-.admin-header h1 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-#botao-logout {
-    width: auto;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-}
-
-.test-button {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #0d6efd;
-    color: white !important;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
-
-.test-button:hover {
-    background: #0b5ed7;
-    color: white !important;
-}
-
-.profile-pic-header {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--admin-roxo-principal, #9c27b0);
-    transition: transform 0.2s ease;
-    background: none !important;
-}
-
-.profile-pic-header:hover {
-    transform: scale(1.1);
-    background: none !important;
-}
-
-.login-button {
-    padding: 8px 15px;
-    background-color: var(--admin-roxo-principal, #9c27b0);
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-    font-family: sans-serif;
-}
-
-.login-button:hover {
-    background-color: var(--admin-roxo-hover, #7b1fa2);
-}
-
-/* ESTILOS PARA EDIÇÃO IN-LOCO DA GALERIA */
-.creator-header .edit-balloon {
-    display: none;
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: var(--admin-roxo-principal);
-    border-radius: 5px;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.creator-header:hover .edit-balloon {
-    display: block;
-}
-
-.creator-header .edit-balloon:hover {
-    background-color: var(--admin-roxo-hover);
-}
-
-.gallery-grid .delete-image-btn {
-    display: none;
-}
-
-body.edit-mode .delete-image-btn {
-    display: block;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 30px;
-    height: 30px;
-    background-color: var(--admin-erro);
-    color: white;
-    border: 2px solid white;
-    border-radius: 50%;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 28px;
-    text-align: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: transform 0.2s ease;
-}
-
-body.edit-mode .delete-image-btn:hover {
-    transform: scale(1.1);
-}
-
-.add-image-card {
-    display: none;
-}
-
-body.edit-mode .add-image-card {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 250px;
-    background-color: transparent;
-    border: 3px dashed var(--admin-borda);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-body.edit-mode .add-image-card:hover {
-    border-color: var(--admin-sucesso);
-    background-color: rgba(0, 255, 0, 0.05);
-}
-
-body.edit-mode .add-image-card::before {
-    content: '+';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 80px;
-    color: var(--admin-sucesso);
-    font-weight: lighter;
+@media (max-width: 500px) {
+    .main-nav a {
+        font-size: 14px;
+        padding: 5px;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        width: 35px;
+        height: 35px;
+    }
+    .swiper-button-next::after, .swiper-button-prev::after {
+        font-size: 14px;
+    }
 }
