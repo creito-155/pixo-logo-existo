@@ -159,6 +159,7 @@ function ativarFormularioCadastro() {
             const email = document.getElementById('email-cadastro').value;
             const senha = document.getElementById('senha-cadastro').value;
             const statusDiv = document.getElementById('cadastro-status');
+            
             statusDiv.textContent = "Criando conta...";
             statusDiv.style.color = "orange";
 
@@ -169,17 +170,42 @@ function ativarFormularioCadastro() {
             }
 
             createUserWithEmailAndPassword(auth, email, senha)
-                .then((userCredential) => {
+                .then(async (userCredential) => { // Tornamos a função anônima async
                     const user = userCredential.user;
-                    sendEmailVerification(user).then(() => {
-                        statusDiv.textContent = 'Sucesso! Link de verificação enviado para seu e-mail. Confirme antes de fazer login.';
+                    
+                    // Adicionamos um bloco try...catch para tratar erros de escrita no banco ou envio de email
+                    try {
+                        statusDiv.textContent = "Salvando perfil no banco de dados...";
+                        
+                        // 1. Prepara a referência do documento
+                        const userDocRef = doc(db, "usuarios", user.uid);
+                        
+                        // 2. Usa await para ESPERAR a conclusão da escrita no Firestore
+                        await setDoc(userDocRef, { 
+                            nomeArtista: escapeHTML(nomeArtista), 
+                            email: user.email, 
+                            criadoEm: new Date() 
+                        });
+
+                        statusDiv.textContent = "Enviando e-mail de verificação...";
+                        
+                        // 3. Usa await para ESPERAR o envio do e-mail
+                        await sendEmailVerification(user);
+                        
+                        // 4. Mostra a mensagem de sucesso APENAS se tudo deu certo
+                        statusDiv.textContent = 'Sucesso! Perfil criado. Link de verificação enviado para seu e-mail.';
                         statusDiv.style.color = 'green';
                         formCadastro.reset();
-                    });
-                    const userDocRef = doc(db, "usuarios", user.uid);
-                    setDoc(userDocRef, { nomeArtista: escapeHTML(nomeArtista), email: user.email, criadoEm: new Date() });
+
+                    } catch (dbError) {
+                        // Se houver erro ao salvar no DB ou enviar email, informa o usuário
+                        console.error("Erro ao salvar perfil ou enviar email:", dbError);
+                        statusDiv.textContent = "Conta criada, mas houve um erro ao salvar seu perfil. Tente novamente mais tarde.";
+                        statusDiv.style.color = "red";
+                    }
                 })
                 .catch((error) => {
+                    // Este catch agora lida apenas com erros da criação da conta (email já existe, senha fraca, etc.)
                     if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
                     else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
                     else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
