@@ -155,7 +155,10 @@ function ativarFormularioCadastro() {
     if (formCadastro) {
         formCadastro.addEventListener('submit', (e) => {
             e.preventDefault();
-            const nomeArtista = document.getElementById('artista-nome-cadastro').value;
+
+            // Convertemos o nome para MAIÚSCULAS para padronizar desde o cadastro.
+            const nomeArtista = document.getElementById('artista-nome-cadastro').value.trim().toUpperCase();
+            
             const email = document.getElementById('email-cadastro').value;
             const senha = document.getElementById('senha-cadastro').value;
             const statusDiv = document.getElementById('cadastro-status');
@@ -170,42 +173,35 @@ function ativarFormularioCadastro() {
             }
 
             createUserWithEmailAndPassword(auth, email, senha)
-                .then(async (userCredential) => { // Tornamos a função anônima async
+                .then(async (userCredential) => { 
                     const user = userCredential.user;
                     
-                    // Adicionamos um bloco try...catch para tratar erros de escrita no banco ou envio de email
                     try {
                         statusDiv.textContent = "Salvando perfil no banco de dados...";
                         
-                        // 1. Prepara a referência do documento
                         const userDocRef = doc(db, "usuarios", user.uid);
                         
-                        // 2. Usa await para ESPERAR a conclusão da escrita no Firestore
                         await setDoc(userDocRef, { 
-                            nomeArtista: escapeHTML(nomeArtista), 
+                            nomeArtista: escapeHTML(nomeArtista), // Agora será salvo em maiúsculas
                             email: user.email, 
                             criadoEm: new Date() 
                         });
 
                         statusDiv.textContent = "Enviando e-mail de verificação...";
                         
-                        // 3. Usa await para ESPERAR o envio do e-mail
                         await sendEmailVerification(user);
                         
-                        // 4. Mostra a mensagem de sucesso APENAS se tudo deu certo
                         statusDiv.textContent = 'Sucesso! Perfil criado. Link de verificação enviado para seu e-mail.';
                         statusDiv.style.color = 'green';
                         formCadastro.reset();
 
                     } catch (dbError) {
-                        // Se houver erro ao salvar no DB ou enviar email, informa o usuário
                         console.error("Erro ao salvar perfil ou enviar email:", dbError);
                         statusDiv.textContent = "Conta criada, mas houve um erro ao salvar seu perfil. Tente novamente mais tarde.";
                         statusDiv.style.color = "red";
                     }
                 })
                 .catch((error) => {
-                    // Este catch agora lida apenas com erros da criação da conta (email já existe, senha fraca, etc.)
                     if (error.code === 'auth/email-already-in-use') { statusDiv.textContent = "Erro: Este e-mail já está em uso."; } 
                     else if (error.code === 'auth/weak-password') { statusDiv.textContent = "Erro: A senha precisa ter no mínimo 6 caracteres."; } 
                     else { statusDiv.textContent = "Ocorreu um erro ao criar a conta."; }
@@ -248,7 +244,6 @@ function ativarFormularioAddArtista() {
                 return;
             }
 
-            // --- AJUSTE APLICADO AQUI ---
             // Convertemos o nome do artista para MAIÚSCULAS para padronizar.
             const nomeArtista = document.getElementById('artista-nome').value.trim().toUpperCase();
 
@@ -389,7 +384,6 @@ function ativarFormularioEditArtista() {
             updateStatus.textContent = 'Atualizando perfil...';
             updateStatus.style.color = 'orange';
             try {
-                // --- AJUSTE APLICADO AQUI ---
                 // Convertemos o nome do artista para MAIÚSCULAS para padronizar.
                 const nome = document.getElementById('artista-nome').value.trim().toUpperCase();
 
