@@ -248,7 +248,10 @@ function ativarFormularioAddArtista() {
                 return;
             }
 
-            const nomeArtista = document.getElementById('artista-nome').value.trim();
+            // --- AJUSTE APLICADO AQUI ---
+            // Convertemos o nome do artista para MAIÚSCULAS para padronizar.
+            const nomeArtista = document.getElementById('artista-nome').value.trim().toUpperCase();
+
             const imagemArquivo = document.getElementById('artista-imagem').files[0];
             const instagramHandle = document.getElementById('artista-instagram').value.trim();
             const categoriasInput = document.getElementById('artista-categorias').value;
@@ -259,7 +262,6 @@ function ativarFormularioAddArtista() {
                 return;
             }
 
-            // Validações adicionais
             if (!validarNome(nomeArtista)) {
                  uploadStatus.textContent = 'O nome do artista parece inválido.';
                  uploadStatus.style.color = 'red';
@@ -277,11 +279,10 @@ function ativarFormularioAddArtista() {
 
             try {
                 const artistasRef = collection(db, 'artistas');
-                const q = query(artistasRef, where("nome", "==", nomeArtista));
+                const q = query(artistasRef, where("nome", "==", nomeArtista)); // A busca agora usará o nome em maiúsculas
                 const querySnapshot = await getDocs(q);
                 let artistaId;
 
-                // Usando a função global formatarCategorias
                 const categoriasFormatadas = formatarCategorias(categoriasInput);
                 const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
 
@@ -291,8 +292,6 @@ function ativarFormularioAddArtista() {
                     artistaId = artistaExistente.id;
                     const artistaDocRef = doc(db, 'artistas', artistaId);
 
-                    // --- CORREÇÃO ADICIONADA AQUI ---
-                    // Atualiza o documento existente com o ID do usuário logado.
                     await updateDoc(artistaDocRef, {
                         userId: user.uid
                     });
@@ -301,7 +300,7 @@ function ativarFormularioAddArtista() {
                     uploadStatus.textContent = 'Artista novo! Fazendo upload da imagem...';
                     const formData = new FormData();
                     formData.append('file', imagemArquivo);
-                    formData.append('upload_preset', 'artistas_uploads'); // Certifique-se que este preset existe no seu Cloudinary
+                    formData.append('upload_preset', 'artistas_uploads');
                     const CLOUD_NAME = 'dj053fl2q';
                     const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
@@ -313,12 +312,12 @@ function ativarFormularioAddArtista() {
                     uploadStatus.textContent = 'Criando perfil no banco de dados...';
                     const novoArtistaDoc = await addDoc(artistasRef, {
                         userId: user.uid,
-                        nome: escapeHTML(nomeArtista),
+                        nome: escapeHTML(nomeArtista), // O nome será salvo em maiúsculas
                         imageUrl: escapeHTML(imageUrl),
                         instagramHandle: escapeHTML(instagramHandle),
                         instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                        categoria: categoriasArray, // Salva como um array
-                        imagens: [] // Inicializa a galeria vazia
+                        categoria: categoriasArray,
+                        imagens: []
                     });
                     artistaId = novoArtistaDoc.id;
                 }
@@ -326,10 +325,9 @@ function ativarFormularioAddArtista() {
                 uploadStatus.textContent = 'Perfil associado/criado com sucesso!';
                 uploadStatus.style.color = 'green';
                 
-                // Aguarda um instante antes de recarregar para o usuário ver a mensagem
                 setTimeout(() => {
                     formAddArtista.reset();
-                    setupAdminPage(); // Recarrega os dados da página de admin
+                    setupAdminPage();
                 }, 2000);
 
             } catch (error) {
@@ -391,7 +389,10 @@ function ativarFormularioEditArtista() {
             updateStatus.textContent = 'Atualizando perfil...';
             updateStatus.style.color = 'orange';
             try {
-                const nome = document.getElementById('artista-nome').value;
+                // --- AJUSTE APLICADO AQUI ---
+                // Convertemos o nome do artista para MAIÚSCULAS para padronizar.
+                const nome = document.getElementById('artista-nome').value.trim().toUpperCase();
+
                 const imagemArquivo = document.getElementById('artista-imagem').files[0];
                 const instagramHandle = document.getElementById('artista-instagram').value;
                 const categoriasSelecionadas = Array.from(document.querySelectorAll('#categorias-opcoes input[name="categoria"]:checked'))
@@ -402,7 +403,7 @@ function ativarFormularioEditArtista() {
                 if (categoriasSelecionadas.length === 0) { updateStatus.textContent = 'Selecione pelo menos uma categoria.'; return; }
 
                 const dadosParaAtualizar = {
-                    nome: escapeHTML(nome),
+                    nome: escapeHTML(nome), // O nome será salvo em maiúsculas
                     instagramHandle: escapeHTML(instagramHandle),
                     instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                     categoria: categoriasSelecionadas,
