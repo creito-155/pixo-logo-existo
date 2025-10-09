@@ -244,15 +244,25 @@ function ativarFormularioAddArtista() {
                 return;
             }
 
-            // Convertemos o nome do artista para MAIÚSCULAS para padronizar.
             const nomeArtista = document.getElementById('artista-nome').value.trim().toUpperCase();
-
             const imagemArquivo = document.getElementById('artista-imagem').files[0];
             const instagramHandle = document.getElementById('artista-instagram').value.trim();
-            const categoriasInput = document.getElementById('artista-categorias').value;
+
+            // --- CORREÇÃO APLICADA AQUI ---
+            // Removemos a busca pelo input de texto que não existe mais.
+            // Em vez disso, lemos os valores de todos os checkboxes marcados.
+            const checkboxesMarcados = document.querySelectorAll('input[name="categoria"]:checked');
+            const categoriasArray = Array.from(checkboxesMarcados).map(checkbox => checkbox.value);
+            // O resultado será um array como: ["Pixo"] ou ["Pixo", "Graff"]
 
             if (!nomeArtista || !imagemArquivo) {
                 uploadStatus.textContent = 'Nome e Imagem são obrigatórios.';
+                uploadStatus.style.color = 'red';
+                return;
+            }
+
+            if (categoriasArray.length === 0) {
+                uploadStatus.textContent = 'Selecione pelo menos uma categoria.';
                 uploadStatus.style.color = 'red';
                 return;
             }
@@ -274,12 +284,9 @@ function ativarFormularioAddArtista() {
 
             try {
                 const artistasRef = collection(db, 'artistas');
-                const q = query(artistasRef, where("nome", "==", nomeArtista)); // A busca agora usará o nome em maiúsculas
+                const q = query(artistasRef, where("nome", "==", nomeArtista));
                 const querySnapshot = await getDocs(q);
                 let artistaId;
-
-                const categoriasFormatadas = formatarCategorias(categoriasInput);
-                const categoriasArray = categoriasFormatadas.split(',').map(item => item.trim()).filter(item => item);
 
                 if (!querySnapshot.empty) {
                     uploadStatus.textContent = 'Artista encontrado! Associando perfil...';
@@ -307,11 +314,11 @@ function ativarFormularioAddArtista() {
                     uploadStatus.textContent = 'Criando perfil no banco de dados...';
                     const novoArtistaDoc = await addDoc(artistasRef, {
                         userId: user.uid,
-                        nome: escapeHTML(nomeArtista), // O nome será salvo em maiúsculas
+                        nome: escapeHTML(nomeArtista),
                         imageUrl: escapeHTML(imageUrl),
                         instagramHandle: escapeHTML(instagramHandle),
                         instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
-                        categoria: categoriasArray,
+                        categoria: categoriasArray, // O array já está pronto para ser salvo
                         imagens: []
                     });
                     artistaId = novoArtistaDoc.id;
