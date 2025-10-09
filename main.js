@@ -619,12 +619,30 @@ async function carregarArtistasNoCarrossel() {
             slide.innerHTML = `<div class="container-bloco"><div class="bloco-imagens"><a href="#/galeria/${escapeHTML(artista.id)}"><img src="${escapeHTML(img1)}" alt="Arte de ${escapeHTML(artista.nome)}"><img src="${escapeHTML(img2)}" alt="Arte de ${escapeHTML(artista.nome)}"><img src="${escapeHTML(img3)}" alt="Arte de ${escapeHTML(artista.nome)}"></a></div><p class="legenda-galeria">Galeria ${escapeHTML(artista.nome)}</p></div>`;
             swiperWrapper.appendChild(slide);
         });
+
+        // Adicionamos 'slidesPerGroup' em cada breakpoint para que o carrossel pule em blocos.
+        // Também ajustamos a condição do 'loop'.
         new Swiper('.artistas-slider', {
-            loop: todosArtistas.length > 3,
+            // O loop só deve ativar se houver mais artistas do que o número de slides visíveis.
+            loop: todosArtistas.length > 4, 
             speed: 1500,
-            breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
+            breakpoints: { 
+                320: { 
+                    slidesPerView: 1,
+                    slidesPerGroup: 1 // Pula de 1 em 1 em telas pequenas
+                }, 
+                768: { 
+                    slidesPerView: 3,
+                    slidesPerGroup: 3 // Pula de 3 em 3 em telas médias
+                }, 
+                1024: { 
+                    slidesPerView: 4,
+                    slidesPerGroup: 4 // Pula de 4 em 4 em telas grandes
+                } 
+            },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         });
+
     } catch (error) { console.error("Erro ao carregar artistas no carrossel:", error); }
 }
 
