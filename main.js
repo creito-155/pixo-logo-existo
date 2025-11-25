@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO ATUALIZADA (COM CARROSSEL DE NOVOS ARTISTAS)
+// main.js - VERSÃO COMPLETA E FINAL (COM HERO BANNER E NOVOS ARTISTAS)
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -21,6 +21,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 let currentArtistId = null;
+let heroInterval = null; // Variável para controlar o timer do Hero Banner
 
 // --- FUNÇÕES DE SEGURANÇA E VALIDAÇÃO ---
 function escapeHTML(str) {
@@ -42,10 +43,6 @@ function validarNome(nome) {
 
 function validarInstagram(instagram) {
     return typeof instagram === "string" && instagram.trim().length > 0 && /^@?[a-zA-Z0-9._]+$/.test(instagram.trim());
-}
-
-function validarCategorias(categoriasInput) {
-    return typeof categoriasInput === "string" && categoriasInput.split(',').every(cat => /^[a-zA-ZÀ-ÿ0-9\s]+$/.test(cat.trim()) || cat.trim() === "");
 }
 
 // --- 2. LÓGICA DE AUTENTICAÇÃO E PAINEL DE ADMIN ---
@@ -205,7 +202,7 @@ function ativarFormularioLogin() {
     }
 }
 
-// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA (COM CORREÇÃO DE DATA) ---
+// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA (COM DATA PARA ORDENAÇÃO) ---
 function ativarFormularioAddArtista() {
     const formAddArtista = document.getElementById('form-add-artista');
     if (formAddArtista) {
@@ -265,7 +262,7 @@ function ativarFormularioAddArtista() {
                     
                     uploadStatus.textContent = 'Criando perfil...';
                     
-                    // --- AQUI ESTÁ A CORREÇÃO IMPORTANTE: ADICIONAMOS criadoEm ---
+                    // Salvamos o campo criadoEm para poder ordenar os novos artistas
                     await addDoc(artistasRef, {
                         userId: user.uid,
                         nome: escapeHTML(nomeArtista),
@@ -274,7 +271,7 @@ function ativarFormularioAddArtista() {
                         instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                         categoria: categoriasArray,
                         imagens: [],
-                        criadoEm: new Date().toISOString() // DATA SALVA AQUI PARA ORDENAÇÃO
+                        criadoEm: new Date().toISOString()
                     });
                 }
 
@@ -506,10 +503,59 @@ function criarCartaoArtista(artista) {
     return link;
 }
 
-// --- 7.1 CARROSSEL DE NOVOS ARTISTAS (SUBSTITUI RECOMENDADOS) ---
+// --- 7.1 HERO BANNER (NOVO) ---
+async function iniciarHeroBanner() {
+    const banner = document.getElementById('hero-banner');
+    const title = document.getElementById('hero-title');
+    const text = document.getElementById('hero-text');
+    const btn = document.getElementById('hero-link');
+    
+    if (!banner) return; // Se não estiver na home, cancela
+
+    try {
+        const artistasCollection = collection(db, 'artistas');
+        const snapshot = await getDocs(artistasCollection);
+        let listaArtistas = [];
+        
+        snapshot.forEach(doc => {
+            const dados = doc.data();
+            // Só adiciona se tiver imagem válida (perfil ou galeria)
+            if (dados.imageUrl || (dados.imagens && dados.imagens.length > 0)) {
+                listaArtistas.push({ id: doc.id, ...dados });
+            }
+        });
+
+        if (listaArtistas.length === 0) return;
+
+        const atualizarBanner = () => {
+            const artistaSorteado = listaArtistas[Math.floor(Math.random() * listaArtistas.length)];
+            
+            // Tenta pegar imagem da galeria, se não, usa a de perfil
+            let imagemFundo = artistaSorteado.imageUrl;
+            if (artistaSorteado.imagens && artistaSorteado.imagens.length > 0) {
+                imagemFundo = artistaSorteado.imagens[Math.floor(Math.random() * artistaSorteado.imagens.length)];
+            }
+
+            banner.style.backgroundImage = `url('${escapeHTML(imagemFundo)}')`;
+            if (title) title.textContent = artistaSorteado.nome;
+            if (text) text.textContent = `Confira as obras de ${artistaSorteado.nome}`;
+            if (btn) btn.href = `#/galeria/${artistaSorteado.id}`;
+        };
+
+        atualizarBanner(); // Roda a primeira vez
+
+        if (heroInterval) clearInterval(heroInterval);
+        heroInterval = setInterval(atualizarBanner, 20000); // 20 segundos
+
+    } catch (error) {
+        console.error("Erro no Hero Banner:", error);
+    }
+}
+
+// --- 7.2 CARROSSEL DE NOVOS ARTISTAS (SUBSTITUI RECOMENDADOS) ---
 async function carregarNovosArtistas() {
     const wrapper = document.getElementById('wrapper-novos');
-    if (!wrapper) return; // Se não estiver na Home, sai
+    if (!wrapper) return;
 
     try {
         const artistasCollection = collection(db, 'artistas');
@@ -521,14 +567,13 @@ async function carregarNovosArtistas() {
         });
 
         // ORDENAÇÃO: Mais recente primeiro.
-        // Se tiver 'criadoEm', usa a data. Se não, considera como "antigo" (new Date(0)).
+        // Se tiver 'criadoEm', usa a data. Se não, considera como "antigo".
         todosArtistas.sort((a, b) => {
             const dataA = a.criadoEm ? new Date(a.criadoEm) : new Date(0);
             const dataB = b.criadoEm ? new Date(b.criadoEm) : new Date(0);
             return dataB - dataA;
         });
 
-        // Pega os 5 primeiros
         const novosArtistas = todosArtistas.slice(0, 5);
         wrapper.innerHTML = '';
         
@@ -553,8 +598,6 @@ async function carregarNovosArtistas() {
             wrapper.appendChild(slide);
         });
 
-        // Inicializa Swiper exclusivo dos novos
-        // Usamos classes de navegação especificas (.novos-artistas-slider) para não bugar o outro
         new Swiper('.novos-artistas-slider', {
             loop: novosArtistas.length > 1,
             speed: 1500,
@@ -575,7 +618,7 @@ async function carregarNovosArtistas() {
     }
 }
 
-// --- 7.2 CARROSSEL DE TODOS OS ARTISTAS (ANTIGO) ---
+// --- 7.3 CARROSSEL DE TODOS OS ARTISTAS ---
 async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
     if (!swiperWrapper) return;
@@ -713,18 +756,25 @@ const loadContent = async () => {
             await carregarDadosParaGerenciarGaleria();
             ativarGerenciadorGaleria();
         } else if (basePath === '/home') {
-            carregarNovosArtistas(); // Carrega o carrossel do topo (novos)
-            carregarArtistasNoCarrossel(); // Carrega o carrossel de baixo (todos)
-        } else if (basePath === '/artistas') {
-            carregarPaginaDeArtistas();
-        } else if (basePath === '/admin') {
-            setupAdminPage();
-            ativarBotoesAdmin();
-            ativarFormularioAddArtista();
-        } else if (basePath === '/login') {
-            ativarFormularioLogin();
-        } else if (basePath === '/cadastro') {
-            ativarFormularioCadastro();
+            // Inicializa o Banner e os Carrosséis
+            iniciarHeroBanner(); 
+            carregarNovosArtistas(); 
+            carregarArtistasNoCarrossel(); 
+        } else {
+            // Se saiu da home, limpa o timer do banner para não gastar memória
+            if (heroInterval) clearInterval(heroInterval);
+            
+            if (basePath === '/artistas') {
+                carregarPaginaDeArtistas();
+            } else if (basePath === '/admin') {
+                setupAdminPage();
+                ativarBotoesAdmin();
+                ativarFormularioAddArtista();
+            } else if (basePath === '/login') {
+                ativarFormularioLogin();
+            } else if (basePath === '/cadastro') {
+                ativarFormularioCadastro();
+            }
         }
 
     } catch (error) { 

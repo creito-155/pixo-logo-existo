@@ -196,6 +196,89 @@ main#app-content {
   border-radius: 10px;
 }
 
+/* --- HERO SECTION (ESTILO NETFLIX) --- */
+.hero-section {
+    position: relative;
+    height: 80vh; /* Ocupa 80% da altura da tela */
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente o texto */
+    transition: background-image 1s ease-in-out; /* Transição suave da imagem */
+    margin-top: -80px; /* Compensa o padding do main para encostar no topo */
+}
+
+/* O degradê preto que sobe (efeito Netflix para o texto ler melhor) */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #252525 5%, rgba(20,20,20,0.6) 50%, rgba(20,20,20,0.8) 100%);
+    z-index: 1;
+}
+
+/* O conteúdo de texto e botão */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-left: 5%; /* Margem lateral estilo Netflix */
+    max-width: 600px;
+    color: #fff;
+    margin-top: 60px; /* Para não ficar embaixo do menu */
+}
+
+.hero-title {
+    font-size: 3.5rem; /* Título bem grande */
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    line-height: 1.1;
+    text-transform: uppercase;
+    font-family: 'Don Graffiti', sans-serif; /* Usando sua fonte */
+    color: var(--roxo-principal);
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.hero-btn {
+    background-color: var(--roxo-principal); 
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: transform 0.2s, background-color 0.2s;
+    border: 1px solid transparent;
+}
+
+.hero-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--roxo-hover);
+    border-color: white;
+}
+
+/* Ajuste Hero Mobile */
+@media (max-width: 768px) {
+    .hero-section { height: 60vh; }
+    .hero-title { font-size: 2rem; }
+    .hero-content { padding-left: 20px; padding-right: 20px; text-align: center; margin: 0 auto; }
+}
+
+
 /* CARROSSEL */
 .bloco-imagens {
   position: relative;
