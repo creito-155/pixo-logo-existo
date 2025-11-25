@@ -545,7 +545,7 @@ async function iniciarHeroBanner() {
         atualizarBanner(); // Roda a primeira vez
 
         if (heroInterval) clearInterval(heroInterval);
-        heroInterval = setInterval(atualizarBanner, 20000); // 20 segundos
+        heroInterval = setInterval(atualizarBanner, 10000); // 20 segundos
 
     } catch (error) {
         console.error("Erro no Hero Banner:", error);
