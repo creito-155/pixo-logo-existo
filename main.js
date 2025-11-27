@@ -562,8 +562,8 @@ async function carregarNovosArtistas() {
     // EDITE AQUI: COLOQUE OS NOMES EXATOS DOS ARTISTAS QUE VOCÊ QUER NO TOPO
     // =================================================================
     const LISTA_MANUAL = [
-        "GALERIA SVL",   // 1º a aparecer
-        "GALERIA STR",   // 2º a aparecer
+        "GALERIA GRINDZ",   // 1º a aparecer
+        "GALERIA DENT",   // 2º a aparecer
         "GALERIA GSR",   // 3º a aparecer
         // Adicione mais nomes entre aspas e separe por vírgula
     ];
