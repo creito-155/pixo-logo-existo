@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO COMPLETA E FINAL (COM HERO BANNER E NOVOS ARTISTAS)
+// main.js - VERSÃO COMPLETA FINAL (COM HERO, LISTA MANUAL E CORREÇÃO DE IMAGENS)
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -21,7 +21,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 let currentArtistId = null;
-let heroInterval = null; // Variável para controlar o timer do Hero Banner
+let heroInterval = null; // Variável para controlar o timer do Banner
 
 // --- FUNÇÕES DE SEGURANÇA E VALIDAÇÃO ---
 function escapeHTML(str) {
@@ -202,7 +202,7 @@ function ativarFormularioLogin() {
     }
 }
 
-// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA (COM DATA PARA ORDENAÇÃO) ---
+// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA (COM CORREÇÃO DE DATA) ---
 function ativarFormularioAddArtista() {
     const formAddArtista = document.getElementById('form-add-artista');
     if (formAddArtista) {
@@ -262,7 +262,6 @@ function ativarFormularioAddArtista() {
                     
                     uploadStatus.textContent = 'Criando perfil...';
                     
-                    // Salvamos o campo criadoEm para poder ordenar os novos artistas
                     await addDoc(artistasRef, {
                         userId: user.uid,
                         nome: escapeHTML(nomeArtista),
@@ -271,7 +270,7 @@ function ativarFormularioAddArtista() {
                         instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                         categoria: categoriasArray,
                         imagens: [],
-                        criadoEm: new Date().toISOString()
+                        criadoEm: new Date().toISOString() // DATA SALVA PARA ORDENAÇÃO FUTURA
                     });
                 }
 
@@ -503,7 +502,7 @@ function criarCartaoArtista(artista) {
     return link;
 }
 
-// --- 7.1 HERO BANNER (NOVO) ---
+// --- 7.1 HERO BANNER (ESTILO NETFLIX) ---
 async function iniciarHeroBanner() {
     const banner = document.getElementById('hero-banner');
     const title = document.getElementById('hero-title');
@@ -519,7 +518,7 @@ async function iniciarHeroBanner() {
         
         snapshot.forEach(doc => {
             const dados = doc.data();
-            // Só adiciona se tiver imagem válida (perfil ou galeria)
+            // Só adiciona se tiver imagem (perfil ou galeria)
             if (dados.imageUrl || (dados.imagens && dados.imagens.length > 0)) {
                 listaArtistas.push({ id: doc.id, ...dados });
             }
@@ -530,9 +529,10 @@ async function iniciarHeroBanner() {
         const atualizarBanner = () => {
             const artistaSorteado = listaArtistas[Math.floor(Math.random() * listaArtistas.length)];
             
-            // Tenta pegar imagem da galeria, se não, usa a de perfil
+            // Tenta pegar uma imagem da galeria, se não tiver, usa a de perfil
             let imagemFundo = artistaSorteado.imageUrl;
             if (artistaSorteado.imagens && artistaSorteado.imagens.length > 0) {
+                // Pega uma imagem aleatória da galeria desse artista
                 imagemFundo = artistaSorteado.imagens[Math.floor(Math.random() * artistaSorteado.imagens.length)];
             }
 
@@ -545,17 +545,29 @@ async function iniciarHeroBanner() {
         atualizarBanner(); // Roda a primeira vez
 
         if (heroInterval) clearInterval(heroInterval);
-        heroInterval = setInterval(atualizarBanner, 10000); // 20 segundos
+        // TEMPO DE EXIBIÇÃO: 10000 = 10 segundos
+        heroInterval = setInterval(atualizarBanner, 10000);
 
     } catch (error) {
         console.error("Erro no Hero Banner:", error);
     }
 }
 
-// --- 7.2 CARROSSEL DE NOVOS ARTISTAS (SUBSTITUI RECOMENDADOS) ---
+// --- 7.2 CARROSSEL DE NOVOS ARTISTAS (COM LISTA MANUAL) ---
 async function carregarNovosArtistas() {
     const wrapper = document.getElementById('wrapper-novos');
     if (!wrapper) return;
+
+    // =================================================================
+    // EDITE AQUI: COLOQUE OS NOMES EXATOS DOS ARTISTAS QUE VOCÊ QUER NO TOPO
+    // =================================================================
+    const LISTA_MANUAL = [
+        "GALERIA SVL",   // 1º a aparecer
+        "GALERIA STR",   // 2º a aparecer
+        "GALERIA GSR",   // 3º a aparecer
+        // Adicione mais nomes entre aspas e separe por vírgula
+    ];
+    // =================================================================
 
     try {
         const artistasCollection = collection(db, 'artistas');
@@ -566,21 +578,51 @@ async function carregarNovosArtistas() {
             todosArtistas.push({ id: doc.id, ...doc.data() });
         });
 
-        // ORDENAÇÃO: Mais recente primeiro.
-        // Se tiver 'criadoEm', usa a data. Se não, considera como "antigo".
-        todosArtistas.sort((a, b) => {
-            const dataA = a.criadoEm ? new Date(a.criadoEm) : new Date(0);
-            const dataB = b.criadoEm ? new Date(b.criadoEm) : new Date(0);
-            return dataB - dataA;
+        // 1. Pega os artistas da lista manual (ignorando maiúscula/minúscula)
+        let novosArtistas = todosArtistas.filter(artista => {
+            return LISTA_MANUAL.some(nomeManual => nomeManual.toUpperCase() === artista.nome.toUpperCase());
         });
 
-        const novosArtistas = todosArtistas.slice(0, 5);
+        // 2. Ordena conforme a lista manual
+        novosArtistas.sort((a, b) => {
+            const indexA = LISTA_MANUAL.findIndex(nome => nome.toUpperCase() === a.nome.toUpperCase());
+            const indexB = LISTA_MANUAL.findIndex(nome => nome.toUpperCase() === b.nome.toUpperCase());
+            return indexA - indexB;
+        });
+
+        // 3. Se faltar gente para completar 5, pega os mais recentes por data
+        if (novosArtistas.length < 5) {
+             const resto = todosArtistas.filter(a => !novosArtistas.includes(a));
+             resto.sort((a, b) => {
+                const dataA = a.criadoEm ? new Date(a.criadoEm) : new Date(0);
+                const dataB = b.criadoEm ? new Date(b.criadoEm) : new Date(0);
+                return dataB - dataA;
+             });
+             const faltam = 5 - novosArtistas.length;
+             novosArtistas = novosArtistas.concat(resto.slice(0, faltam));
+        }
+
         wrapper.innerHTML = '';
         
         novosArtistas.forEach(artista => {
-            const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
-            const img2 = (artista.imagens && artista.imagens[1]) || img1;
-            const img3 = (artista.imagens && artista.imagens[2]) || img2;
+            // LÓGICA PARA GARANTIR 3 IMAGENS (LEQUE)
+            let imgsGaleria = artista.imagens ? [...artista.imagens] : [];
+            
+            // Preenche se estiver vazio ou faltar
+            if (imgsGaleria.length === 0) {
+                // Sem galeria? Usa foto de perfil 3x
+                imgsGaleria = [artista.imageUrl, artista.imageUrl, artista.imageUrl];
+            } else if (imgsGaleria.length === 1) {
+                // Só 1 foto? Repete ela 3x
+                imgsGaleria = [imgsGaleria[0], imgsGaleria[0], imgsGaleria[0]];
+            } else if (imgsGaleria.length === 2) {
+                // Só 2 fotos? Repete a primeira
+                imgsGaleria = [imgsGaleria[0], imgsGaleria[1], imgsGaleria[0]];
+            }
+
+            const img1 = imgsGaleria[0];
+            const img2 = imgsGaleria[1];
+            const img3 = imgsGaleria[2];
 
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
@@ -630,6 +672,7 @@ async function carregarArtistasNoCarrossel() {
         
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
+            // Mantendo lógica simples aqui
             const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
             const img2 = (artista.imagens && artista.imagens[1]) || img1;
             const img3 = (artista.imagens && artista.imagens[2]) || img2;
@@ -761,7 +804,7 @@ const loadContent = async () => {
             carregarNovosArtistas(); 
             carregarArtistasNoCarrossel(); 
         } else {
-            // Se saiu da home, limpa o timer do banner para não gastar memória
+            // Se saiu da home, limpa o timer do banner
             if (heroInterval) clearInterval(heroInterval);
             
             if (basePath === '/artistas') {
