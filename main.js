@@ -1,5 +1,5 @@
 // ===================================================================
-// main.js - VERSÃO COMPLETA FINAL (COM HERO, LISTA MANUAL E CORREÇÃO DE IMAGENS)
+// main.js - VERSÃO PRIORIDADE MÁXIMA (SVL, STR, GSR FIXOS NO TOPO)
 // ===================================================================
 
 // --- 1. IMPORTAÇÕES E INICIALIZAÇÃO DO FIREBASE ---
@@ -21,7 +21,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 let currentArtistId = null;
-let heroInterval = null; // Variável para controlar o timer do Banner
+let heroInterval = null; 
 
 // --- FUNÇÕES DE SEGURANÇA E VALIDAÇÃO ---
 function escapeHTML(str) {
@@ -71,27 +71,17 @@ async function setupAdminPage() {
                 welcomeMessage.textContent = `Bem-vindo de volta, ${escapeHTML(artistaData.nome)}!`;
             }
             
-            // Link de Editar Perfil
             const editProfileLink = document.getElementById('edit-profile-link');
-            if (editProfileLink) {
-                editProfileLink.href = `#/edit-profile/${artistaDoc.id}`;
-            }
+            if (editProfileLink) editProfileLink.href = `#/edit-profile/${artistaDoc.id}`;
 
-            // Link de Gerenciar Galeria
             const manageGalleryLink = document.getElementById('manage-gallery-link');
-            if (manageGalleryLink) {
-                manageGalleryLink.href = `#/gerenciar-galeria/${artistaDoc.id}`;
-            }
+            if (manageGalleryLink) manageGalleryLink.href = `#/gerenciar-galeria/${artistaDoc.id}`;
 
             if (createSection) createSection.style.display = 'none';
             if (editSection) editSection.style.display = 'block';
         }
     } catch (error) {
         console.error("Erro CRÍTICO ao verificar perfil do artista:", error);
-        if (loadingAdmin) {
-            loadingAdmin.textContent = "Ocorreu um erro ao verificar seu perfil.";
-            loadingAdmin.style.color = "red";
-        }
     }
 }
 
@@ -202,7 +192,7 @@ function ativarFormularioLogin() {
     }
 }
 
-// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA (COM CORREÇÃO DE DATA) ---
+// --- 4. FORMULÁRIO DE CADASTRO DE ARTISTA ---
 function ativarFormularioAddArtista() {
     const formAddArtista = document.getElementById('form-add-artista');
     if (formAddArtista) {
@@ -232,7 +222,7 @@ function ativarFormularioAddArtista() {
                 return;
             }
             if (!validarNome(nomeArtista) || !validarInstagram(instagramHandle)) {
-                 uploadStatus.textContent = 'Dados inválidos (Nome ou Instagram).';
+                 uploadStatus.textContent = 'Dados inválidos.';
                  return;
             }
 
@@ -246,19 +236,19 @@ function ativarFormularioAddArtista() {
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
-                    uploadStatus.textContent = 'Artista já existe! Associando perfil...';
+                    uploadStatus.textContent = 'Artista encontrado! Associando...';
                     const artistaExistente = querySnapshot.docs[0];
                     await updateDoc(doc(db, 'artistas', artistaExistente.id), { userId: user.uid });
                 } else {
-                    uploadStatus.textContent = 'Fazendo upload da imagem...';
+                    uploadStatus.textContent = 'Upload imagem...';
                     const formData = new FormData();
                     formData.append('file', imagemArquivo);
                     formData.append('upload_preset', 'artistas_uploads');
-                    const uploadUrl = `https://api.cloudinary.com/v1_1/dj053fl2q/image/upload`; // CLOUD NAME
+                    const uploadUrl = `https://api.cloudinary.com/v1_1/dj053fl2q/image/upload`; 
 
                     const response = await fetch(uploadUrl, { method: 'POST', body: formData });
                     const data = await response.json();
-                    if (!response.ok) throw new Error('Falha no upload da imagem.');
+                    if (!response.ok) throw new Error('Falha no upload.');
                     
                     uploadStatus.textContent = 'Criando perfil...';
                     
@@ -270,7 +260,7 @@ function ativarFormularioAddArtista() {
                         instagramLink: `https://www.instagram.com/${escapeHTML(instagramHandle.replace('@', ''))}`,
                         categoria: categoriasArray,
                         imagens: [],
-                        criadoEm: new Date().toISOString() // DATA SALVA PARA ORDENAÇÃO FUTURA
+                        criadoEm: new Date().toISOString()
                     });
                 }
 
@@ -293,7 +283,7 @@ function ativarFormularioAddArtista() {
     }
 }
 
-// --- 5. FORMULÁRIO DE EDIÇÃO DE ARTISTA ---
+// --- 5. FORMULÁRIO DE EDIÇÃO ---
 async function carregarDadosParaEdicao() {
     let artistaId = null;
     const hash = window.location.hash;
@@ -318,9 +308,7 @@ async function carregarDadosParaEdicao() {
             }
             renderizarGerenciadorDeGaleria(artistaData.imagens);
         }
-    } catch (error) {
-        console.error("Erro ao carregar edição:", error);
-    }
+    } catch (error) { console.error("Erro edição:", error); }
 }
 
 function ativarFormularioEditArtista() {
@@ -342,7 +330,7 @@ function ativarFormularioEditArtista() {
                     .map(input => input.value);
 
                 if (!validarNome(nome) || !validarInstagram(instagramHandle) || categoriasSelecionadas.length === 0) {
-                     updateStatus.textContent = 'Verifique os dados obrigatórios.';
+                     updateStatus.textContent = 'Dados inválidos.';
                      botaoAtualizar.disabled = false;
                      return; 
                 }
@@ -364,11 +352,11 @@ function ativarFormularioEditArtista() {
                 }
 
                 await updateDoc(doc(db, 'artistas', currentArtistId), dadosParaAtualizar);
-                updateStatus.textContent = 'Perfil atualizado!';
+                updateStatus.textContent = 'Atualizado!';
                 updateStatus.style.color = 'green';
             } catch (error) {
                 console.error("Erro:", error);
-                updateStatus.textContent = 'Erro ao atualizar.';
+                updateStatus.textContent = 'Erro.';
             } finally {
                 botaoAtualizar.disabled = false;
             }
@@ -452,13 +440,13 @@ function ativarGerenciadorGaleria() {
                     renderizarGerenciadorDeGaleria(updatedDocSnap.data().imagens);
                 }
                 statusDiv.textContent = `Sucesso!`;
-            } catch (error) { statusDiv.textContent = 'Erro no upload.'; }
+            } catch (error) { statusDiv.textContent = 'Erro.'; }
         }
     });
 
     grid.addEventListener('click', async (e) => {
         if (e.target.classList.contains('delete-image-btn')) {
-            if (!confirm('Apagar imagem?')) return;
+            if (!confirm('Apagar?')) return;
             const url = e.target.dataset.url;
             try {
                 await updateDoc(doc(db, 'artistas', currentArtistId), { imagens: arrayRemove(url) });
@@ -502,14 +490,14 @@ function criarCartaoArtista(artista) {
     return link;
 }
 
-// --- 7.1 HERO BANNER (ESTILO NETFLIX) ---
+// --- 7.1 HERO BANNER (NETFLIX STYLE) ---
 async function iniciarHeroBanner() {
     const banner = document.getElementById('hero-banner');
     const title = document.getElementById('hero-title');
     const text = document.getElementById('hero-text');
     const btn = document.getElementById('hero-link');
     
-    if (!banner) return; // Se não estiver na home, cancela
+    if (!banner) return; 
 
     try {
         const artistasCollection = collection(db, 'artistas');
@@ -518,7 +506,6 @@ async function iniciarHeroBanner() {
         
         snapshot.forEach(doc => {
             const dados = doc.data();
-            // Só adiciona se tiver imagem (perfil ou galeria)
             if (dados.imageUrl || (dados.imagens && dados.imagens.length > 0)) {
                 listaArtistas.push({ id: doc.id, ...dados });
             }
@@ -528,46 +515,35 @@ async function iniciarHeroBanner() {
 
         const atualizarBanner = () => {
             const artistaSorteado = listaArtistas[Math.floor(Math.random() * listaArtistas.length)];
-            
-            // Tenta pegar uma imagem da galeria, se não tiver, usa a de perfil
             let imagemFundo = artistaSorteado.imageUrl;
             if (artistaSorteado.imagens && artistaSorteado.imagens.length > 0) {
-                // Pega uma imagem aleatória da galeria desse artista
                 imagemFundo = artistaSorteado.imagens[Math.floor(Math.random() * artistaSorteado.imagens.length)];
             }
-
             banner.style.backgroundImage = `url('${escapeHTML(imagemFundo)}')`;
             if (title) title.textContent = artistaSorteado.nome;
             if (text) text.textContent = `Confira as obras de ${artistaSorteado.nome}`;
             if (btn) btn.href = `#/galeria/${artistaSorteado.id}`;
         };
 
-        atualizarBanner(); // Roda a primeira vez
-
+        atualizarBanner();
         if (heroInterval) clearInterval(heroInterval);
-        // TEMPO DE EXIBIÇÃO: 10000 = 10 segundos
-        heroInterval = setInterval(atualizarBanner, 10000);
+        heroInterval = setInterval(atualizarBanner, 10000); // 10 Segundos
 
-    } catch (error) {
-        console.error("Erro no Hero Banner:", error);
-    }
+    } catch (error) { console.error("Erro Hero:", error); }
 }
 
-// --- 7.2 CARROSSEL DE NOVOS ARTISTAS (COM LISTA MANUAL) ---
+// --- 7.2 CARROSSEL DE NOVOS ARTISTAS (CONFIGURADO PARA SVL, STR, GSR) ---
 async function carregarNovosArtistas() {
     const wrapper = document.getElementById('wrapper-novos');
     if (!wrapper) return;
 
-    // =================================================================
-    // EDITE AQUI: COLOQUE OS NOMES EXATOS DOS ARTISTAS QUE VOCÊ QUER NO TOPO
-    // =================================================================
+    // AQUI ESTÁ A LISTA QUE GARANTE A PRIORIDADE
+    // Adicione mais nomes aqui se precisar. O código busca por esses nomes.
     const LISTA_MANUAL = [
-        "GALERIA GRINDZ",   // 1º a aparecer
-        "GALERIA DENT",   // 2º a aparecer
-        "GALERIA GSR",   // 3º a aparecer
-        // Adicione mais nomes entre aspas e separe por vírgula
+        "GALERIA SVL",
+        "GALERIA STR",
+        "GALERIA GSR"
     ];
-    // =================================================================
 
     try {
         const artistasCollection = collection(db, 'artistas');
@@ -578,21 +554,26 @@ async function carregarNovosArtistas() {
             todosArtistas.push({ id: doc.id, ...doc.data() });
         });
 
-        // 1. Pega os artistas da lista manual (ignorando maiúscula/minúscula)
+        // FILTRA: Só pega quem está na lista manual
         let novosArtistas = todosArtistas.filter(artista => {
-            return LISTA_MANUAL.some(nomeManual => nomeManual.toUpperCase() === artista.nome.toUpperCase());
+            // Verifica se o nome do artista está na lista manual (ignorando maiúsculas/minúsculas)
+            // Se o nome no banco for "Galeria SVL", o toUpperCase() garante que ache "GALERIA SVL"
+            return LISTA_MANUAL.some(nomeManual => 
+                artista.nome && artista.nome.toUpperCase().includes(nomeManual.toUpperCase())
+            );
         });
 
-        // 2. Ordena conforme a lista manual
+        // ORDENA: Garante que fiquem na ordem que você escreveu na lista
         novosArtistas.sort((a, b) => {
-            const indexA = LISTA_MANUAL.findIndex(nome => nome.toUpperCase() === a.nome.toUpperCase());
-            const indexB = LISTA_MANUAL.findIndex(nome => nome.toUpperCase() === b.nome.toUpperCase());
+            const indexA = LISTA_MANUAL.findIndex(nome => a.nome.toUpperCase().includes(nome.toUpperCase()));
+            const indexB = LISTA_MANUAL.findIndex(nome => b.nome.toUpperCase().includes(nome.toUpperCase()));
             return indexA - indexB;
         });
 
-        // 3. Se faltar gente para completar 5, pega os mais recentes por data
+        // SE FALTAR GENTE (menos de 5), completa com o resto por data
         if (novosArtistas.length < 5) {
              const resto = todosArtistas.filter(a => !novosArtistas.includes(a));
+             // Ordena o resto por data (do mais novo pro mais antigo)
              resto.sort((a, b) => {
                 const dataA = a.criadoEm ? new Date(a.criadoEm) : new Date(0);
                 const dataB = b.criadoEm ? new Date(b.criadoEm) : new Date(0);
@@ -605,20 +586,21 @@ async function carregarNovosArtistas() {
         wrapper.innerHTML = '';
         
         novosArtistas.forEach(artista => {
-            // LÓGICA PARA GARANTIR 3 IMAGENS (LEQUE)
+            // LÓGICA DO LEQUE (FORÇAR 3 IMAGENS)
             let imgsGaleria = artista.imagens ? [...artista.imagens] : [];
             
-            // Preenche se estiver vazio ou faltar
+            // Se não tiver imagens suficientes, repete para não quebrar o layout
             if (imgsGaleria.length === 0) {
-                // Sem galeria? Usa foto de perfil 3x
+                // Sem fotos na galeria? Usa a de perfil 3 vezes
                 imgsGaleria = [artista.imageUrl, artista.imageUrl, artista.imageUrl];
             } else if (imgsGaleria.length === 1) {
-                // Só 1 foto? Repete ela 3x
+                // 1 foto? Repete ela
                 imgsGaleria = [imgsGaleria[0], imgsGaleria[0], imgsGaleria[0]];
             } else if (imgsGaleria.length === 2) {
-                // Só 2 fotos? Repete a primeira
+                // 2 fotos? Repete a primeira
                 imgsGaleria = [imgsGaleria[0], imgsGaleria[1], imgsGaleria[0]];
             }
+            // Se tiver 3 ou mais, usa as 3 primeiras normalmente.
 
             const img1 = imgsGaleria[0];
             const img2 = imgsGaleria[1];
@@ -656,11 +638,11 @@ async function carregarNovosArtistas() {
         });
 
     } catch (error) { 
-        console.error("Erro ao carregar novos artistas:", error); 
+        console.error("Erro novos artistas:", error); 
     }
 }
 
-// --- 7.3 CARROSSEL DE TODOS OS ARTISTAS ---
+// --- 7.3 CARROSSEL GERAL ---
 async function carregarArtistasNoCarrossel() {
     const swiperWrapper = document.querySelector('.artistas-slider .swiper-wrapper');
     if (!swiperWrapper) return;
@@ -672,7 +654,6 @@ async function carregarArtistasNoCarrossel() {
         
         swiperWrapper.innerHTML = '';
         todosArtistas.forEach(artista => {
-            // Mantendo lógica simples aqui
             const img1 = (artista.imagens && artista.imagens[0]) || artista.imageUrl;
             const img2 = (artista.imagens && artista.imagens[1]) || img1;
             const img3 = (artista.imagens && artista.imagens[2]) || img2;
@@ -762,7 +743,7 @@ async function carregarPaginaDeArtistas() {
     } catch (error) { console.error("Erro página artistas:", error); }
 }
 
-// --- 8. ROTEADOR (LÓGICA DA SPA) ---
+// --- 8. ROTEADOR (SPA) ---
 const routes = {
     '/home': '/pages/home.html',
     '/artistas': '/pages/artistas.html',
@@ -799,12 +780,10 @@ const loadContent = async () => {
             await carregarDadosParaGerenciarGaleria();
             ativarGerenciadorGaleria();
         } else if (basePath === '/home') {
-            // Inicializa o Banner e os Carrosséis
             iniciarHeroBanner(); 
-            carregarNovosArtistas(); 
+            carregarNovosArtistas(); // Carrega os fixos + resto
             carregarArtistasNoCarrossel(); 
         } else {
-            // Se saiu da home, limpa o timer do banner
             if (heroInterval) clearInterval(heroInterval);
             
             if (basePath === '/artistas') {
